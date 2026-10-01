@@ -228,6 +228,100 @@
           }
         }
       }
+    },
+    "garde-alternee": {
+      "projectType": "application",
+      "root": "projects/garde-alternee",
+      "sourceRoot": "projects/garde-alternee/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/garde-alternee",
+            "browser": "projects/garde-alternee/src/main.ts",
+            "server": "projects/garde-alternee/src/main.server.ts",
+            "tsConfig": "projects/garde-alternee/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/garde-alternee/public"
+              }
+            ],
+            "styles": [
+              "projects/garde-alternee/src/styles.css",
+              {
+                "input": "libs/ui/styles/print.css",
+                "bundleName": "print",
+                "inject": false
+              }
+            ],
+            "outputMode": "static",
+            "security": {
+              "allowedHosts": []
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "300kB",
+                  "maximumError": "340kB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "serviceWorker": "ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "garde-alternee:build:production"
+            },
+            "development": {
+              "buildTarget": "garde-alternee:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/garde-alternee/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/garde-alternee/**/*.ts",
+              "projects/garde-alternee/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
