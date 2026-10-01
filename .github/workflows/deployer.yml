@@ -1,0 +1,51 @@
+# Déploiement de chaque produit sur Vercel, à son sous-domaine de
+# phamelin.fr, après une CI verte sur main (tools/deployer.mjs). Le projet
+# Vercel et le domaine sont créés au premier passage ; le DNS est couvert une
+# fois pour toutes par le CNAME `*.phamelin.fr → cname.vercel-dns.com`.
+# Un produit pas encore prêt (`npm run lancement`) est servi en noindex.
+name: Déployer
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      produit:
+        description: 'Un seul produit (slug) ; vide = tous'
+        required: false
+
+concurrency:
+  group: deployer
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deployer:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Construire et déployer
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          PRODUIT: ${{ inputs.produit }}
+        run: |
+          [[ -z "$PRODUIT" || "$PRODUIT" =~ ^[a-z][a-z0-9-]*$ ]] || { echo "::error::Produit invalide"; exit 1; }
+          node tools/deployer.mjs $PRODUIT
