@@ -100,7 +100,8 @@ jobs:
           GSC_SERVICE_ACCOUNT: ${{ secrets.GSC_SERVICE_ACCOUNT }}
         run: |
           export UMAMI_WEBSITE_ID=$(node -p "require('./projects/$SLUG/produit.json').mesure.siteId")
-          export GSC_PROPRIETE="sc-domain:$(node -p "require('./projects/$SLUG/produit.json').domaine")"
+          export GSC_PROPRIETE=$(node -p "require('./projects/$SLUG/produit.json').mesure.proprieteSearchConsole")
+          export GSC_DOMAINE=$(node -p "require('./projects/$SLUG/produit.json').domaine")
           node tools/umami.mjs mensuel "$MOIS" > .pilote/umami.json
           node tools/search-console.mjs mensuel "$MOIS" > .pilote/search-console.json
           node -e 'for (const f of ["umami","search-console"]) { const r = require(`./.pilote/${f}.json`); console.log(`${process.env.SLUG} · ${f} : ok ${r.ok} ${r.erreur ?? ""}`) }' | tee -a "$GITHUB_STEP_SUMMARY"

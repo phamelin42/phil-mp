@@ -15,8 +15,12 @@ for (const [cle, valeur] of Object.entries(produit.editeur)) {
   if (/À COMPLÉTER/.test(valeur)) manques.push(`produit.json → editeur.${cle}`);
 }
 if (!produit.mesure.siteId) manques.push('produit.json → mesure.siteId (site créé dans Umami)');
-if (!produit.mesure.googleVerification) {
-  manques.push('produit.json → mesure.googleVerification (propriété Search Console)');
+// Une propriété « domaine » (sc-domain:) se vérifie par DNS, sans balise.
+const proprieteDomaine = produit.mesure.proprieteSearchConsole?.startsWith('sc-domain:');
+if (!produit.mesure.proprieteSearchConsole) {
+  manques.push('produit.json → mesure.proprieteSearchConsole');
+} else if (!proprieteDomaine && !produit.mesure.googleVerification) {
+  manques.push('produit.json → mesure.googleVerification (propriété « préfixe d’URL »)');
 }
 const csp = JSON.stringify(JSON.parse(await readFile(join(app.racine, 'vercel.json'), 'utf8')));
 if (produit.mesure.origine && !csp.includes(produit.mesure.origine)) {

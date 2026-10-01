@@ -1,6 +1,3 @@
-# CI du workspace, une fois sorti dans son propre dépôt. Tant qu'il vit dans
-# celui de Pattern Reader, c'est `.github/workflows/micro-produits.yml` à la
-# racine de ce dépôt-là qui lance la même chose.
 name: CI
 
 on:

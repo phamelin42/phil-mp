@@ -4,9 +4,11 @@
 //
 //   node tools/search-console.mjs mensuel [AAAA-MM]
 //
-// Secrets : GSC_SERVICE_ACCOUNT (JSON de la clé), GSC_PROPRIETE
-// (« sc-domain:exemple.fr »). Même contrat que umami.mjs : JSON de forme
-// fixe, `ok: false` plutôt qu'un job rouge.
+// Secret : GSC_SERVICE_ACCOUNT (JSON de la clé). Variables : GSC_PROPRIETE
+// (« sc-domain:phamelin.fr ») et GSC_DOMAINE (« devis-artisan.phamelin.fr ») :
+// une propriété « domaine » couvre tous les sous-domaines, le filtre ne garde
+// que les pages du produit. Même contrat que umami.mjs : JSON de forme fixe,
+// `ok: false` plutôt qu'un job rouge.
 import { createSign } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { bornesMois, moisPrecedent } from './umami.mjs';
@@ -35,6 +37,17 @@ export function assertion(compte, maintenantS) {
     .update(`${entete}.${charge}`)
     .sign(compte.private_key, 'base64url');
   return `${entete}.${charge}.${signature}`;
+}
+
+/** Corps de la requête ; avec un domaine, seules ses pages comptent. Pur, testable. */
+export function requete({ debut, fin, dimensions, domaine }) {
+  const corps = { startDate: debut, endDate: fin, dimensions, rowLimit: LIGNES };
+  if (domaine) {
+    corps.dimensionFilterGroups = [
+      { filters: [{ dimension: 'page', operator: 'contains', expression: `://${domaine}/` }] },
+    ];
+  }
+  return corps;
 }
 
 /** Lignes de l'API → forme stable, valeurs arrondies. */
@@ -81,7 +94,7 @@ export async function collecter({ mois, env, fetch }) {
       const rep = await fetch(url, {
         method: 'POST',
         headers: { Authorization: `Bearer ${jeton}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ startDate: debut, endDate: fin, dimensions, rowLimit: LIGNES }),
+        body: JSON.stringify(requete({ debut, fin, dimensions, domaine: env.GSC_DOMAINE })),
         signal: AbortSignal.timeout(DELAI_MS),
       });
       if (!rep.ok) throw new Error(`searchAnalytics : HTTP ${rep.status}`);

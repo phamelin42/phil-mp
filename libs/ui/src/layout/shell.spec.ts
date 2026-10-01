@@ -18,7 +18,7 @@ function produit(typographie: Typographie): ProduitConfig {
     theme: { accent: '#e07a8f', accentFonce: '#9c2f48', typographie, sombre: false },
     offre: { statut: 'bientot' },
     editeur: { nom: '', statut: '', adresse: '', contact: '', hebergeur: '' },
-    mesure: { origine: '', siteId: '', googleVerification: '' },
+    mesure: { origine: '', siteId: '', proprieteSearchConsole: '', googleVerification: '' },
   };
 }
 

@@ -34,7 +34,14 @@ export interface ProduitConfig {
     statut: 'bientot' | 'active';
   };
   editeur: { nom: string; statut: string; adresse: string; contact: string; hebergeur: string };
-  mesure: { origine: string; siteId: string; googleVerification: string };
+  mesure: {
+    origine: string;
+    siteId: string;
+    /** Propriété Search Console : `sc-domain:…` couvre tous les sous-domaines (vérifiée par DNS). */
+    proprieteSearchConsole: string;
+    /** Jeton de balise, seulement pour une propriété « préfixe d'URL ». */
+    googleVerification: string;
+  };
 }
 
 export const PRODUIT = new InjectionToken<ProduitConfig>('mp.produit');

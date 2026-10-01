@@ -57,7 +57,9 @@ référencement. Voir `docs/contenu-unique.md`.
   `vercel.json` construit depuis le workspace.
 - Les noms d'événements sont communs : les rapports se comparent d'un produit
   à l'autre.
-- Ce workspace vit pour l'instant dans le dépôt de Pattern Reader
-  (`micro-produits/`), vérifié par son propre workflow. Il est conçu pour en
-  sortir tel quel dans un dépôt dédié (ses `.github/` et `.claude/` sont
-  prêts), à faire avant le premier lancement.
+- Le workspace a son dépôt, `phamelin42/phil-mp` (importé de
+  `crochet-helper/micro-produits` avec son historique, le 1er octobre 2026).
+- Domaines : un sous-domaine de `phamelin.fr` par produit, une seule
+  propriété Search Console « domaine » pour tous. Passer un produit sur son
+  propre domaine = changer `domaine` et `proprieteSearchConsole` dans son
+  `produit.json`, puis rediriger l'ancien sous-domaine (301).

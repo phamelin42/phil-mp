@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { createVerify, generateKeyPairSync } from 'node:crypto';
 import { test } from 'node:test';
-import { assertion, collecter, lireLignes } from './search-console.mjs';
+import { assertion, collecter, lireLignes, requete } from './search-console.mjs';
 
 test('assertion signée RS256, vérifiable avec la clé publique', () => {
   const { privateKey, publicKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
@@ -31,6 +31,23 @@ test('lignes : forme stable, valeurs arrondies, lignes illisibles écartées', (
     { cle: 'devis plombier', clics: 3, impressions: 120, ctr: 0.025, position: 8.5 },
   ]);
   assert.deepEqual(lireLignes(null), []);
+});
+
+test('une propriété « domaine » est filtrée sur le sous-domaine du produit', () => {
+  const corps = requete({
+    debut: '2026-09-01',
+    fin: '2026-09-30',
+    dimensions: ['query'],
+    domaine: 'devis-artisan.phamelin.fr',
+  });
+  assert.deepEqual(corps.dimensionFilterGroups, [
+    {
+      filters: [
+        { dimension: 'page', operator: 'contains', expression: '://devis-artisan.phamelin.fr/' },
+      ],
+    },
+  ]);
+  assert.equal('dimensionFilterGroups' in requete({ debut: 'a', fin: 'b', dimensions: [] }), false);
 });
 
 test('sans secrets : ok false, pas d’exception', async () => {

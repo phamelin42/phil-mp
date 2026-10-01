@@ -9,9 +9,9 @@ Workspace Angular unique : deux bibliothèques partagées (`@mp/core`,
 une commande. Seuls le module métier et le contenu éditorial sont propres à
 chaque produit (`docs/adr-002-architecture.md`).
 
-Ce dossier vit pour l'instant dans le dépôt de Pattern Reader, sans rien
-partager avec Fil : il a ses propres dépendances, son build et son workflow
-(`.github/workflows/micro-produits.yml` à la racine du dépôt).
+Chaque produit est servi, pour l'instant, sur un sous-domaine de
+`phamelin.fr` (`devis-artisan.phamelin.fr`…) ; un domaine propre se donnera
+à un produit qui a du trafic.
 
 - Règles et architecture : [`CLAUDE.md`](CLAUDE.md)
 - Rôle de l'agent et rapport mensuel : [`AGENTS.md`](AGENTS.md)
@@ -23,7 +23,6 @@ partager avec Fil : il a ses propres dépendances, son build et son workflow
 ## Créer le produit de la semaine
 
 ```sh
-cd micro-produits
 npm install
 npm run nouveau-produit -- garde-alternee
 npm run icones -- garde-alternee
@@ -41,7 +40,7 @@ contenu éditorial.
 - **Gratuit d'abord** : l'intérêt pour une offre complète se mesure ; le
   paiement ne se construit, après ADR, que pour un produit qui a du trafic.
 - **Empaquetage natif en option**, seulement sur trafic réel : TWA comme
-  Pattern Reader (`docs/play-store.md` du dépôt), Capacitor si une API native
+  Pattern Reader (`docs/play-store.md` de crochet-helper), Capacitor si une API native
   manque.
 
 ## Calendrier
@@ -59,5 +58,4 @@ contenu éditorial.
 | 9       | Planning Révisions           | planning révision bac à imprimer            |      |
 | 10      | Volume Aquarium              | calcul volume aquarium litres               |      |
 
-Les domaines de `produits.json` sont provisoires : à vérifier et à acheter
-avant chaque lancement.
+Domaine de chaque produit : `<slug>.phamelin.fr` (`produits.json`).

@@ -1,7 +1,7 @@
 {
   "slug": "devis-artisan",
   "nom": "Devis Artisan",
-  "domaine": "devis-artisan.fr",
+  "domaine": "devis-artisan.phamelin.fr",
   "requete": "modèle devis plombier auto-entrepreneur",
   "description": "Créez gratuitement un devis d'artisan ou d'auto-entrepreneur conforme : logo, mentions légales obligatoires, TVA ou franchise, export PDF. Sans inscription.",
   "promesse": "Un devis conforme, avec votre logo et les mentions obligatoires, prêt en PDF en cinq minutes.",
@@ -26,6 +26,7 @@
   "mesure": {
     "origine": "https://analytics.patternreader.com",
     "siteId": "",
+    "proprieteSearchConsole": "sc-domain:phamelin.fr",
     "googleVerification": ""
   }
 }

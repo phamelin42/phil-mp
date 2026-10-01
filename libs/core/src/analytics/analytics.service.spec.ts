@@ -38,7 +38,12 @@ describe('AnalyticsService', () => {
   it('ne charge le traceur que sur le domaine du produit, et pas sans identifiant de site', () => {
     const produit = {
       domaine: 'exemple.fr',
-      mesure: { origine: 'https://collecteur.test', siteId: 'abc', googleVerification: '' },
+      mesure: {
+        origine: 'https://collecteur.test',
+        siteId: 'abc',
+        proprieteSearchConsole: '',
+        googleVerification: '',
+      },
     } as ProduitConfig;
     TestBed.configureTestingModule({ providers: [{ provide: PRODUIT, useValue: produit }] });
     const config = TestBed.inject(ANALYTICS_CONFIG);
