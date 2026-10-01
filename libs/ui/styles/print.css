@@ -43,3 +43,21 @@
 :root .tableau-defilant {
   overflow: visible;
 }
+
+/* Un calendrier s'imprime en couleur, douze mois sur une page A4. */
+:root .serie-1,
+:root .serie-2,
+:root .marque,
+:root .pastille {
+  print-color-adjust: exact;
+}
+
+:root .document .grille-calendriers {
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3) var(--space-6);
+}
+
+:root .document .calendrier-mois {
+  break-inside: avoid;
+  font-size: var(--text-print-petit);
+}
