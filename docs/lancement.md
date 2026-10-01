@@ -11,9 +11,12 @@ font à la main, dans l'ordre.
   vérifier par l'enregistrement DNS TXT proposé. Elle couvre tous les
   sous-domaines : aucune balise par produit. Y ajouter le compte de service du
   rapport mensuel en lecture seule.
-- **Secrets du dépôt** : `UMAMI_URL`, `UMAMI_TOKEN`, `GSC_SERVICE_ACCOUNT`,
-  `CLAUDE_CODE_OAUTH_TOKEN`. L'identifiant Umami de chaque produit se lit dans
-  son `produit.json`.
+- **DNS** (fait le 1er octobre 2026) : chez OVH, un CNAME `*` vers
+  `cname.vercel-dns.com.` ; tout sous-domaine de produit pointe vers Vercel
+  sans autre manipulation.
+- **Secrets du dépôt** : `VERCEL_TOKEN` (fait), `UMAMI_URL`, `UMAMI_TOKEN`,
+  `GSC_SERVICE_ACCOUNT`, `CLAUDE_CODE_OAUTH_TOKEN`. L'identifiant Umami de
+  chaque produit se lit dans son `produit.json`.
 - **Dépôt** : protection de `main` (check « Lint · format · tests · build »
   requis), « Allow auto-merge » coché, label `rapport` créé.
 - **Éditeur** : compléter nom, statut et SIREN, adresse, contact dans
@@ -26,13 +29,12 @@ font à la main, dans l'ordre.
 2. Rédiger tout le contenu (`prompts/<slug>/02-contenu-editorial.md`). (auto)
 3. Créer le site dans Umami pour `<slug>.phamelin.fr`, recopier son
    identifiant dans `produit.json` → `mesure.siteId`. (auto)
-4. Créer le projet Vercel sur ce dépôt, **racine `projects/<slug>`**, avec
-   l'option « inclure les fichiers hors de la racine » ; installation, build et
-   sortie sont lus dans son `vercel.json`.
-5. Dans Vercel, ajouter le domaine `<slug>.phamelin.fr` au projet ; chez le
-   registrar de `phamelin.fr`, créer l'enregistrement DNS que Vercel indique
-   (en général `CNAME <slug> → cname.vercel-dns.com`).
-6. Dans la Search Console (propriété `phamelin.fr`), soumettre
+4. Rien à faire pour l'hébergement : après chaque CI verte sur `main`, le
+   workflow « Déployer » (`tools/deployer.mjs`) construit le produit, crée son
+   projet Vercel (`mp-<slug>`) s'il manque, y attache `<slug>.phamelin.fr` et
+   le met en production. Tant que `npm run lancement -- <slug>` échoue, le
+   site est servi en `noindex` : visible pour le relire, jamais indexé.
+5. Dans la Search Console (propriété `phamelin.fr`), soumettre
    `https://<slug>.phamelin.fr/sitemap.xml`, inspecter
    `https://<slug>.phamelin.fr/` et demander l'indexation.
 

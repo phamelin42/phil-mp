@@ -52,9 +52,10 @@ référencement. Voir `docs/contenu-unique.md`.
 
 - Une modification de `libs/` touche tous les produits : elle passe seule en
   PR, relue par Phil, et la CI construit et audite toutes les applications.
-- Le déploiement reste un projet Vercel par produit, chacun avec son
-  domaine ; la racine du projet Vercel est `projects/<slug>`, dont le
-  `vercel.json` construit depuis le workspace.
+- Un projet Vercel par produit (`mp-<slug>`), créé et déployé par le
+  workflow « Déployer » après une CI verte sur `main` : le build se fait dans
+  GitHub Actions, Vercel ne reçoit que le dossier statique et le
+  `vercel.json` du produit (en-têtes). Aucune intégration Git côté Vercel.
 - Les noms d'événements sont communs : les rapports se comparent d'un produit
   à l'autre.
 - Le workspace a son dépôt, `phamelin42/phil-mp` (importé de

@@ -113,6 +113,10 @@ Angular 22 (standalone, signaux, zoneless, `@Service()`), pré-rendu
 | `npm run icones -- <slug>`          | PNG du manifeste depuis le logo du produit                      |
 | `npm run lancement -- <slug>`       | ce qui manque avant la mise en ligne                            |
 
+Déploiement : automatique, après une CI verte sur `main` (workflow
+« Déployer », `tools/deployer.mjs`), sur `<slug>.phamelin.fr`. Un produit pas
+encore prêt pour `npm run lancement` est servi en `noindex`.
+
 **Une tâche n'est pas terminée tant que `npm run verify:ci` n'est pas vert.**
 `npx playwright test` seul sert le dernier `dist/`, pas le code du moment.
 

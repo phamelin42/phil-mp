@@ -20,6 +20,8 @@ quoi faire. Il ne déploie de lui-même aucun changement visible.
 - Réparation d'une CI rouge causée par l'outillage, sans changer de
   comportement.
 - Rapports mensuels (branche `rapports`, une issue par produit).
+- Déploiement de `main` sur Vercel (workflow « Déployer ») : ce qui arrive
+  sur `main` a déjà été relu et validé par Phil.
 
 ## Avec validation de Phil (PR, jamais de fusion par l'agent)
 
