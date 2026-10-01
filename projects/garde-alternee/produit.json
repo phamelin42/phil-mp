@@ -1,0 +1,32 @@
+{
+  "slug": "garde-alternee",
+  "nom": "Planning Garde Alternée",
+  "domaine": "garde-alternee.phamelin.fr",
+  "requete": "calendrier garde alternée à imprimer",
+  "description": "Calendrier de garde alternée (une semaine sur deux, 2-2-3, 2-2-5-5) avec vacances scolaires, à imprimer en PDF ou exporter en iCal. Gratuit.",
+  "promesse": "Le calendrier de garde de l'année en deux minutes, à imprimer ou à ajouter à votre agenda.",
+  "exports": ["pdf", "ical", "impression"],
+  "logo": "logo.svg",
+  "theme": {
+    "accent": "#5aa9c9",
+    "accentFonce": "#1e5d78",
+    "typographie": "arrondie",
+    "sombre": false
+  },
+  "offre": {
+    "statut": "bientot"
+  },
+  "editeur": {
+    "nom": "À COMPLÉTER",
+    "statut": "À COMPLÉTER (entrepreneur individuel, SIREN …)",
+    "adresse": "À COMPLÉTER",
+    "contact": "À COMPLÉTER",
+    "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
+  },
+  "mesure": {
+    "origine": "https://analytics.patternreader.com",
+    "siteId": "",
+    "proprieteSearchConsole": "sc-domain:phamelin.fr",
+    "googleVerification": ""
+  }
+}
