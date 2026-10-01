@@ -7,7 +7,13 @@ Conventions techniques : `CLAUDE.md`. Workflow et checklist : `CONTRIBUTING.md`.
 L'agent **propose**, Phil **valide**. Il construit les fiches de
 `prompts/<slug>/` qu'on lui confie, entretient le workspace, et rédige chaque
 mois, pour chaque produit en ligne, un rapport qui dit où le tunnel fuit et
-quoi faire. Il ne déploie de lui-même aucun changement visible.
+quoi faire.
+
+**Fusion automatique** (décision de Phil, 1er octobre 2026) : toute PR est
+fusionnée dès que sa CI est verte, par l'agent quand « Allow auto-merge »
+n'est pas activé. Phil relit après coup ; ce qui suit « Avec validation »
+reste à signaler dans la PR. Une CI rouge ne se fusionne jamais : on la
+répare.
 
 ## Sans validation (automatisable)
 
@@ -21,9 +27,9 @@ quoi faire. Il ne déploie de lui-même aucun changement visible.
   comportement.
 - Rapports mensuels (branche `rapports`, une issue par produit).
 - Déploiement de `main` sur Vercel (workflow « Déployer ») : ce qui arrive
-  sur `main` a déjà été relu et validé par Phil.
+  sur `main` a passé la CI ; un produit pas prêt reste en `noindex`.
 
-## Avec validation de Phil (PR, jamais de fusion par l'agent)
+## Avec validation de Phil (PR, relue après fusion)
 
 - Tout texte visible, en particulier tout `contenu.json` : c'est lui qui se
   référence, et il doit rester unique par produit.

@@ -4,64 +4,68 @@
     "chapo": "Un devis conforme, avec votre logo et les mentions obligatoires, prêt en PDF en cinq minutes.",
     "explication": [
       {
-        "titre": "À RÉDIGER : intertitre 1",
-        "texte": "À RÉDIGER : étape 1 de l'utilisation, avec les mots de « modèle devis plombier auto-entrepreneur »"
+        "titre": "1. Votre entreprise, une fois pour toutes",
+        "texte": "Choisissez votre statut : micro-entrepreneur, entreprise individuelle au réel ou société. Le formulaire n'affiche que ce qui vous concerne : votre SIRET, votre assurance décennale et, si vous facturez la TVA, votre numéro intracommunautaire. Ajoutez votre logo depuis votre téléphone : il reste sur l'appareil. Au devis suivant, tout est déjà rempli."
       },
       {
-        "titre": "À RÉDIGER : intertitre 2",
-        "texte": "À RÉDIGER : étape 2 de l'utilisation, avec les mots de « modèle devis plombier auto-entrepreneur »"
+        "titre": "2. Le client et les lignes du chantier",
+        "texte": "Notez le nom et l'adresse du client, puis une ligne par prestation : la fourniture, la pose, les heures de main-d'œuvre, le déplacement. Quantité, unité, prix hors taxes : les totaux se calculent seuls, ligne par ligne et par taux de TVA (20 %, 10 % pour la rénovation, 5,5 % pour les travaux d'économie d'énergie).\n\nEn micro-entreprise sans TVA, la mention « TVA non applicable, art. 293 B du CGI » s'ajoute d'elle-même."
       },
       {
-        "titre": "À RÉDIGER : intertitre 3",
-        "texte": "À RÉDIGER : étape 3 de l'utilisation, avec les mots de « modèle devis plombier auto-entrepreneur »"
+        "titre": "3. Vérifier, puis envoyer le PDF",
+        "texte": "Une liste vous dit ce qui manque encore : la durée de validité, la date de début des travaux, le médiateur de la consommation pour un particulier. L'aperçu montre le devis tel que le client le recevra. Un appui sur « Télécharger en PDF » et le fichier est prêt à joindre à un e-mail ou à un SMS, sans inscription et sans rien envoyer à nos serveurs."
       }
     ],
     "exemples": [
       {
-        "titre": "À RÉDIGER : intertitre 4",
-        "texte": "À RÉDIGER : exemple concret 1, chiffré, tiré du métier"
+        "titre": "Un plombier en franchise de TVA : chauffe-eau remplacé",
+        "texte": "Paul, plombier micro-entrepreneur à Lyon, remplace un chauffe-eau électrique de 200 litres. Deux lignes : le chauffe-eau fourni, 890 €, et six heures de main-d'œuvre à 45 €, soit 270 €. Le devis affiche 1 160 € net à payer, la mention de franchise en base de TVA, et un acompte de 30 % à la signature : 348 €. Le client signe le PDF le soir même."
       },
       {
-        "titre": "À RÉDIGER : intertitre 5",
-        "texte": "À RÉDIGER : exemple concret 2, chiffré, tiré du métier"
+        "titre": "Une électricienne qui facture la TVA : tableau mis aux normes",
+        "texte": "Sarah, électricienne en EURL, met aux normes le tableau d'une maison de 1985. Matériel : 620 € HT ; huit heures de travail à 50 € : 400 € HT. Le logement a plus de deux ans, le taux réduit de 10 % s'applique : 102 € de TVA, 1 122 € TTC. Son devis porte le capital de la société, son RCS et la couverture de son assurance décennale."
       }
     ]
   },
   "aide": {
     "titre": "Aide de Devis Artisan",
-    "description": "À RÉDIGER : description de la page d'aide, 140 à 160 caractères, propre à ce produit",
-    "intro": "À RÉDIGER : à qui s'adresse l'aide et ce qu'on y trouve",
+    "description": "Remplir un devis d'artisan pas à pas : statut, TVA ou franchise, assurance décennale, médiateur, acompte. Réponses aux questions des plombiers et électriciens.",
+    "intro": "Pour les artisans et auto-entrepreneurs du bâtiment qui rédigent leurs devis eux-mêmes, souvent entre deux chantiers. Vous trouverez ici comment remplir chaque partie du formulaire et ce que la loi demande d'y écrire.",
     "sections": [
       {
-        "titre": "À RÉDIGER : intertitre 6",
-        "texte": "À RÉDIGER : question pratique 1 traitée pas à pas"
+        "titre": "Faire un devis depuis son téléphone sur le chantier",
+        "texte": "Ouvrez Devis Artisan dans le navigateur de votre téléphone et, si vous le souhaitez, installez-le sur l'écran d'accueil : il fonctionne ensuite sans réseau.\n\nRemplissez votre entreprise une seule fois. Sur place, saisissez le client puis les lignes au fur et à mesure de la visite : une ligne pour le matériel, une pour la main-d'œuvre. Tout s'enregistre à chaque frappe ; si un appel vous interrompt, vous retrouvez le devis à la réouverture.\n\nDe retour au camion, vérifiez la liste « Il manque encore », relisez l'aperçu et téléchargez le PDF."
       },
       {
-        "titre": "À RÉDIGER : intertitre 7",
-        "texte": "À RÉDIGER : question pratique 2 traitée pas à pas"
+        "titre": "Choisir le bon taux de TVA",
+        "texte": "Si vous êtes en franchise en base, choisissez « Franchise en base » : aucune TVA n'est calculée et la mention de l'article 293 B du CGI apparaît.\n\nSi vous facturez la TVA, choisissez un taux par ligne. 20 % est le taux normal, notamment pour une construction neuve. 10 % s'applique aux travaux d'amélioration, de transformation et d'entretien d'un logement achevé depuis plus de deux ans. 5,5 % concerne les travaux d'amélioration de la qualité énergétique, comme l'isolation ou certaines pompes à chaleur. En cas de doute sur un chantier, demandez à votre comptable avant d'envoyer le devis."
       }
     ],
     "faq": [
       {
-        "question": "À RÉDIGER : question fréquente 1, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Le devis est-il obligatoire pour un plombier ?",
+        "reponse": "Pour les travaux de dépannage, de réparation et d'entretien dans le bâtiment, un devis écrit est obligatoire avant l'intervention au-delà de 150 € TTC, et dû à tout client qui le demande en dessous. Pour un chantier plus important, il protège surtout les deux parties : prix, délais et conditions sont fixés avant le premier coup de clé."
       },
       {
-        "question": "À RÉDIGER : question fréquente 2, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Quelles mentions obligatoires sur un devis d'auto-entrepreneur ?",
+        "reponse": "Votre nom suivi de « EI », votre adresse et votre SIRET, la date et la durée de validité, le nom et l'adresse du client, le détail des prestations avec quantités et prix unitaires, les totaux, et la mention « TVA non applicable, art. 293 B du CGI » si vous êtes en franchise. Dans le bâtiment s'ajoutent votre assurance décennale et sa zone de couverture. Le formulaire vous les demande une à une."
       },
       {
-        "question": "À RÉDIGER : question fréquente 3, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment faire un devis gratuit en PDF sans logiciel ?",
+        "reponse": "Remplissez le formulaire en haut de la page d'accueil, puis appuyez sur « Télécharger en PDF » et choisissez « Enregistrer au format PDF » dans la fenêtre qui s'ouvre. Aucun compte n'est nécessaire et rien n'est installé : le document est créé par votre navigateur."
       },
       {
-        "question": "À RÉDIGER : question fréquente 4, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Mes devis et mes clients sont-ils envoyés quelque part ?",
+        "reponse": "Non. Tout ce que vous saisissez, logo compris, reste dans le navigateur de votre appareil. Si vous videz les données du navigateur ou changez de téléphone, le devis en cours n'y sera plus : gardez toujours le PDF de chaque devis envoyé."
+      },
+      {
+        "question": "Dois-je indiquer un médiateur de la consommation sur mes devis ?",
+        "reponse": "Oui, dès que votre client est un particulier : tout professionnel doit lui permettre de recourir gratuitement à un médiateur de la consommation, et lui en donner les coordonnées. Indiquez le nom et le site du médiateur auquel vous avez adhéré ; pour un client professionnel, le formulaire remplace cette mention par les pénalités de retard."
       }
     ]
   },
   "offre": {
-    "titre": "À RÉDIGER : nom de l'offre complète",
-    "texte": "À RÉDIGER : ce que la version complète apportera (piste : devis illimités, numérotation suivie et relances (après validation d'un back-end, ADR à écrire))"
+    "titre": "Devis Artisan Pro",
+    "texte": "La version complète gardera tous vos devis, sans limite, suivra leur numérotation d'un devis à l'autre et vous rappellera de relancer un client qui n'a pas répondu. Écrivez-nous pour être prévenu dès qu'elle sera prête."
   }
 }
