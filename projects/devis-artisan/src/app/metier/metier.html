@@ -1,0 +1,652 @@
+<section class="card hors-impression" aria-labelledby="metier-titre">
+  <h2 id="metier-titre">Votre devis</h2>
+  <p class="etat" role="status">
+    @switch (enregistrement()) {
+      @case ('enregistre') {
+        Enregistré sur cet appareil.
+      }
+      @case ('erreur') {
+        L’enregistrement a échoué : gardez cette page ouverte et exportez votre devis.
+      }
+      @default {
+        Votre saisie reste sur cet appareil et s’enregistre au fil de l’eau.
+      }
+    }
+  </p>
+
+  <fieldset class="groupe">
+    <legend>Votre entreprise</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="entreprise-nom">Nom de l’entreprise</label>
+        <input
+          id="entreprise-nom"
+          class="saisie"
+          autocomplete="organization"
+          [formField]="f.entreprise.nom"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.nom())"
+          [attr.aria-describedby]="erreurDe(f.entreprise.nom()) ? 'entreprise-nom-erreur' : null"
+        />
+        @if (erreurDe(f.entreprise.nom()); as e) {
+          <p class="erreur" id="entreprise-nom-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="entreprise-statut">Statut</label>
+        <select id="entreprise-statut" class="saisie" [formField]="f.entreprise.statut">
+          <option value="micro-entrepreneur">Micro-entrepreneur</option>
+          <option value="entreprise-individuelle">Entreprise individuelle au réel</option>
+          <option value="societe">Société (SARL, SAS, EURL…)</option>
+        </select>
+      </div>
+      @if (societe()) {
+        <div class="champ">
+          <label for="entreprise-formeJuridique">Forme juridique</label>
+          <input
+            id="entreprise-formeJuridique"
+            class="saisie"
+            [formField]="f.entreprise.formeJuridique"
+            [attr.aria-invalid]="!!erreurDe(f.entreprise.formeJuridique())"
+            [attr.aria-describedby]="
+              erreurDe(f.entreprise.formeJuridique()) ? 'entreprise-formeJuridique-erreur' : null
+            "
+          />
+          @if (erreurDe(f.entreprise.formeJuridique()); as e) {
+            <p class="erreur" id="entreprise-formeJuridique-erreur">{{ e }}</p>
+          }
+        </div>
+        <div class="champ">
+          <label for="entreprise-capital">Capital social (€)</label>
+          <input
+            id="entreprise-capital"
+            class="saisie"
+            inputmode="decimal"
+            [formField]="f.entreprise.capital"
+            [attr.aria-invalid]="!!erreurDe(f.entreprise.capital())"
+            [attr.aria-describedby]="
+              erreurDe(f.entreprise.capital()) ? 'entreprise-capital-erreur' : null
+            "
+          />
+          @if (erreurDe(f.entreprise.capital()); as e) {
+            <p class="erreur" id="entreprise-capital-erreur">{{ e }}</p>
+          }
+        </div>
+        <div class="champ">
+          <label for="entreprise-immatriculation">RCS et ville</label>
+          <p class="aide" id="entreprise-immatriculation-aide">Par exemple : Lyon 123 456 789</p>
+          <input
+            id="entreprise-immatriculation"
+            class="saisie"
+            [formField]="f.entreprise.immatriculation"
+            [attr.aria-invalid]="!!erreurDe(f.entreprise.immatriculation())"
+            [attr.aria-describedby]="
+              erreurDe(f.entreprise.immatriculation())
+                ? 'entreprise-immatriculation-aide entreprise-immatriculation-erreur'
+                : 'entreprise-immatriculation-aide'
+            "
+          />
+          @if (erreurDe(f.entreprise.immatriculation()); as e) {
+            <p class="erreur" id="entreprise-immatriculation-erreur">{{ e }}</p>
+          }
+        </div>
+      } @else {
+        <div class="champ">
+          <label for="entreprise-immatriculation">Immatriculation (facultatif)</label>
+          <p class="aide" id="entreprise-immatriculation-aide">
+            Répertoire des métiers ou registre national des entreprises
+          </p>
+          <input
+            id="entreprise-immatriculation"
+            class="saisie"
+            [formField]="f.entreprise.immatriculation"
+            [attr.aria-invalid]="!!erreurDe(f.entreprise.immatriculation())"
+            [attr.aria-describedby]="
+              erreurDe(f.entreprise.immatriculation())
+                ? 'entreprise-immatriculation-aide entreprise-immatriculation-erreur'
+                : 'entreprise-immatriculation-aide'
+            "
+          />
+          @if (erreurDe(f.entreprise.immatriculation()); as e) {
+            <p class="erreur" id="entreprise-immatriculation-erreur">{{ e }}</p>
+          }
+        </div>
+      }
+      <div class="champ">
+        <label for="entreprise-siret">SIRET</label>
+        <p class="aide" id="entreprise-siret-aide">14 chiffres</p>
+        <input
+          id="entreprise-siret"
+          class="saisie"
+          inputmode="numeric"
+          [formField]="f.entreprise.siret"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.siret())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.siret())
+              ? 'entreprise-siret-aide entreprise-siret-erreur'
+              : 'entreprise-siret-aide'
+          "
+        />
+        @if (erreurDe(f.entreprise.siret()); as e) {
+          <p class="erreur" id="entreprise-siret-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ champ-large">
+        <label for="entreprise-adresse">Adresse</label>
+        <textarea
+          id="entreprise-adresse"
+          class="saisie"
+          rows="3"
+          autocomplete="street-address"
+          [formField]="f.entreprise.adresse"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.adresse())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.adresse()) ? 'entreprise-adresse-erreur' : null
+          "
+        ></textarea>
+        @if (erreurDe(f.entreprise.adresse()); as e) {
+          <p class="erreur" id="entreprise-adresse-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="entreprise-telephone">Téléphone (facultatif)</label>
+        <input
+          id="entreprise-telephone"
+          class="saisie"
+          type="tel"
+          autocomplete="tel"
+          [formField]="f.entreprise.telephone"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.telephone())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.telephone()) ? 'entreprise-telephone-erreur' : null
+          "
+        />
+        @if (erreurDe(f.entreprise.telephone()); as e) {
+          <p class="erreur" id="entreprise-telephone-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="entreprise-email">E-mail (facultatif)</label>
+        <input
+          id="entreprise-email"
+          class="saisie"
+          type="email"
+          autocomplete="email"
+          [formField]="f.entreprise.email"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.email())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.email()) ? 'entreprise-email-erreur' : null
+          "
+        />
+        @if (erreurDe(f.entreprise.email()); as e) {
+          <p class="erreur" id="entreprise-email-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="entreprise-assureur">Assurance décennale</label>
+        <p class="aide" id="entreprise-assureur-aide">Assureur et numéro de contrat</p>
+        <input
+          id="entreprise-assureur"
+          class="saisie"
+          [formField]="f.entreprise.assureur"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.assureur())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.assureur())
+              ? 'entreprise-assureur-aide entreprise-assureur-erreur'
+              : 'entreprise-assureur-aide'
+          "
+        />
+        @if (erreurDe(f.entreprise.assureur()); as e) {
+          <p class="erreur" id="entreprise-assureur-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="entreprise-zoneAssurance">Couverture géographique</label>
+        <p class="aide" id="entreprise-zoneAssurance-aide">Par exemple : France métropolitaine</p>
+        <input
+          id="entreprise-zoneAssurance"
+          class="saisie"
+          [formField]="f.entreprise.zoneAssurance"
+          [attr.aria-invalid]="!!erreurDe(f.entreprise.zoneAssurance())"
+          [attr.aria-describedby]="
+            erreurDe(f.entreprise.zoneAssurance())
+              ? 'entreprise-zoneAssurance-aide entreprise-zoneAssurance-erreur'
+              : 'entreprise-zoneAssurance-aide'
+          "
+        />
+        @if (erreurDe(f.entreprise.zoneAssurance()); as e) {
+          <p class="erreur" id="entreprise-zoneAssurance-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ champ-large">
+        <label for="regimeTva">TVA</label>
+        <select id="regimeTva" class="saisie" [formField]="f.regimeTva">
+          <option value="franchise">Franchise en base : pas de TVA facturée</option>
+          <option value="assujetti">TVA facturée</option>
+        </select>
+      </div>
+      @if (assujetti()) {
+        <div class="champ">
+          <label for="entreprise-tvaIntra">Numéro de TVA intracommunautaire</label>
+          <input
+            id="entreprise-tvaIntra"
+            class="saisie"
+            [formField]="f.entreprise.tvaIntra"
+            [attr.aria-invalid]="!!erreurDe(f.entreprise.tvaIntra())"
+            [attr.aria-describedby]="
+              erreurDe(f.entreprise.tvaIntra()) ? 'entreprise-tvaIntra-erreur' : null
+            "
+          />
+          @if (erreurDe(f.entreprise.tvaIntra()); as e) {
+            <p class="erreur" id="entreprise-tvaIntra-erreur">{{ e }}</p>
+          }
+        </div>
+      }
+      <div class="champ champ-large">
+        <label for="logo">Logo (facultatif)</label>
+        <p class="aide" id="logo-aide">
+          PNG, JPEG, WebP ou SVG, 500 Ko au plus. Il reste sur cet appareil.
+        </p>
+        <input
+          id="logo"
+          class="saisie"
+          type="file"
+          accept="image/png,image/jpeg,image/webp,image/svg+xml"
+          [attr.aria-describedby]="erreurLogo() ? 'logo-aide logo-erreur' : 'logo-aide'"
+          (change)="choisirLogo($event)"
+        />
+        @if (erreurLogo(); as e) {
+          <p class="erreur" id="logo-erreur" role="alert">{{ e }}</p>
+        }
+        @if (modele().logo) {
+          <div class="actions">
+            <img
+              class="document-logo"
+              [src]="modele().logo"
+              alt="Logo choisi"
+              width="160"
+              height="80"
+            />
+            <button type="button" class="btn btn-secondary" (click)="retirerLogo()">
+              Retirer le logo
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Le client</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="client-type">Type de client</label>
+        <select id="client-type" class="saisie" [formField]="f.client.type">
+          <option value="particulier">Particulier</option>
+          <option value="professionnel">Professionnel</option>
+        </select>
+      </div>
+      <div class="champ">
+        <label for="client-nom">Nom du client</label>
+        <input
+          id="client-nom"
+          class="saisie"
+          [formField]="f.client.nom"
+          [attr.aria-invalid]="!!erreurDe(f.client.nom())"
+          [attr.aria-describedby]="erreurDe(f.client.nom()) ? 'client-nom-erreur' : null"
+        />
+        @if (erreurDe(f.client.nom()); as e) {
+          <p class="erreur" id="client-nom-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ champ-large">
+        <label for="client-adresse">Adresse du client</label>
+        <textarea
+          id="client-adresse"
+          class="saisie"
+          rows="3"
+          [formField]="f.client.adresse"
+          [attr.aria-invalid]="!!erreurDe(f.client.adresse())"
+          [attr.aria-describedby]="erreurDe(f.client.adresse()) ? 'client-adresse-erreur' : null"
+        ></textarea>
+        @if (erreurDe(f.client.adresse()); as e) {
+          <p class="erreur" id="client-adresse-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ champ-large">
+        <label for="client-adresseChantier">Adresse du chantier (si différente)</label>
+        <textarea
+          id="client-adresseChantier"
+          class="saisie"
+          rows="3"
+          [formField]="f.client.adresseChantier"
+          [attr.aria-invalid]="!!erreurDe(f.client.adresseChantier())"
+          [attr.aria-describedby]="
+            erreurDe(f.client.adresseChantier()) ? 'client-adresseChantier-erreur' : null
+          "
+        ></textarea>
+        @if (erreurDe(f.client.adresseChantier()); as e) {
+          <p class="erreur" id="client-adresseChantier-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Le devis</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="numero">Numéro du devis</label>
+        <input
+          id="numero"
+          class="saisie"
+          [formField]="f.numero"
+          [attr.aria-invalid]="!!erreurDe(f.numero())"
+          [attr.aria-describedby]="erreurDe(f.numero()) ? 'numero-erreur' : null"
+        />
+        @if (erreurDe(f.numero()); as e) {
+          <p class="erreur" id="numero-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="date">Date du devis</label>
+        <input
+          id="date"
+          class="saisie"
+          type="date"
+          [formField]="f.date"
+          [attr.aria-invalid]="!!erreurDe(f.date())"
+          [attr.aria-describedby]="erreurDe(f.date()) ? 'date-erreur' : null"
+        />
+        @if (erreurDe(f.date()); as e) {
+          <p class="erreur" id="date-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="validiteJours">Validité (jours)</label>
+        <input
+          id="validiteJours"
+          class="saisie"
+          type="number"
+          inputmode="numeric"
+          [formField]="f.validiteJours"
+          [attr.aria-invalid]="!!erreurDe(f.validiteJours())"
+          [attr.aria-describedby]="erreurDe(f.validiteJours()) ? 'validiteJours-erreur' : null"
+        />
+        @if (erreurDe(f.validiteJours()); as e) {
+          <p class="erreur" id="validiteJours-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="debutTravaux">Début des travaux</label>
+        <p class="aide" id="debutTravaux-aide">Une date ou « sous deux semaines »</p>
+        <input
+          id="debutTravaux"
+          class="saisie"
+          [formField]="f.debutTravaux"
+          [attr.aria-invalid]="!!erreurDe(f.debutTravaux())"
+          [attr.aria-describedby]="
+            erreurDe(f.debutTravaux())
+              ? 'debutTravaux-aide debutTravaux-erreur'
+              : 'debutTravaux-aide'
+          "
+        />
+        @if (erreurDe(f.debutTravaux()); as e) {
+          <p class="erreur" id="debutTravaux-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="dureeTravaux">Durée estimée</label>
+        <p class="aide" id="dureeTravaux-aide">Par exemple : 3 jours</p>
+        <input
+          id="dureeTravaux"
+          class="saisie"
+          [formField]="f.dureeTravaux"
+          [attr.aria-invalid]="!!erreurDe(f.dureeTravaux())"
+          [attr.aria-describedby]="
+            erreurDe(f.dureeTravaux())
+              ? 'dureeTravaux-aide dureeTravaux-erreur'
+              : 'dureeTravaux-aide'
+          "
+        />
+        @if (erreurDe(f.dureeTravaux()); as e) {
+          <p class="erreur" id="dureeTravaux-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe" [attr.aria-describedby]="erreurDe(f.lignes()) ? 'lignes-erreur' : null">
+    <legend>Prestations</legend>
+    @for (ligne of f.lignes; track $index; let i = $index) {
+      <fieldset class="sous-carte">
+        <legend>Ligne {{ i + 1 }}</legend>
+        <div class="grille-champs">
+          <div class="champ champ-large">
+            <label [for]="'ligne-' + i + '-designation'">Désignation</label>
+            <textarea
+              [id]="'ligne-' + i + '-designation'"
+              class="saisie"
+              rows="2"
+              [formField]="ligne.designation"
+            ></textarea>
+          </div>
+          <div class="champ">
+            <label [for]="'ligne-' + i + '-quantite'">Quantité</label>
+            <input
+              [id]="'ligne-' + i + '-quantite'"
+              class="saisie"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              [formField]="ligne.quantite"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'ligne-' + i + '-unite'">Unité</label>
+            <input
+              [id]="'ligne-' + i + '-unite'"
+              class="saisie"
+              list="unites"
+              [formField]="ligne.unite"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'ligne-' + i + '-prix'">Prix unitaire HT (€)</label>
+            <input
+              [id]="'ligne-' + i + '-prix'"
+              class="saisie"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              [formField]="ligne.prixUnitaire"
+            />
+          </div>
+          @if (assujetti()) {
+            <div class="champ">
+              <label [for]="'ligne-' + i + '-tva'">Taux de TVA</label>
+              <select [id]="'ligne-' + i + '-tva'" class="saisie" [formField]="ligne.tauxTva">
+                @for (t of tauxTva; track t) {
+                  <option [value]="t">{{ pct(t) }}</option>
+                }
+              </select>
+            </div>
+          }
+        </div>
+        <div class="actions">
+          <p class="etat">Total HT de la ligne&nbsp;: {{ eur(montant(ligne().value())) }}</p>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="modele().lignes.length <= 1"
+            (click)="supprimerLigne(i)"
+          >
+            Supprimer la ligne {{ i + 1 }}
+          </button>
+        </div>
+      </fieldset>
+    }
+    <datalist id="unites">
+      <option value="u"></option>
+      <option value="h"></option>
+      <option value="m²"></option>
+      <option value="ml"></option>
+      <option value="forfait"></option>
+    </datalist>
+    @if (erreurDe(f.lignes()); as e) {
+      <p class="erreur" id="lignes-erreur">{{ e }}</p>
+    }
+    <div class="actions">
+      <button id="ajouter-ligne" type="button" class="btn btn-secondary" (click)="ajouterLigne()">
+        Ajouter une ligne
+      </button>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Conditions</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="acomptePct">Acompte à la signature (%)</label>
+        <input
+          id="acomptePct"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          [formField]="f.acomptePct"
+          [attr.aria-invalid]="!!erreurDe(f.acomptePct())"
+          [attr.aria-describedby]="erreurDe(f.acomptePct()) ? 'acomptePct-erreur' : null"
+        />
+        @if (erreurDe(f.acomptePct()); as e) {
+          <p class="erreur" id="acomptePct-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ champ-large">
+        <label for="paiement">Conditions de paiement</label>
+        <p class="aide" id="paiement-aide">
+          Par exemple : solde à la fin des travaux, par virement
+        </p>
+        <textarea
+          id="paiement"
+          class="saisie"
+          rows="3"
+          [formField]="f.paiement"
+          [attr.aria-invalid]="!!erreurDe(f.paiement())"
+          [attr.aria-describedby]="
+            erreurDe(f.paiement()) ? 'paiement-aide paiement-erreur' : 'paiement-aide'
+          "
+        ></textarea>
+        @if (erreurDe(f.paiement()); as e) {
+          <p class="erreur" id="paiement-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="deplacement">Frais de déplacement (facultatif)</label>
+        <p class="aide" id="deplacement-aide">Vide : déplacement non facturé</p>
+        <input
+          id="deplacement"
+          class="saisie"
+          [formField]="f.deplacement"
+          [attr.aria-invalid]="!!erreurDe(f.deplacement())"
+          [attr.aria-describedby]="
+            erreurDe(f.deplacement()) ? 'deplacement-aide deplacement-erreur' : 'deplacement-aide'
+          "
+        />
+        @if (erreurDe(f.deplacement()); as e) {
+          <p class="erreur" id="deplacement-erreur">{{ e }}</p>
+        }
+      </div>
+      @if (modele().client.type === 'particulier') {
+        <div class="champ champ-large">
+          <label for="mediateur">Médiateur de la consommation</label>
+          <p class="aide" id="mediateur-aide">Nom et site du médiateur auquel vous avez adhéré</p>
+          <input
+            id="mediateur"
+            class="saisie"
+            [formField]="f.mediateur"
+            [attr.aria-invalid]="!!erreurDe(f.mediateur())"
+            [attr.aria-describedby]="
+              erreurDe(f.mediateur()) ? 'mediateur-aide mediateur-erreur' : 'mediateur-aide'
+            "
+          />
+          @if (erreurDe(f.mediateur()); as e) {
+            <p class="erreur" id="mediateur-erreur">{{ e }}</p>
+          }
+        </div>
+      }
+    </div>
+  </fieldset>
+
+  @if (charge() && manquants().length) {
+    <div aria-labelledby="manquants-titre">
+      <h3 id="manquants-titre">Il manque encore</h3>
+      <ul>
+        @for (m of manquants(); track m.champ) {
+          <li>
+            <a
+              [href]="
+                '#' + (m.champ === 'lignes' ? 'ligne-0-designation' : m.champ.replace('.', '-'))
+              "
+              (click)="$event.preventDefault(); allerA(m.champ)"
+              >{{ m.libelle }}</a
+            >
+          </li>
+        }
+      </ul>
+    </div>
+  } @else if (charge()) {
+    <p><strong>Votre devis est complet.</strong> Vérifiez l’aperçu, puis exportez-le.</p>
+  }
+</section>
+
+<section class="card" aria-labelledby="apercu-section">
+  <h2 id="apercu-section" class="hors-impression">Aperçu</h2>
+  <app-apercu-devis [devis]="modele()" />
+
+  <div class="hors-impression">
+    <h3>Exporter</h3>
+    <div class="actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        aria-describedby="consigne-pdf"
+        (click)="exporter('pdf')"
+      >
+        Télécharger en PDF
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        aria-describedby="consigne-impression"
+        (click)="exporter('impression')"
+      >
+        Imprimer
+      </button>
+    </div>
+    <p class="aide" id="consigne-pdf">{{ consignes()['pdf'] }}</p>
+    <p class="aide" id="consigne-impression">{{ consignes()['impression'] }}</p>
+
+    <div class="actions">
+      @if (!confirmerNouveau()) {
+        <button type="button" class="btn btn-secondary" (click)="confirmerNouveau.set(true)">
+          Nouveau devis
+        </button>
+      } @else {
+        <p id="confirmer-nouveau" role="alert">
+          Effacer le client et les prestations de ce devis ? Votre entreprise et vos conditions
+          restent.
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary"
+          aria-describedby="confirmer-nouveau"
+          (click)="nouveauDevis()"
+        >
+          Effacer et commencer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="confirmerNouveau.set(false)">
+          Garder ce devis
+        </button>
+      }
+    </div>
+  </div>
+</section>

@@ -188,3 +188,202 @@ h3 {
 .prose p {
   max-width: 65ch;
 }
+
+/* Formulaires : étiquette visible au-dessus du champ, erreur sous lui. */
+.groupe {
+  min-width: 0;
+  margin: var(--space-6) 0;
+  padding: 0;
+  border: 0;
+}
+
+.groupe > legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-h3);
+  font-weight: 700;
+}
+
+.grille-champs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  gap: var(--space-4);
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.champ-large {
+  grid-column: 1 / -1;
+}
+
+.champ > label {
+  font-weight: 600;
+}
+
+.saisie {
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--color-line-strong);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: inherit;
+}
+
+textarea.saisie {
+  min-height: calc(var(--tap) * 2);
+  resize: vertical;
+}
+
+.saisie[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.aide,
+.etat {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: var(--text-small);
+}
+
+.erreur {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.choix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-6);
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+.option > input {
+  width: var(--space-6);
+  height: var(--space-6);
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.sous-carte {
+  min-width: 0;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-4) 0 0;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.sous-carte > legend {
+  padding: 0 var(--space-2) 0 0;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Document à imprimer (devis, facture…) : seul il sort à l'impression (print.css). */
+.document {
+  padding: var(--space-6);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+}
+
+.document h2,
+.document h3 {
+  margin-top: 0;
+}
+
+.document-entete {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.document-entete p,
+.document-bloc p {
+  margin: 0;
+}
+
+.document-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 10rem;
+  max-height: 5rem;
+  margin-bottom: var(--space-2);
+  object-fit: contain;
+}
+
+.document-bloc {
+  margin-bottom: var(--space-6);
+}
+
+.tableau-defilant {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.tableau {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableau th,
+.tableau td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tableau .nombre {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.totaux {
+  width: auto;
+  min-width: min(100%, 18rem);
+  margin: var(--space-4) 0 var(--space-6) auto;
+}
+
+.mentions {
+  padding-left: var(--space-4);
+  color: var(--color-ink-soft);
+}
+
+.signature {
+  min-height: 6rem;
+  margin-top: var(--space-4);
+  padding: var(--space-3);
+  border: 1px dashed var(--color-line-strong);
+}
