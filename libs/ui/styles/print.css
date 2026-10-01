@@ -1,13 +1,45 @@
-/* Chargée à part (media="print") : hors bundle initial. */
-.site-header,
-.site-footer,
-.banner,
-.offre,
-.skip-link {
+/*
+ * Chargée à part (media="print") : hors bundle initial. Liée avant styles.css,
+ * elle perdrait à spécificité égale : chaque règle commence par `:root`.
+ */
+:root .site-header,
+:root .site-footer,
+:root .banner,
+:root .offre,
+:root .skip-link,
+:root .hors-impression {
   display: none;
 }
 
-main {
+:root main {
   max-width: none;
   padding: 0;
+}
+
+/* Une page qui porte un document n'imprime que lui : ni formulaire, ni texte autour. */
+:root main:has(.document) :not(:has(.document), .document, .document *) {
+  display: none;
+}
+
+:root main:has(.document) .card:has(.document) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+:root .document {
+  padding: 0;
+  border: 0;
+  font-size: var(--text-print);
+}
+
+:root .document tr,
+:root .mentions li,
+:root .signature {
+  break-inside: avoid;
+}
+
+:root .tableau-defilant {
+  overflow: visible;
 }
