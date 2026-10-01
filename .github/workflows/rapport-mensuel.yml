@@ -32,7 +32,7 @@ jobs:
       liste: ${{ steps.liste.outputs.liste }}
       mois: ${{ steps.mois.outputs.mois }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - id: liste
@@ -68,7 +68,7 @@ jobs:
       matrix:
         slug: ${{ fromJson(needs.produits.outputs.liste) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 1
           persist-credentials: false
