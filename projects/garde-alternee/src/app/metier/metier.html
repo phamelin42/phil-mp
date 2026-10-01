@@ -1,0 +1,215 @@
+<section class="card hors-impression" aria-labelledby="metier-titre">
+  <h2 id="metier-titre">Votre calendrier de garde</h2>
+  <p class="etat" role="status">
+    @switch (enregistrement()) {
+      @case ('enregistre') {
+        Enregistré sur cet appareil.
+      }
+      @case ('erreur') {
+        L’enregistrement a échoué : gardez cette page ouverte et exportez votre calendrier.
+      }
+      @default {
+        Vos réponses restent sur cet appareil et s’enregistrent au fil de l’eau.
+      }
+    }
+  </p>
+
+  <fieldset class="groupe">
+    <legend>Les parents</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="parentA">Premier parent</label>
+        <input
+          id="parentA"
+          class="saisie"
+          autocomplete="off"
+          [formField]="f.parentA"
+          [attr.aria-invalid]="!!erreurDe(f.parentA())"
+          [attr.aria-describedby]="erreurDe(f.parentA()) ? 'parentA-erreur' : null"
+        />
+        @if (erreurDe(f.parentA()); as e) {
+          <p class="erreur" id="parentA-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="parentB">Second parent</label>
+        <input
+          id="parentB"
+          class="saisie"
+          autocomplete="off"
+          [formField]="f.parentB"
+          [attr.aria-invalid]="!!erreurDe(f.parentB())"
+          [attr.aria-describedby]="erreurDe(f.parentB()) ? 'parentB-erreur' : null"
+        />
+        @if (erreurDe(f.parentB()); as e) {
+          <p class="erreur" id="parentB-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Le rythme</legend>
+    <div class="grille-champs">
+      <div class="champ champ-large">
+        <label for="rythme">Modèle de garde</label>
+        <select id="rythme" class="saisie" [formField]="f.rythme">
+          @for (r of rythmes; track r) {
+            <option [value]="r">{{ libellesRythme[r] }}</option>
+          }
+        </select>
+      </div>
+      <div class="champ">
+        <label for="depart">Premier jour du rythme</label>
+        <p class="aide" id="depart-aide">Le jour du premier changement de parent</p>
+        <input
+          id="depart"
+          class="saisie"
+          type="date"
+          [formField]="f.depart"
+          [attr.aria-invalid]="!!erreurDe(f.depart())"
+          [attr.aria-describedby]="
+            erreurDe(f.depart()) ? 'depart-aide depart-erreur' : 'depart-aide'
+          "
+        />
+        @if (erreurDe(f.depart()); as e) {
+          <p class="erreur" id="depart-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="premier">Les enfants vont d’abord chez</label>
+        <select id="premier" class="saisie" [formField]="f.premier">
+          <option value="A">{{ nom('A') }}</option>
+          <option value="B">{{ nom('B') }}</option>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>L’année et les vacances</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="annee">Année scolaire</label>
+        <select id="annee" class="saisie" [value]="modele().annee" (change)="choisirAnnee($event)">
+          @for (a of annees; track a) {
+            <option [value]="a" [selected]="a === modele().annee">{{ a }}-{{ a + 1 }}</option>
+          }
+        </select>
+      </div>
+      <div class="champ">
+        <label for="zone">Zone de vacances scolaires</label>
+        <select id="zone" class="saisie" [formField]="f.zone">
+          <option value="">Ne pas afficher les vacances</option>
+          @for (z of zones; track z) {
+            <option [value]="z">Zone {{ z }}</option>
+          }
+        </select>
+      </div>
+      @if (modele().zone) {
+        <div class="champ">
+          <label for="vacances">Pendant les vacances</label>
+          <select id="vacances" class="saisie" [formField]="f.vacances">
+            <option value="rythme">Le rythme continue</option>
+            <option value="moities">Partage par moitiés</option>
+          </select>
+        </div>
+        @if (modele().vacances === 'moities') {
+          <div class="champ">
+            <label for="moitiePaire">Première moitié les années paires</label>
+            <select id="moitiePaire" class="saisie" [formField]="f.moitiePaire">
+              <option value="A">{{ nom('A') }}</option>
+              <option value="B">{{ nom('B') }}</option>
+            </select>
+          </div>
+        }
+      }
+    </div>
+  </fieldset>
+
+  @if (charge() && manquants().length) {
+    <div>
+      <h3>Il manque encore</h3>
+      <ul>
+        @for (m of manquants(); track m.champ) {
+          <li>
+            <a [href]="'#' + m.champ" (click)="$event.preventDefault(); allerA(m.champ)">{{
+              m.message
+            }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  } @else if (charge()) {
+    <p><strong>Votre calendrier est prêt.</strong> Vérifiez-le, puis exportez-le.</p>
+  }
+</section>
+
+<section class="card" aria-labelledby="calendrier-section">
+  <h2 id="calendrier-section" class="hors-impression">Calendrier</h2>
+  <article class="document" aria-labelledby="calendrier-titre">
+    <h3 id="calendrier-titre">
+      Garde des enfants, année {{ modele().annee }}-{{ modele().annee + 1 }}
+    </h3>
+    <ul class="legende">
+      <li>
+        <span class="pastille serie-1" aria-hidden="true"></span>
+        {{ legende('A') }}
+      </li>
+      <li>
+        <span class="pastille serie-2" aria-hidden="true"></span>
+        {{ legende('B') }}
+      </li>
+      @if (modele().zone) {
+        <li>
+          <span class="pastille marque" aria-hidden="true"></span>
+          Vacances scolaires, zone {{ modele().zone }}
+        </li>
+      }
+    </ul>
+    @if (depart()) {
+      <p class="aide">{{ libellesRythme[modele().rythme] }}, à partir du {{ depart() }}.</p>
+    } @else {
+      <p class="aide">Indiquez le premier jour du rythme pour colorer le calendrier.</p>
+    }
+    <div class="grille-calendriers">
+      @for (m of mois(); track m.mois) {
+        <mp-calendrier-mois [annee]="m.annee" [mois]="m.mois" [jours]="marques()" />
+      }
+    </div>
+  </article>
+
+  <div class="hors-impression">
+    <h3>Exporter</h3>
+    <div class="actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        aria-describedby="consigne-pdf"
+        (click)="exporter('pdf')"
+      >
+        Télécharger en PDF
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        aria-describedby="consigne-ical"
+        [disabled]="!jours().length"
+        (click)="exporter('ical')"
+      >
+        Ajouter à mon agenda (iCal)
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        aria-describedby="consigne-impression"
+        (click)="exporter('impression')"
+      >
+        Imprimer
+      </button>
+    </div>
+    <p class="aide" id="consigne-pdf">{{ consignes.pdf }}</p>
+    <p class="aide" id="consigne-ical">{{ consignes.ical }}</p>
+    <p class="aide" id="consigne-impression">{{ consignes.impression }}</p>
+  </div>
+</section>
