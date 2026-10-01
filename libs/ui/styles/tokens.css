@@ -10,6 +10,9 @@
   --color-ink: #2b2433;
   --color-ink-soft: #5c5466;
   --color-line: #ddd5e0;
+  /* Bord d'un champ de saisie : 3:1 au moins sur le fond (WCAG 1.4.11). */
+  --color-line-strong: #857b8f;
+  --color-danger: #b3261e;
   --color-on-primary: #ffffff;
   --color-focus: #1f5fbf;
 
@@ -19,6 +22,8 @@
   --font-arrondie: ui-rounded, 'SF Pro Rounded', 'Arial Rounded MT', system-ui, sans-serif;
 
   --text-base: 1.125rem;
+  --text-small: 1rem;
+  --text-print: 10pt;
   --text-lead: 1.375rem;
   --text-h1: clamp(1.875rem, 1.4rem + 2.4vw, 2.75rem);
   --text-h2: 1.5rem;
@@ -34,6 +39,7 @@
   --space-12: 3rem;
 
   --radius: 0.75rem;
+  --radius-small: 0.5rem;
   --shadow: 0 1px 2px rgb(43 36 51 / 8%), 0 4px 16px rgb(43 36 51 / 6%);
   --measure: 42rem;
   --tap: 3rem;
@@ -46,8 +52,23 @@
   --color-ink: #f2edf5;
   --color-ink-soft: #c9c0d0;
   --color-line: #4a4252;
+  --color-line-strong: #8d8496;
+  --color-danger: #ffb4ab;
   --color-focus: #8fb8ff;
   --shadow: none;
+}
+
+/* Le papier est blanc : un document s'imprime toujours en clair. */
+@media print {
+  :root[data-theme='sombre'] {
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-ink: #2b2433;
+    --color-ink-soft: #5c5466;
+    --color-line: #ddd5e0;
+    --color-line-strong: #857b8f;
+    --color-danger: #b3261e;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
