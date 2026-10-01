@@ -4,64 +4,68 @@
     "chapo": "Le calendrier de garde de l'année en deux minutes, à imprimer ou à ajouter à votre agenda.",
     "explication": [
       {
-        "titre": "À RÉDIGER : intertitre 1",
-        "texte": "À RÉDIGER : étape 1 de l'utilisation, avec les mots de « calendrier garde alternée à imprimer »"
+        "titre": "1. Choisir le rythme de garde",
+        "texte": "Une semaine sur deux, 2-2-3, 2-2-5-5 ou un week-end sur deux : choisissez le rythme prévu par votre accord ou votre jugement. Indiquez le premier jour du rythme, celui où les enfants changent de maison, et le parent chez qui ils commencent. Le calendrier se colore aussitôt, un ton par parent, sur toute l'année scolaire."
       },
       {
-        "titre": "À RÉDIGER : intertitre 2",
-        "texte": "À RÉDIGER : étape 2 de l'utilisation, avec les mots de « calendrier garde alternée à imprimer »"
+        "titre": "2. Ajouter les vacances scolaires de votre zone",
+        "texte": "Choisissez la zone A, B ou C de l'académie des enfants. Les vacances apparaissent soulignées sur le calendrier. Si vous les partagez par moitiés, indiquez qui prend la première moitié les années paires : l'ordre s'inverse seul l'année suivante, Noël et été compris.\n\nLe nombre de jours passés chez chaque parent s'affiche sous la légende."
       },
       {
-        "titre": "À RÉDIGER : intertitre 3",
-        "texte": "À RÉDIGER : étape 3 de l'utilisation, avec les mots de « calendrier garde alternée à imprimer »"
+        "titre": "3. Imprimer le calendrier ou l'ajouter à votre agenda",
+        "texte": "Les douze mois tiennent sur une page A4, en couleur et en hachures pour rester lisibles sur une imprimante noir et blanc. Téléchargez le PDF pour l'envoyer à l'autre parent ou à votre avocat, ou le fichier iCal pour retrouver chaque changement de garde dans Google Agenda, sur iPhone ou dans Outlook. Rien n'est envoyé sur un serveur."
       }
     ],
     "exemples": [
       {
-        "titre": "À RÉDIGER : intertitre 4",
-        "texte": "À RÉDIGER : exemple concret 1, chiffré, tiré du métier"
+        "titre": "Une semaine sur deux, vacances partagées en zone C",
+        "texte": "Marie et Julien vivent à Paris. Les enfants changent de maison chaque lundi, à partir du 31 août 2026, et commencent chez Marie. Les vacances se partagent par moitiés : Marie a la première moitié les années paires. À Noël 2026, elle garde les enfants du 19 au 26 décembre, Julien du 27 décembre au 3 janvier. Sur l'année scolaire 2026-2027, le calendrier compte 181 jours chez Marie et 184 chez Julien."
       },
       {
-        "titre": "À RÉDIGER : intertitre 5",
-        "texte": "À RÉDIGER : exemple concret 2, chiffré, tiré du métier"
+        "titre": "Un week-end sur deux, en zone A",
+        "texte": "Sophie a la résidence habituelle de son fils à Lyon ; Karim l'accueille un week-end sur deux, du vendredi au dimanche, et la moitié des vacances, la première moitié les années paires. Sur l'année 2026-2027, cela fait 114 jours chez Karim et 251 chez Sophie. Le PDF joint à leur dossier de médiation montre chaque week-end d'un coup d'œil."
       }
     ]
   },
   "aide": {
     "titre": "Aide de Planning Garde Alternée",
-    "description": "À RÉDIGER : description de la page d'aide, 140 à 160 caractères, propre à ce produit",
-    "intro": "À RÉDIGER : à qui s'adresse l'aide et ce qu'on y trouve",
+    "description": "Faire son calendrier de garde alternée pas à pas : rythme, premier jour, vacances par moitiés, export PDF et iCal. Réponses aux questions des parents séparés.",
+    "intro": "Pour les parents séparés qui veulent un calendrier clair à partager avec l'autre parent, un médiateur ou un avocat. Vous trouverez ici comment régler le rythme, les vacances et les exports, et les réponses aux questions qui reviennent le plus.",
     "sections": [
       {
-        "titre": "À RÉDIGER : intertitre 6",
-        "texte": "À RÉDIGER : question pratique 1 traitée pas à pas"
+        "titre": "Reproduire le rythme de votre jugement ou de votre accord",
+        "texte": "Relisez le passage de votre convention ou de votre jugement qui fixe la résidence des enfants, et repérez le rythme : une semaine sur deux, 2-2-3, 2-2-5-5 ou un week-end sur deux.\n\nPour le premier jour, prenez une date de changement de maison que vous connaissez avec certitude, par exemple le lundi de la rentrée où les enfants sont allés chez l'un de vous. Choisissez ce parent dans « Les enfants vont d'abord chez ».\n\nComparez ensuite deux ou trois semaines du calendrier avec ce que vous vivez déjà : si une semaine est inversée, changez le parent de la première période."
       },
       {
-        "titre": "À RÉDIGER : intertitre 7",
-        "texte": "À RÉDIGER : question pratique 2 traitée pas à pas"
+        "titre": "Régler le partage des vacances",
+        "texte": "Si votre accord ne dit rien des vacances, laissez « Le rythme continue » : les semaines s'enchaînent comme d'habitude.\n\nSi les vacances se partagent en deux, choisissez « Partage par moitiés » et le parent qui prend la première moitié les années paires. Chaque période est coupée en son milieu, Toussaint, Noël, hiver, printemps et été. Les ponts de l'Ascension restent au rythme habituel.\n\nUn accord plus fin, comme juillet chez l'un et août chez l'autre quelle que soit l'année, n'est pas encore pris en charge : notez-le à la main sur le PDF."
       }
     ],
     "faq": [
       {
-        "question": "À RÉDIGER : question fréquente 1, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment faire un calendrier de garde alternée gratuit ?",
+        "reponse": "Remplissez les noms des deux parents, le rythme et le premier jour en haut de la page d'accueil : le calendrier de l'année se dessine aussitôt. Ajoutez votre zone de vacances, puis téléchargez le PDF ou le fichier iCal. Aucun compte n'est demandé."
       },
       {
-        "question": "À RÉDIGER : question fréquente 2, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Quelle est la différence entre le rythme 2-2-3 et 2-2-5-5 ?",
+        "reponse": "En 2-2-3, les enfants passent deux jours chez l'un, deux chez l'autre, puis trois jours : les jours de la semaine changent d'une semaine à l'autre. En 2-2-5-5, chaque parent garde toujours les mêmes deux jours en semaine, par exemple lundi et mardi, et un week-end sur deux prolongé. Le second est souvent plus simple à suivre pour l'école et les activités."
       },
       {
-        "question": "À RÉDIGER : question fréquente 3, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment partager les vacances scolaires en garde alternée ?",
+        "reponse": "La pratique la plus courante coupe chaque période de vacances en deux moitiés et alterne chaque année le parent qui prend la première. C'est ce que fait l'option « Partage par moitiés ». Votre jugement ou votre convention peut prévoir autre chose : c'est lui qui s'applique."
       },
       {
-        "question": "À RÉDIGER : question fréquente 4, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Ce calendrier a-t-il une valeur juridique ?",
+        "reponse": "Non. Il traduit en dates le rythme que vous avez choisi, mais seuls le jugement ou la convention homologuée fixent la résidence des enfants. Il sert à s'organiser, à préparer une médiation ou à montrer clairement une proposition à l'autre parent."
+      },
+      {
+        "question": "Comment ajouter la garde alternée à Google Agenda ou sur iPhone ?",
+        "reponse": "Appuyez sur « Ajouter à mon agenda (iCal) » : un fichier .ics se télécharge. Dans Google Agenda, importez-le depuis les paramètres ; sur iPhone, ouvrez-le et choisissez le calendrier où l'ajouter. Chaque période chez un parent devient un événement d'une ou plusieurs journées."
       }
     ]
   },
   "offre": {
-    "titre": "À RÉDIGER : nom de l'offre complète",
-    "texte": "À RÉDIGER : ce que la version complète apportera (piste : partage synchronisé entre les deux parents et historique des échanges de jours)"
+    "titre": "Planning Garde Alternée partagé",
+    "texte": "La version complète permettra aux deux parents de suivre le même calendrier, chacun sur son téléphone, et gardera l'historique des échanges de jours : qui a demandé quoi, et quand. Un courriel suffit pour recevoir un mot le jour de son ouverture."
   }
 }
