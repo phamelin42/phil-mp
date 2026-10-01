@@ -155,6 +155,12 @@ comparent ; un nom se déclare aussi dans `EVENEMENTS` de `tools/umami.mjs`
 - Une liste de valeurs (produits, formats, typographies) est testée en
   entier, en boucle.
 - Impression : vérifier sur un vrai PDF, pas sur `innerText`.
+- `print.css` est liée **avant** `styles.css` : à spécificité égale, `base.css`
+  l'emporte et l'en-tête du site s'imprimait. Chaque règle de `print.css`
+  commence par `:root`. Une page qui contient un `.document` n'imprime que lui.
+- Signal Forms coûte environ 16 ko au bundle initial (mesuré, même dans une
+  page paresseuse) : le code qu'il emploie vit dans `@angular/core`, déjà au
+  premier affichage. C'est le prix d'un formulaire, pas un saut anormal.
 - Prettier lit `__x__` comme du gras en Markdown et coupe un marqueur nu dans
   le CSS : le schematic ne substitue que `__SLUG__`, dans du code et de la
   configuration, et écrit les textes en JSON.
