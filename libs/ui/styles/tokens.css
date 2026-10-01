@@ -13,6 +13,9 @@
   /* Bord d'un champ de saisie : 3:1 au moins sur le fond (WCAG 1.4.11). */
   --color-line-strong: #857b8f;
   --color-danger: #b3261e;
+  /* Séries d'un calendrier (deux parents, deux équipes…) : fond clair sous l'encre. */
+  --color-serie-1: #cde6f2;
+  --color-serie-2: #fbdcbc;
   --color-on-primary: #ffffff;
   --color-focus: #1f5fbf;
 
@@ -24,6 +27,7 @@
   --text-base: 1.125rem;
   --text-small: 1rem;
   --text-print: 10pt;
+  --text-print-petit: 8pt;
   --text-lead: 1.375rem;
   --text-h1: clamp(1.875rem, 1.4rem + 2.4vw, 2.75rem);
   --text-h2: 1.5rem;
@@ -54,6 +58,8 @@
   --color-line: #4a4252;
   --color-line-strong: #8d8496;
   --color-danger: #ffb4ab;
+  --color-serie-1: #1f4b5e;
+  --color-serie-2: #5c3b1a;
   --color-focus: #8fb8ff;
   --shadow: none;
 }
@@ -68,6 +74,8 @@
     --color-line: #ddd5e0;
     --color-line-strong: #857b8f;
     --color-danger: #b3261e;
+    --color-serie-1: #cde6f2;
+    --color-serie-2: #fbdcbc;
   }
 }
 
