@@ -103,6 +103,14 @@ Angular 22 (standalone, signaux, zoneless, `@Service()`), Ionic 9 (formulaires,
 prêts pour l'app Capacitor, `docs/adr-003-bibliotheque-graphique.md`), pré-rendu
 `@angular/ssr`, Vitest, ESLint, Prettier, Playwright + axe. Node 24.
 
+Session distante : l'image fournit Node 22.22.0, que la CLI d'Angular refuse
+(minimum 22.22.3 ou 24.15). `.claude/hooks/session-start.sh` installe Node 24
+par nvm (`/opt/nvm`) et le met en tête du PATH ; sans lui, dans un shell :
+`source /opt/nvm/nvm.sh && nvm use 24`. Il pose aussi
+`PW_CHROMIUM=/opt/pw-browsers/chromium` : le Chromium de l'image n'a pas la
+révision attendue par Playwright (audit, icônes, hook pre-push). Pour attendre une commande, ne pas
+boucler sur `pgrep -f` : le motif se retrouve lui-même.
+
 | Commande                            | Rôle                                                            |
 | ----------------------------------- | --------------------------------------------------------------- |
 | `npm run nouveau-produit -- <slug>` | crée un produit depuis `produits.json`                          |
