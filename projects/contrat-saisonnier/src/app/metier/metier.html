@@ -1,0 +1,634 @@
+<section class="card hors-impression" aria-labelledby="metier-titre">
+  <h2 id="metier-titre">Votre contrat</h2>
+  <p class="etat" role="status">
+    @switch (enregistrement()) {
+      @case ('enregistre') {
+        Enregistré sur cet appareil.
+      }
+      @case ('erreur') {
+        L’enregistrement a échoué&nbsp;: gardez cette page ouverte et exportez votre contrat.
+      }
+      @default {
+        Votre saisie reste sur cet appareil et s’enregistre au fil de l’eau.
+      }
+    }
+  </p>
+
+  <div class="progression">
+    <p class="etat" id="progression-texte">
+      {{ completes().size }} étape{{ completes().size > 1 ? 's' : '' }} complète{{
+        completes().size > 1 ? 's' : ''
+      }}
+      sur {{ etapes }}
+    </p>
+    <progress
+      class="jauge"
+      [max]="etapes"
+      [value]="completes().size"
+      aria-labelledby="progression-texte"
+    ></progress>
+  </div>
+</section>
+
+<section class="card hors-impression" aria-labelledby="etape-parties">
+  <h2 id="etape-parties" class="etape" [class.etape-faite]="faite('parties')">
+    <span class="etape-numero" aria-hidden="true">1</span>Propriétaire et locataire
+  </h2>
+  <fieldset class="sous-carte">
+    <legend>Vous, le propriétaire</legend>
+    <div class="grille-champs">
+      <ion-input
+        label="Nom et prénom"
+        labelPlacement="stacked"
+        fill="outline"
+        id="bailleur-nom"
+        autocomplete="name"
+        [formField]="f.bailleur.nom"
+        [errorText]="erreurChamp(f.bailleur.nom())"
+      ></ion-input>
+      <ion-input
+        label="Téléphone (facultatif)"
+        labelPlacement="stacked"
+        fill="outline"
+        id="bailleur-telephone"
+        type="tel"
+        autocomplete="tel"
+        [formField]="f.bailleur.telephone"
+        [errorText]="erreurChamp(f.bailleur.telephone())"
+      ></ion-input>
+      <ion-textarea
+        label="Adresse"
+        labelPlacement="stacked"
+        fill="outline"
+        id="bailleur-adresse"
+        rows="2"
+        autocomplete="street-address"
+        [formField]="f.bailleur.adresse"
+        [autoGrow]="true"
+        [errorText]="erreurChamp(f.bailleur.adresse())"
+        class="champ-large"
+      ></ion-textarea>
+      <ion-input
+        label="E-mail (facultatif)"
+        labelPlacement="stacked"
+        fill="outline"
+        id="bailleur-email"
+        type="email"
+        autocomplete="email"
+        [formField]="f.bailleur.email"
+        [errorText]="erreurChamp(f.bailleur.email())"
+      ></ion-input>
+    </div>
+  </fieldset>
+  <fieldset class="sous-carte">
+    <legend>Le locataire</legend>
+    <div class="grille-champs">
+      <ion-input
+        label="Nom et prénom du locataire"
+        labelPlacement="stacked"
+        fill="outline"
+        id="locataire-nom"
+        [formField]="f.locataire.nom"
+        [errorText]="erreurChamp(f.locataire.nom())"
+      ></ion-input>
+      <ion-input
+        label="Téléphone du locataire (facultatif)"
+        labelPlacement="stacked"
+        fill="outline"
+        id="locataire-telephone"
+        type="tel"
+        [formField]="f.locataire.telephone"
+        [errorText]="erreurChamp(f.locataire.telephone())"
+      ></ion-input>
+      <ion-textarea
+        label="Adresse habituelle du locataire"
+        labelPlacement="stacked"
+        fill="outline"
+        id="locataire-adresse"
+        rows="2"
+        [formField]="f.locataire.adresse"
+        [autoGrow]="true"
+        [errorText]="erreurChamp(f.locataire.adresse())"
+        class="champ-large"
+      ></ion-textarea>
+      <ion-input
+        label="E-mail du locataire (facultatif)"
+        labelPlacement="stacked"
+        fill="outline"
+        id="locataire-email"
+        type="email"
+        [formField]="f.locataire.email"
+        [errorText]="erreurChamp(f.locataire.email())"
+      ></ion-input>
+    </div>
+  </fieldset>
+</section>
+
+<section class="card hors-impression" aria-labelledby="etape-logement">
+  <h2 id="etape-logement" class="etape" [class.etape-faite]="faite('logement')">
+    <span class="etape-numero" aria-hidden="true">2</span>Le logement
+  </h2>
+  <div class="grille-champs">
+    <label class="champ-liste">
+      <span>Type de logement</span>
+      <select id="logement-type" [formField]="f.logement.type">
+        <option value="appartement">Appartement</option>
+        <option value="maison">Maison</option>
+        <option value="studio">Studio</option>
+        <option value="chalet">Chalet</option>
+        <option value="autre">Autre</option>
+      </select>
+    </label>
+    <label class="champ-liste">
+      <span>Classement</span>
+      <select id="logement-classement" [formField]="f.logement.classement">
+        <option value="non-classe">Non classé</option>
+        <option value="1">1 étoile</option>
+        <option value="2">2 étoiles</option>
+        <option value="3">3 étoiles</option>
+        <option value="4">4 étoiles</option>
+        <option value="5">5 étoiles</option>
+      </select>
+    </label>
+    <ion-textarea
+      label="Adresse du logement loué"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-adresse"
+      rows="2"
+      [formField]="f.logement.adresse"
+      [autoGrow]="true"
+      [errorText]="erreurChamp(f.logement.adresse())"
+      class="champ-large"
+    ></ion-textarea>
+    <ion-input
+      label="Surface (m², facultatif)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-surface"
+      type="number"
+      inputmode="decimal"
+      [formField]="f.logement.surface"
+      [errorText]="erreurChamp(f.logement.surface())"
+    ></ion-input>
+    <ion-input
+      label="Nombre de pièces"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-pieces"
+      type="number"
+      inputmode="numeric"
+      [formField]="f.logement.pieces"
+      [errorText]="erreurChamp(f.logement.pieces())"
+    ></ion-input>
+    <ion-input
+      label="Capacité (personnes)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-capacite"
+      type="number"
+      inputmode="numeric"
+      [formField]="f.logement.capacite"
+      [errorText]="erreurChamp(f.logement.capacite())"
+    ></ion-input>
+    <ion-input
+      label="Numéro d’enregistrement (facultatif)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-enregistrement"
+      helperText="Celui que la mairie vous a attribué, s’il y en a un"
+      [formField]="f.logement.enregistrement"
+      [errorText]="erreurChamp(f.logement.enregistrement())"
+    ></ion-input>
+    <ion-textarea
+      label="Description du logement"
+      labelPlacement="stacked"
+      fill="outline"
+      id="logement-description"
+      rows="4"
+      helperText="Étage, vue, couchages, équipements, extérieur, stationnement"
+      [formField]="f.logement.description"
+      [autoGrow]="true"
+      [errorText]="erreurChamp(f.logement.description())"
+      class="champ-large"
+    ></ion-textarea>
+  </div>
+</section>
+
+<section class="card hors-impression" aria-labelledby="etape-sejour">
+  <h2 id="etape-sejour" class="etape" [class.etape-faite]="faite('sejour')">
+    <span class="etape-numero" aria-hidden="true">3</span>Le séjour
+  </h2>
+  <div class="grille-champs">
+    <ion-input
+      label="Arrivée"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-arrivee"
+      type="date"
+      [formField]="f.sejour.arrivee"
+      [errorText]="erreurChamp(f.sejour.arrivee())"
+    ></ion-input>
+    <ion-input
+      label="À partir de"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-heureArrivee"
+      type="time"
+      [formField]="f.sejour.heureArrivee"
+    ></ion-input>
+    <ion-input
+      label="Départ"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-depart"
+      type="date"
+      [formField]="f.sejour.depart"
+      [errorText]="erreurChamp(f.sejour.depart())"
+    ></ion-input>
+    <ion-input
+      label="Au plus tard à"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-heureDepart"
+      type="time"
+      [formField]="f.sejour.heureDepart"
+    ></ion-input>
+    <ion-input
+      label="Adultes"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-adultes"
+      type="number"
+      inputmode="numeric"
+      [formField]="f.sejour.adultes"
+      [errorText]="erreurChamp(f.sejour.adultes())"
+    ></ion-input>
+    <ion-input
+      label="Enfants"
+      labelPlacement="stacked"
+      fill="outline"
+      id="sejour-enfants"
+      type="number"
+      inputmode="numeric"
+      [formField]="f.sejour.enfants"
+      [errorText]="erreurChamp(f.sejour.enfants())"
+    ></ion-input>
+  </div>
+  @if (montants().nuits; as n) {
+    <p class="etat">Séjour de {{ pluriel(n, 'nuit') }}.</p>
+  }
+</section>
+
+<section class="card hors-impression" aria-labelledby="etape-prix">
+  <h2 id="etape-prix" class="etape" [class.etape-faite]="faite('prix')">
+    <span class="etape-numero" aria-hidden="true">4</span>Prix et paiement
+  </h2>
+  <div class="grille-champs">
+    <ion-input
+      label="Loyer du séjour (€)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="prix-loyer"
+      type="number"
+      inputmode="decimal"
+      step="any"
+      helperText="Pour le séjour entier"
+      [formField]="f.prix.loyer"
+      [errorText]="erreurChamp(f.prix.loyer())"
+    ></ion-input>
+    <div class="champ-large">
+      <p class="aide" id="prix-charges-libelle">Charges</p>
+      <ion-segment
+        id="prix-charges"
+        aria-labelledby="prix-charges-libelle"
+        [formField]="f.prix.charges"
+      >
+        <ion-segment-button value="comprises">
+          <ion-label>Comprises</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="en-sus">
+          <ion-label>En supplément</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    @if (modele().prix.charges === 'en-sus') {
+      <ion-textarea
+        label="Charges en supplément"
+        labelPlacement="stacked"
+        fill="outline"
+        id="prix-detailCharges"
+        rows="2"
+        helperText="Par exemple&nbsp;: ménage de fin de séjour 60&nbsp;€, électricité au compteur"
+        [formField]="f.prix.detailCharges"
+        [autoGrow]="true"
+        [errorText]="erreurChamp(f.prix.detailCharges())"
+        class="champ-large"
+      ></ion-textarea>
+    }
+    <div class="champ-large">
+      <p class="aide" id="prix-versement-libelle">Somme versée à la réservation</p>
+      <ion-segment
+        id="prix-versement"
+        aria-labelledby="prix-versement-libelle"
+        [formField]="f.prix.versement"
+      >
+        <ion-segment-button value="arrhes">
+          <ion-label>Arrhes</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="acompte">
+          <ion-label>Acompte</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <p class="aide">
+        @if (modele().prix.versement === 'arrhes') {
+          Arrhes&nbsp;: chacun peut se dédire, le locataire en les perdant, vous en rendant le
+          double.
+        } @else {
+          Acompte&nbsp;: la réservation est ferme, le locataire qui annule doit le loyer entier.
+        }
+      </p>
+    </div>
+    <ion-input
+      label="Montant versé (€)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="prix-montantVersement"
+      type="number"
+      inputmode="decimal"
+      step="any"
+      [helperText]="part() ? part() + '&nbsp;% du loyer' : ''"
+      [formField]="f.prix.montantVersement"
+      [errorText]="erreurChamp(f.prix.montantVersement())"
+    ></ion-input>
+    <ion-input
+      label="Solde payé"
+      labelPlacement="stacked"
+      fill="outline"
+      id="prix-echeanceSolde"
+      helperText="Par exemple&nbsp;: le jour de l’arrivée, 30 jours avant l’arrivée"
+      [formField]="f.prix.echeanceSolde"
+      [errorText]="erreurChamp(f.prix.echeanceSolde())"
+    ></ion-input>
+    <ion-input
+      label="Taxe de séjour (€ par adulte et par nuit)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="prix-taxeSejour"
+      type="number"
+      inputmode="decimal"
+      step="any"
+      helperText="Tarif de votre commune&nbsp;; 0 s’il reste à préciser"
+      [formField]="f.prix.taxeSejour"
+      [errorText]="erreurChamp(f.prix.taxeSejour())"
+    ></ion-input>
+    <ion-input
+      label="Dépôt de garantie (€)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="prix-depotGarantie"
+      type="number"
+      inputmode="decimal"
+      step="any"
+      helperText="0 si vous n’en demandez pas"
+      [formField]="f.prix.depotGarantie"
+      [errorText]="erreurChamp(f.prix.depotGarantie())"
+    ></ion-input>
+    @if (modele().prix.depotGarantie > 0) {
+      <ion-input
+        label="Restitué sous (jours)"
+        labelPlacement="stacked"
+        fill="outline"
+        id="prix-restitutionJours"
+        type="number"
+        inputmode="numeric"
+        helperText="Après le départ"
+        [formField]="f.prix.restitutionJours"
+        [errorText]="erreurChamp(f.prix.restitutionJours())"
+      ></ion-input>
+    }
+  </div>
+
+  @if (montants(); as m) {
+    <div class="resume">
+      <p>
+        Le séjour vous rapporte
+        <strong class="chiffre-cle">{{ eur(m.loyer) }}</strong>
+      </p>
+      <div class="grille-champs">
+        <p>
+          À la réservation<br /><strong>{{ eur(m.versement) }}</strong>
+        </p>
+        <p>
+          Solde<br /><strong>{{ eur(m.solde) }}</strong>
+        </p>
+        <p>
+          Taxe de séjour<br /><strong>{{ m.taxe ? eur(m.taxe) : 'selon la commune' }}</strong>
+        </p>
+        <p>
+          Dépôt de garantie<br /><strong>{{ eur(m.depot) }}</strong>
+        </p>
+      </div>
+    </div>
+  }
+</section>
+
+<section
+  class="card hors-impression"
+  aria-labelledby="etape-inventaire"
+  [attr.aria-describedby]="erreurDe(f.pieces()) ? 'pieces-erreur' : null"
+>
+  <h2 id="etape-inventaire" class="etape" [class.etape-faite]="faite('inventaire')">
+    <span class="etape-numero" aria-hidden="true">5</span>Inventaire, pièce par pièce
+  </h2>
+  <p class="aide">
+    Ce qui est fourni avec le logement. L’état de chaque élément se note sur place, à l’arrivée puis
+    au départ, sur l’annexe imprimée.
+  </p>
+  @for (piece of f.pieces; track $index; let i = $index) {
+    <fieldset class="sous-carte">
+      <legend>Pièce {{ i + 1 }}</legend>
+      <div class="ligne-champ">
+        <ion-input
+          label="Nom de la pièce"
+          labelPlacement="stacked"
+          fill="outline"
+          [id]="'piece-' + i + '-nom'"
+          [formField]="piece.nom"
+        ></ion-input>
+      </div>
+      @for (o of piece.objets; track $index; let j = $index) {
+        <div class="ligne-champ">
+          <ion-input
+            [label]="'Élément ' + (j + 1)"
+            labelPlacement="stacked"
+            fill="outline"
+            [id]="'piece-' + i + '-objet-' + j"
+            [formField]="o.designation"
+          ></ion-input>
+          <ion-input
+            [label]="'Quantité ' + (j + 1)"
+            labelPlacement="stacked"
+            fill="outline"
+            type="number"
+            inputmode="numeric"
+            [id]="'piece-' + i + '-quantite-' + j"
+            [formField]="o.quantite"
+          ></ion-input>
+          <ion-button fill="outline" (click)="supprimerObjet(i, j)">
+            Retirer l’élément {{ j + 1 }}
+          </ion-button>
+        </div>
+      }
+      <div class="actions">
+        <ion-button
+          fill="outline"
+          [id]="'piece-' + i + '-ajouter-objet'"
+          [disabled]="piece().value().objets.length >= limites.objets"
+          (click)="ajouterObjet(i)"
+        >
+          Ajouter un élément
+        </ion-button>
+        @if (pieceASupprimer() === i) {
+          <p [id]="'confirmer-piece-' + i" role="alert">
+            Retirer la pièce {{ piece().value().nom || i + 1 }} et son inventaire&nbsp;?
+          </p>
+          <ion-button [attr.aria-describedby]="'confirmer-piece-' + i" (click)="supprimerPiece(i)">
+            Retirer la pièce
+          </ion-button>
+          <ion-button fill="outline" (click)="pieceASupprimer.set(null)">Garder</ion-button>
+        } @else {
+          <ion-button
+            fill="outline"
+            [disabled]="modele().pieces.length <= 1"
+            (click)="pieceASupprimer.set(i)"
+          >
+            Supprimer la pièce {{ i + 1 }}
+          </ion-button>
+        }
+      </div>
+    </fieldset>
+  }
+  @if (erreurDe(f.pieces()); as e) {
+    <p class="erreur" id="pieces-erreur">{{ e }}</p>
+  }
+  <div class="actions">
+    <ion-button
+      id="ajouter-piece"
+      fill="outline"
+      [disabled]="modele().pieces.length >= limites.pieces"
+      (click)="ajouterPiece()"
+    >
+      Ajouter une pièce
+    </ion-button>
+  </div>
+</section>
+
+<section class="card hors-impression" aria-labelledby="etape-signature">
+  <h2 id="etape-signature" class="etape" [class.etape-faite]="faite('signature')">
+    <span class="etape-numero" aria-hidden="true">6</span>Conditions et signature
+  </h2>
+  <div class="grille-champs">
+    <ion-textarea
+      label="Conditions particulières (facultatif)"
+      labelPlacement="stacked"
+      fill="outline"
+      id="particulieres"
+      rows="3"
+      helperText="Animaux, linge fourni, ménage, accès au jardin&nbsp;: une condition par ligne"
+      [formField]="f.particulieres"
+      [autoGrow]="true"
+      [errorText]="erreurChamp(f.particulieres())"
+      class="champ-large"
+    ></ion-textarea>
+    <ion-input
+      label="Fait à"
+      labelPlacement="stacked"
+      fill="outline"
+      id="lieu"
+      [formField]="f.lieu"
+      [errorText]="erreurChamp(f.lieu())"
+    ></ion-input>
+    <ion-input
+      label="Le"
+      labelPlacement="stacked"
+      fill="outline"
+      id="date"
+      type="date"
+      [formField]="f.date"
+      [errorText]="erreurChamp(f.date())"
+    ></ion-input>
+  </div>
+
+  @if (charge() && manquants().length) {
+    <div>
+      <h3>Il manque encore</h3>
+      <ul>
+        @for (m of manquants(); track m.champ) {
+          <li>
+            <a [href]="'#' + cible(m.champ)" (click)="$event.preventDefault(); allerA(m.champ)">{{
+              m.libelle
+            }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  } @else if (charge()) {
+    <p>
+      <strong>Votre contrat est complet.</strong> Relisez l’aperçu, puis imprimez-le en deux
+      exemplaires.
+    </p>
+  }
+</section>
+
+@if (charge()) {
+  <div class="barre-collante hors-impression">
+    <p>
+      Loyer du séjour<br />
+      <strong class="chiffre-barre">{{ eur(montants().loyer) }}</strong>
+    </p>
+    <ion-button href="#apercu-section">Voir le contrat</ion-button>
+  </div>
+}
+
+<section class="card" aria-labelledby="apercu-section">
+  <h2 id="apercu-section" class="hors-impression">Aperçu</h2>
+  <app-apercu-contrat [contrat]="modele()" />
+
+  <div class="hors-impression">
+    <h3>Exporter</h3>
+    <div class="actions">
+      <ion-button aria-describedby="consigne-pdf" (click)="exporter('pdf')">
+        Télécharger en PDF
+      </ion-button>
+      <ion-button
+        fill="outline"
+        aria-describedby="consigne-impression"
+        (click)="exporter('impression')"
+      >
+        Imprimer
+      </ion-button>
+    </div>
+    <p class="aide" id="consigne-pdf">{{ consignes.pdf }}</p>
+    <p class="aide" id="consigne-impression">{{ consignes.impression }}</p>
+
+    <div class="actions">
+      @if (!confirmerNouveau()) {
+        <ion-button fill="outline" (click)="confirmerNouveau.set(true)">
+          Nouveau contrat
+        </ion-button>
+      } @else {
+        <p id="confirmer-nouveau" role="alert">
+          Effacer le locataire, les dates et le loyer&nbsp;? Le logement, l’inventaire et vos
+          conditions restent.
+        </p>
+        <ion-button aria-describedby="confirmer-nouveau" (click)="nouveauContrat()">
+          Effacer et commencer
+        </ion-button>
+        <ion-button fill="outline" (click)="confirmerNouveau.set(false)">
+          Garder ce contrat
+        </ion-button>
+      }
+    </div>
+  </div>
+</section>
