@@ -4,64 +4,68 @@
     "chapo": "Toute votre collection dans votre poche, photos et valeurs comprises, prête pour l'assurance.",
     "explication": [
       {
-        "titre": "À RÉDIGER : intertitre 1",
-        "texte": "À RÉDIGER : étape 1 de l'utilisation, avec les mots de « application inventaire collection »"
+        "titre": "1. Une collection par passion",
+        "texte": "Créez autant de collections que vous en avez : vinyles, timbres, Lego, cartes Pokémon, monnaies, montres. Chacune garde ses objets à part, avec son propre total. Passez de l'une à l'autre d'un appui, sans menu à fouiller."
       },
       {
-        "titre": "À RÉDIGER : intertitre 2",
-        "texte": "À RÉDIGER : étape 2 de l'utilisation, avec les mots de « application inventaire collection »"
+        "titre": "2. Une fiche par objet, photo comprise",
+        "texte": "Pour chaque pièce, notez le nom, l'état sur une échelle de six niveaux, de « Neuf, sous blister ou scellé » à « Abîmé ou incomplet », la valeur que vous lui donnez, la date d'achat et ce qui la distingue : pressage, numéro de set, oblitération.\n\nPrenez la photo avec votre téléphone : elle est réduite sur place, si bien que des centaines d'objets tiennent sans remplir la mémoire. La recherche retrouve une pièce en quelques lettres, même sans accents."
       },
       {
-        "titre": "À RÉDIGER : intertitre 3",
-        "texte": "À RÉDIGER : étape 3 de l'utilisation, avec les mots de « application inventaire collection »"
+        "titre": "3. Un inventaire à remettre à votre assureur",
+        "texte": "Le PDF liste chaque collection avec les photos, l'état, la date d'achat, la valeur estimée et les totaux. Le CSV s'ouvre dans un tableur pour trier, filtrer ou suivre l'évolution de la cote. Vos fiches ne quittent jamais votre appareil : pas de compte, pas de serveur, et l'application marche aussi hors connexion."
       }
     ],
     "exemples": [
       {
-        "titre": "À RÉDIGER : intertitre 4",
-        "texte": "À RÉDIGER : exemple concret 1, chiffré, tiré du métier"
+        "titre": "Des vinyles des années 60 et 70",
+        "texte": "Claire possède 240 vinyles hérités de son père. En une soirée, elle photographie les 30 plus rares : un premier pressage français d'Abbey Road estimé à 45 €, un Led Zeppelin II à 60 €, un Pink Floyd en très bon état à 80 €. Le total de la collection, 3 150 €, s'affiche sous son nom, et le PDF rejoint le dossier de son assurance habitation."
       },
       {
-        "titre": "À RÉDIGER : intertitre 5",
-        "texte": "À RÉDIGER : exemple concret 2, chiffré, tiré du métier"
+        "titre": "Des boîtes Lego encore scellées",
+        "texte": "Thomas garde 18 boîtes Lego jamais ouvertes. Il note pour chacune le numéro du set, l'état « Neuf, sous blister ou scellé » et la valeur relevée sur les sites de revente : 650 € pour le Faucon Millenium 75192, 180 € pour le Poudlard 71043. Le total atteint 2 480 €, et l'export CSV lui permet de comparer d'une année sur l'autre."
       }
     ]
   },
   "aide": {
     "titre": "Aide de Inventaire Collection",
-    "description": "À RÉDIGER : description de la page d'aide, 140 à 160 caractères, propre à ce produit",
-    "intro": "À RÉDIGER : à qui s'adresse l'aide et ce qu'on y trouve",
+    "description": "Inventorier sa collection pas à pas : fiches, photos, état, valeur, recherche, export PDF pour l'assurance et CSV. Réponses aux questions des collectionneurs.",
+    "intro": "Pour les collectionneurs qui veulent enfin savoir ce qu'ils possèdent, et ce que cela vaut. Vous trouverez ici comment remplir vos fiches vite, estimer une valeur et préparer un inventaire à remettre en cas de sinistre.",
     "sections": [
       {
-        "titre": "À RÉDIGER : intertitre 6",
-        "texte": "À RÉDIGER : question pratique 1 traitée pas à pas"
+        "titre": "Inventorier une grande collection sans y passer le week-end",
+        "texte": "Commencez par les pièces de valeur : ce sont elles qu'un assureur demandera de justifier. Une photo nette et une valeur suffisent ; la note et la date d'achat peuvent attendre.\n\nPhotographiez à la lumière du jour, l'objet seul sur un fond uni. Pour un vinyle, prenez la pochette ; pour un timbre ou une carte, cadrez serré.\n\nAvancez par lots de vingt : le brouillon de la fiche en cours est gardé, et vous reprenez où vous en étiez à la prochaine ouverture."
       },
       {
-        "titre": "À RÉDIGER : intertitre 7",
-        "texte": "À RÉDIGER : question pratique 2 traitée pas à pas"
+        "titre": "Estimer la valeur d'un objet",
+        "texte": "Notez ce que l'objet vaudrait à la revente aujourd'hui, pas ce que vous l'avez payé. Les prix réellement obtenus sur les sites de vente entre particuliers sont un meilleur repère que les annonces encore en ligne.\n\nL'état pèse lourd : une boîte Lego scellée vaut souvent bien plus qu'un set complet monté. Choisissez le niveau d'état avec honnêteté, il figure sur le PDF.\n\nRevenez sur vos estimations une fois par an : la modification d'une fiche ne change ni sa photo ni sa date d'achat."
       }
     ],
     "faq": [
       {
-        "question": "À RÉDIGER : question fréquente 1, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Quelle application pour faire l'inventaire de sa collection ?",
+        "reponse": "Inventaire Collection fonctionne dans le navigateur de votre téléphone ou de votre ordinateur, sans téléchargement ni compte. Installez-la sur l'écran d'accueil pour l'ouvrir comme une application, même sans réseau."
       },
       {
-        "question": "À RÉDIGER : question fréquente 2, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment estimer la valeur de ma collection de vinyles ?",
+        "reponse": "Cherchez le pressage exact, grâce aux inscriptions de la pochette et du rond central, puis relevez les prix de vente récents de ce pressage dans le même état. Notez cette valeur dans la fiche : le total de la collection se met à jour aussitôt."
       },
       {
-        "question": "À RÉDIGER : question fréquente 3, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment faire un inventaire de collection pour l'assurance ?",
+        "reponse": "Remplissez une fiche avec photo pour chaque pièce de valeur, puis appuyez sur « Télécharger en PDF ». Le document donne pour chaque objet sa photo, son état, sa date d'achat et sa valeur estimée, avec un total par collection. Gardez aussi vos factures : votre assureur vous dira quels justificatifs il accepte."
       },
       {
-        "question": "À RÉDIGER : question fréquente 4, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Mes photos et ma collection sont-elles envoyées sur Internet ?",
+        "reponse": "Non. Les fiches et les photos restent dans le navigateur de votre appareil. Pensez donc à exporter régulièrement le PDF et le CSV : si vous changez de téléphone ou effacez les données du navigateur, ce sont vos copies de sauvegarde."
+      },
+      {
+        "question": "Puis-je ouvrir l'inventaire dans Excel ?",
+        "reponse": "Oui. « Exporter en CSV » crée un fichier qui s'ouvre directement dans Excel, LibreOffice ou Numbers, avec une ligne par objet : collection, nom, état, valeur, date d'achat et note."
       }
     ]
   },
   "offre": {
-    "titre": "À RÉDIGER : nom de l'offre complète",
-    "texte": "À RÉDIGER : ce que la version complète apportera (piste : synchronisation entre appareils et sauvegarde des photos)"
+    "titre": "Inventaire Collection, sur tous vos appareils",
+    "texte": "La version complète synchronisera votre inventaire entre le téléphone et l'ordinateur, et gardera une sauvegarde chiffrée de vos photos pour qu'aucune fiche ne se perde avec un appareil. Envoyez-nous un message pour savoir quand l'essayer."
   }
 }
