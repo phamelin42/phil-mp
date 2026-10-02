@@ -232,26 +232,6 @@ h3 {
   font-weight: 600;
 }
 
-.saisie {
-  width: 100%;
-  min-height: var(--tap);
-  padding: var(--space-2) var(--space-3);
-  border: 2px solid var(--color-line-strong);
-  border-radius: var(--radius-small);
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font: inherit;
-}
-
-textarea.saisie {
-  min-height: calc(var(--tap) * 2);
-  resize: vertical;
-}
-
-.saisie[aria-invalid='true'] {
-  border-color: var(--color-danger);
-}
-
 .aide,
 .etat {
   margin: 0;
@@ -264,27 +244,6 @@ textarea.saisie {
   color: var(--color-danger);
   font-size: var(--text-small);
   font-weight: 600;
-}
-
-.choix {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--space-6);
-}
-
-.option {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: var(--tap);
-  cursor: pointer;
-}
-
-.option > input {
-  width: var(--space-6);
-  height: var(--space-6);
-  margin: 0;
-  accent-color: var(--color-primary);
 }
 
 .sous-carte {
@@ -483,14 +442,6 @@ mp-calendrier-mois {
 /* Élément qui n'existe qu'à l'impression (print.css l'affiche). */
 .impression-seule {
   display: none;
-}
-
-/* Choix exclusif entre quelques boutons : le bouton actif est plein. */
-.choix-collections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
 }
 
 .btn[aria-pressed='true'] {
