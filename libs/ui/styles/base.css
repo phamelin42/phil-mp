@@ -313,6 +313,13 @@ h3 {
   margin-bottom: var(--space-6);
 }
 
+/* Annexe d'un document (état des lieux, inventaire) : séparée à l'écran, sur sa page à l'impression. */
+.document-annexe {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+}
+
 .tableau-defilant {
   max-width: 100%;
   overflow-x: auto;
