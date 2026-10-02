@@ -472,3 +472,55 @@ mp-calendrier-mois {
   height: var(--space-6);
   border: 1px solid var(--color-line-strong);
 }
+
+/* Élément qui n'existe qu'à l'impression (print.css l'affiche). */
+.impression-seule {
+  display: none;
+}
+
+/* Choix exclusif entre quelques boutons : le bouton actif est plein. */
+.choix-collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.btn[aria-pressed='true'] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* Liste de fiches : vignette, texte, actions. */
+.liste-objets {
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liste-objets > li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.liste-objets > li > .actions {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+.liste-objets h3,
+.liste-objets p {
+  margin: 0;
+}
+
+.vignette {
+  display: block;
+  width: calc(var(--tap) * 2);
+  height: calc(var(--tap) * 2);
+  border-radius: var(--radius-small);
+  background: var(--color-bg);
+  object-fit: cover;
+}
