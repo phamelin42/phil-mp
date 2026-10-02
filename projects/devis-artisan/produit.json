@@ -17,12 +17,12 @@
     "statut": "bientot"
   },
   "editeur": {
-    "nom": "À COMPLÉTER",
-    "statut": "À COMPLÉTER (entrepreneur individuel, SIREN …)",
-    "adresse": "À COMPLÉTER",
-    "contact": "À COMPLÉTER",
+    "nom": "Philippe Hamelin",
+    "statut": "Entrepreneur individuel (EI), SIREN 993 328 970 00013",
+    "adresse": "24 Rue frédéric Chopin, 92160 Antony",
+    "contact": "hamelinphilippe1@gmail.com",
     "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
-  },
+  }
   "mesure": {
     "origine": "https://analytics.patternreader.com",
     "siteId": "",
