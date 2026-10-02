@@ -1,10 +1,10 @@
 {
   "$commentaire": "Une entrée par produit : c'est la configuration que le schematic recopie dans projects/<slug>/produit.json, avec `editeur` et `mesure` communs. `domaine` : un sous-domaine de phamelin.fr par produit, pour l'instant ; un domaine propre se donnera à un produit qui a du trafic. `mesure.proprieteSearchConsole` : la propriété « domaine » phamelin.fr, vérifiée une fois par DNS, couvre tous les sous-domaines ; le rapport filtre les pages de chaque produit. `theme.accentFonce` porte du texte blanc (contraste ≥ 4,5:1) ; avec `theme.sombre`, `theme.accent` sert de couleur de lien sur fond sombre (≥ 4,5:1). `public`, `fonction` et `offreEnvisagee` sont des notes internes, jamais affichées : le texte visible vit dans le contenu.json du produit, rédigé pour lui seul.",
   "editeur": {
-    "nom": "À COMPLÉTER",
-    "statut": "À COMPLÉTER (entrepreneur individuel, SIREN …)",
-    "adresse": "À COMPLÉTER",
-    "contact": "À COMPLÉTER",
+    "nom": "Philippe Hamelin",
+    "statut": "Entrepreneur individuel (EI), SIRET 993 328 970 00013",
+    "adresse": "24 rue Frédéric-Chopin, 92160 Antony",
+    "contact": "hamelinphilippe1@gmail.com",
     "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
   },
   "mesure": {
