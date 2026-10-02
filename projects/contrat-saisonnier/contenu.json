@@ -4,64 +4,72 @@
     "chapo": "Un contrat de location saisonnière complet, état des lieux et inventaire compris, en PDF.",
     "explication": [
       {
-        "titre": "À RÉDIGER : intertitre 1",
-        "texte": "À RÉDIGER : étape 1 de l'utilisation, avec les mots de « modèle contrat location saisonnière gratuit »"
+        "titre": "1. Les parties, le logement et son état descriptif",
+        "texte": "Commencez par vous, le propriétaire, puis par votre locataire : nom et adresse habituelle suffisent. Décrivez ensuite le meublé tel qu'il est : type, surface, nombre de pièces, capacité d'accueil, classement en étoiles s'il en a un, numéro d'enregistrement donné par la mairie s'il existe. La description libre (étage, couchages, équipements, vue, stationnement) devient l'état descriptif que le Code du tourisme exige dans tout contrat de location saisonnière : c'est elle qui vous protège si un vacancier se plaint d'un logement « différent des photos »."
       },
       {
-        "titre": "À RÉDIGER : intertitre 2",
-        "texte": "À RÉDIGER : étape 2 de l'utilisation, avec les mots de « modèle contrat location saisonnière gratuit »"
+        "titre": "2. Le séjour, le prix et ce qui se paie quand",
+        "texte": "Saisissez les dates et heures d'arrivée et de départ, le nombre d'adultes et d'enfants, puis le loyer du séjour. L'outil compte les nuits, refuse un séjour de plus de 90 jours ou plus d'occupants que de couchages, et affiche le loyer moyen par nuit. Choisissez entre arrhes et acompte : la différence est expliquée sous le bouton, et la clause qui va avec s'écrit seule dans le contrat. Ajoutez le tarif de taxe de séjour de votre commune, que l'outil applique aux seuls adultes, et le dépôt de garantie avec son délai de restitution."
       },
       {
-        "titre": "À RÉDIGER : intertitre 3",
-        "texte": "À RÉDIGER : étape 3 de l'utilisation, avec les mots de « modèle contrat location saisonnière gratuit »"
+        "titre": "3. L'inventaire pièce par pièce, puis l'impression",
+        "texte": "Quatre pièces vous sont proposées avec leur mobilier courant : renommez-les, retirez ce que vous n'avez pas, ajoutez la vaisselle ou le linge que vous fournissez. Le contrat se compose à mesure, article par article, sous vos yeux. À l'impression, l'état des lieux et l'inventaire sortent sur une page à part, avec des colonnes Entrée et Sortie à cocher sur place avec le locataire. Ce modèle de contrat de location saisonnière gratuit reste enregistré sur votre téléphone ou votre ordinateur, sans compte : rien n'est envoyé à un serveur."
       }
     ],
     "exemples": [
       {
-        "titre": "À RÉDIGER : intertitre 4",
-        "texte": "À RÉDIGER : exemple concret 1, chiffré, tiré du métier"
+        "titre": "Une semaine de juillet dans un deux-pièces à Annecy",
+        "texte": "Claire loue son appartement de 42 m² au bord du lac, quatre couchages, 840 € la semaine du 10 au 17 juillet. Elle demande 210 € d'arrhes à la réservation, soit un quart du loyer, et le solde de 630 € le jour de l'arrivée. Sa commune applique 1,50 € de taxe de séjour par adulte et par nuit : pour deux adultes et un enfant, le contrat indique 21 € pour sept nuits, l'enfant étant exonéré. Elle ajoute 400 € de dépôt de garantie, rendus sous quinze jours. Si la famille se désiste en juin, Claire garde les 210 € ; si c'est elle qui annule, elle en doit 420."
       },
       {
-        "titre": "À RÉDIGER : intertitre 5",
-        "texte": "À RÉDIGER : exemple concret 2, chiffré, tiré du métier"
+        "titre": "Un gîte en Bretagne loué à des habitués pour Pâques",
+        "texte": "Yannick loue la longère de sa grand-mère, six personnes, à une famille qui revient chaque année. Il fixe 1 150 € les dix nuits et préfère un acompte de 350 € : la réservation devient ferme, et un désistement de dernière minute ne lui ferait pas perdre la période. Le ménage de fin de séjour, 80 €, figure dans les charges en supplément ; animaux admis, mais pas dans les chambres, en condition particulière. L'année suivante, « Nouveau contrat » garde la maison, l'inventaire de la cuisine et ses conditions : il n'a plus qu'à changer les dates et le loyer."
       }
     ]
   },
   "aide": {
     "titre": "Aide de Contrat Location Saisonnière",
-    "description": "À RÉDIGER : description de la page d'aide, 140 à 160 caractères, propre à ce produit",
-    "intro": "À RÉDIGER : à qui s'adresse l'aide et ce qu'on y trouve",
+    "description": "Arrhes ou acompte, taxe de séjour, dépôt de garantie, état des lieux : comment remplir et faire signer votre contrat de location saisonnière.",
+    "intro": "Cette page s'adresse aux particuliers qui louent eux-mêmes une maison ou un appartement de vacances, sans passer par une plateforme. Vous y trouverez comment faire signer le contrat à distance, comment mener l'état des lieux le jour de l'arrivée, et les réponses aux questions qui reviennent le plus.",
     "sections": [
       {
-        "titre": "À RÉDIGER : intertitre 6",
-        "texte": "À RÉDIGER : question pratique 1 traitée pas à pas"
+        "titre": "Faire signer le contrat quand le locataire habite loin",
+        "texte": "Remplissez le contrat puis choisissez « Télécharger en PDF ». Signez-le et envoyez-le par e-mail ou par courrier avec un lien ou un RIB pour les arrhes. Le locataire l'imprime, le signe en écrivant « lu et approuvé », et vous le renvoie avec son versement : la réservation est acquise à réception des deux. Gardez un exemplaire signé par chacun. Joignez l'annexe d'état des lieux sans la remplir : elle se complète sur place."
       },
       {
-        "titre": "À RÉDIGER : intertitre 7",
-        "texte": "À RÉDIGER : question pratique 2 traitée pas à pas"
+        "titre": "Mener l'état des lieux à l'arrivée et au départ",
+        "texte": "Imprimez l'annexe en deux exemplaires avant l'arrivée. Parcourez chaque pièce avec le locataire et notez, dans la colonne Entrée, B pour bon état, U pour usure normale, D pour dégradé, M pour manquant ; une tache de canapé ou un verre ébréché se signale en observation. Signez tous les deux. Au départ, refaites le tour sur le même papier, colonne Sortie : seule une différence entre les deux colonnes justifie une retenue sur le dépôt de garantie, et elle doit pouvoir se chiffrer (facture, devis)."
       }
     ],
     "faq": [
       {
-        "question": "À RÉDIGER : question fréquente 1, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Un contrat de location saisonnière est-il obligatoire entre particuliers ?",
+        "reponse": "Oui pour un meublé de tourisme : le Code du tourisme (article L324-2) impose un contrat écrit qui indique le prix et contient un état descriptif des lieux. Sans écrit, vous aurez du mal à prouver ce qui avait été convenu en cas de litige sur le prix, les dates ou une dégradation."
       },
       {
-        "question": "À RÉDIGER : question fréquente 2, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Arrhes ou acompte pour une location de vacances, quelle différence ?",
+        "reponse": "Avec des arrhes, chacun peut se dédire : le locataire perd la somme, le propriétaire en rembourse le double (Code civil, article 1590). Un acompte rend la réservation ferme : le locataire qui annule reste redevable du loyer. Écrivez clairement lequel des deux vous demandez : un versement mal nommé est une source classique de litige."
       },
       {
-        "question": "À RÉDIGER : question fréquente 3, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Combien de temps peut durer une location saisonnière ?",
+        "reponse": "Quatre-vingt-dix jours consécutifs au plus pour un même locataire. Au-delà, le logement relève d'un bail de meublé classique, avec d'autres règles et d'autres durées : l'outil refuse donc un départ plus tardif."
       },
       {
-        "question": "À RÉDIGER : question fréquente 4, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Qui paie la taxe de séjour et comment la calculer ?",
+        "reponse": "Le vacancier la paie, le propriétaire la perçoit puis la reverse à la commune. Elle se compte par adulte et par nuit, selon le tarif voté par la commune ou l'intercommunalité ; les mineurs sont exonérés. Pour un logement non classé, elle se calcule en pourcentage du prix de la nuitée : demandez le taux en mairie et saisissez le montant obtenu par adulte et par nuit."
+      },
+      {
+        "question": "Quel montant de dépôt de garantie demander pour une location saisonnière ?",
+        "reponse": "La loi ne fixe pas de plafond pour un meublé de tourisme : il est d'usage de demander entre 15 et 30 % du loyer, davantage pour une maison bien équipée. Indiquez dans le contrat sous combien de jours vous le rendez, et ne retenez que ce que l'état des lieux de sortie permet de justifier."
+      },
+      {
+        "question": "Faut-il déclarer son meublé de tourisme en mairie ?",
+        "reponse": "Oui : un meublé de tourisme se déclare à la mairie de la commune où il se trouve, et la loi du 19 novembre 2024 généralise la déclaration avec numéro d'enregistrement, résidence principale comprise. Renseignez-vous en mairie sur la procédure en vigueur chez vous, puis reportez le numéro obtenu dans vos annonces et dans le contrat."
       }
     ]
   },
   "offre": {
-    "titre": "À RÉDIGER : nom de l'offre complète",
-    "texte": "À RÉDIGER : ce que la version complète apportera (piste : modèles enregistrés par logement et contrats successifs pré-remplis)"
+    "titre": "Plusieurs logements, des saisons entières",
+    "texte": "La version complète gardera un modèle par logement, avec son inventaire et vos conditions, et préparera chaque nouveau contrat à partir du précédent : il ne restera qu'à saisir le locataire et les dates. Un tableau de la saison montrera les semaines louées, les arrhes reçues et les soldes attendus."
   }
 }
