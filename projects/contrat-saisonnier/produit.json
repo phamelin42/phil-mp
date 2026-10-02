@@ -1,0 +1,32 @@
+{
+  "slug": "contrat-saisonnier",
+  "nom": "Contrat Location Saisonnière",
+  "domaine": "contrat-saisonnier.phamelin.fr",
+  "requete": "modèle contrat location saisonnière gratuit",
+  "description": "Rédigez gratuitement un contrat de location saisonnière pour un meublé de tourisme, avec état des lieux et inventaire, prêt à imprimer en PDF.",
+  "promesse": "Un contrat de location saisonnière complet, état des lieux et inventaire compris, en PDF.",
+  "exports": ["pdf", "impression"],
+  "logo": "logo.svg",
+  "theme": {
+    "accent": "#6fb56d",
+    "accentFonce": "#2f6b2d",
+    "typographie": "serif",
+    "sombre": false
+  },
+  "offre": {
+    "statut": "bientot"
+  },
+  "editeur": {
+    "nom": "Philippe Hamelin",
+    "statut": "Entrepreneur individuel (EI), SIRET 993 328 970 00013",
+    "adresse": "24 rue Frédéric-Chopin, 92160 Antony",
+    "contact": "hamelinphilippe1@gmail.com",
+    "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
+  },
+  "mesure": {
+    "origine": "https://analytics.patternreader.com",
+    "siteId": "",
+    "proprieteSearchConsole": "sc-domain:phamelin.fr",
+    "googleVerification": ""
+  }
+}

@@ -510,6 +510,100 @@
           }
         }
       }
+    },
+    "contrat-saisonnier": {
+      "projectType": "application",
+      "root": "projects/contrat-saisonnier",
+      "sourceRoot": "projects/contrat-saisonnier/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/contrat-saisonnier",
+            "browser": "projects/contrat-saisonnier/src/main.ts",
+            "server": "projects/contrat-saisonnier/src/main.server.ts",
+            "tsConfig": "projects/contrat-saisonnier/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/contrat-saisonnier/public"
+              }
+            ],
+            "styles": [
+              "projects/contrat-saisonnier/src/styles.css",
+              {
+                "input": "libs/ui/styles/print.css",
+                "bundleName": "print",
+                "inject": false
+              }
+            ],
+            "outputMode": "static",
+            "security": {
+              "allowedHosts": []
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "320kB",
+                  "maximumError": "340kB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "serviceWorker": "ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "contrat-saisonnier:build:production"
+            },
+            "development": {
+              "buildTarget": "contrat-saisonnier:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/contrat-saisonnier/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/contrat-saisonnier/**/*.ts",
+              "projects/contrat-saisonnier/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
