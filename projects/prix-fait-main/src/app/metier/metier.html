@@ -1,0 +1,402 @@
+<section class="card hors-impression" aria-labelledby="metier-titre">
+  <h2 id="metier-titre">Votre création</h2>
+  <p class="etat" role="status">
+    @switch (enregistrement()) {
+      @case ('enregistre') {
+        Enregistré sur cet appareil.
+      }
+      @case ('erreur') {
+        L’enregistrement a échoué : gardez cette page ouverte et exportez votre fiche.
+      }
+      @default {
+        Votre saisie reste sur cet appareil et s’enregistre au fil de l’eau.
+      }
+    }
+  </p>
+
+  <div class="champ champ-large">
+    <label for="nom">Nom de la création</label>
+    <p class="aide" id="nom-aide">Par exemple : bougie parfumée 180 g</p>
+    <input
+      id="nom"
+      class="saisie"
+      autocomplete="off"
+      aria-describedby="nom-aide"
+      [formField]="f.nom"
+    />
+  </div>
+
+  <fieldset class="groupe">
+    <legend>Matières</legend>
+    @for (m of f.matieres; track $index; let i = $index) {
+      <fieldset class="sous-carte">
+        <legend>Matière {{ i + 1 }}</legend>
+        <div class="grille-champs">
+          <div class="champ champ-large">
+            <label [for]="'matiere-' + i + '-nom'">Matière</label>
+            <input
+              [id]="'matiere-' + i + '-nom'"
+              class="saisie"
+              autocomplete="off"
+              [formField]="m.nom"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'matiere-' + i + '-prix'">Prix payé (€)</label>
+            <input
+              [id]="'matiere-' + i + '-prix'"
+              class="saisie"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              [formField]="m.prixAchat"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'matiere-' + i + '-achetee'">Quantité achetée</label>
+            <input
+              [id]="'matiere-' + i + '-achetee'"
+              class="saisie"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              [formField]="m.quantiteAchetee"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'matiere-' + i + '-utilisee'">Quantité utilisée</label>
+            <input
+              [id]="'matiere-' + i + '-utilisee'"
+              class="saisie"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              [formField]="m.quantiteUtilisee"
+            />
+          </div>
+          <div class="champ">
+            <label [for]="'matiere-' + i + '-unite'">Unité</label>
+            <input
+              [id]="'matiere-' + i + '-unite'"
+              class="saisie"
+              list="unites"
+              [formField]="m.unite"
+            />
+          </div>
+        </div>
+        <div class="actions">
+          <p class="etat">Coût pour une pièce&nbsp;: {{ eur(cout(m().value())) }}</p>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="modele().matieres.length <= 1"
+            (click)="supprimerMatiere(i)"
+          >
+            Supprimer la matière {{ i + 1 }}
+          </button>
+        </div>
+      </fieldset>
+    }
+    <datalist id="unites">
+      <option value="u"></option>
+      <option value="g"></option>
+      <option value="kg"></option>
+      <option value="m"></option>
+      <option value="cm"></option>
+      <option value="ml"></option>
+      <option value="pelote"></option>
+    </datalist>
+    <div class="actions">
+      <button
+        id="ajouter-matiere"
+        type="button"
+        class="btn btn-secondary"
+        (click)="ajouterMatiere()"
+      >
+        Ajouter une matière
+      </button>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Temps de travail</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="minutes">Temps pour une pièce (minutes)</label>
+        <p class="aide" id="minutes-aide">Préparation, fabrication et finitions : 1 h 30 = 90</p>
+        <input
+          id="minutes"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="1"
+          [formField]="f.minutes"
+          [attr.aria-invalid]="!!erreurDe(f.minutes())"
+          [attr.aria-describedby]="
+            erreurDe(f.minutes()) ? 'minutes-aide minutes-erreur' : 'minutes-aide'
+          "
+        />
+        @if (erreurDe(f.minutes()); as e) {
+          <p class="erreur" id="minutes-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="tauxHoraire">Taux horaire (€ de l’heure)</label>
+        <p class="aide" id="tauxHoraire-aide">Ce que vous voulez gagner par heure de travail</p>
+        <input
+          id="tauxHoraire"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.tauxHoraire"
+          [attr.aria-invalid]="!!erreurDe(f.tauxHoraire())"
+          [attr.aria-describedby]="
+            erreurDe(f.tauxHoraire()) ? 'tauxHoraire-aide tauxHoraire-erreur' : 'tauxHoraire-aide'
+          "
+        />
+        @if (erreurDe(f.tauxHoraire()); as e) {
+          <p class="erreur" id="tauxHoraire-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Frais et marge</legend>
+    <div class="grille-champs">
+      <div class="champ">
+        <label for="fraisParPiece">Frais par pièce (€)</label>
+        <p class="aide" id="fraisParPiece-aide">Emballage, étiquette, usure des outils</p>
+        <input
+          id="fraisParPiece"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.fraisParPiece"
+          [attr.aria-invalid]="!!erreurDe(f.fraisParPiece())"
+          [attr.aria-describedby]="
+            erreurDe(f.fraisParPiece())
+              ? 'fraisParPiece-aide fraisParPiece-erreur'
+              : 'fraisParPiece-aide'
+          "
+        />
+        @if (erreurDe(f.fraisParPiece()); as e) {
+          <p class="erreur" id="fraisParPiece-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="margePct">Bénéfice visé (% du coût)</label>
+        <input
+          id="margePct"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.margePct"
+          [attr.aria-invalid]="!!erreurDe(f.margePct())"
+          [attr.aria-describedby]="erreurDe(f.margePct()) ? 'margePct-erreur' : null"
+        />
+        @if (erreurDe(f.margePct()); as e) {
+          <p class="erreur" id="margePct-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="coefficientDetail">Coefficient de la boutique</label>
+        <p class="aide" id="coefficientDetail-aide">
+          Prix de détail = prix de gros × ce coefficient
+        </p>
+        <input
+          id="coefficientDetail"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.coefficientDetail"
+          [attr.aria-invalid]="!!erreurDe(f.coefficientDetail())"
+          [attr.aria-describedby]="
+            erreurDe(f.coefficientDetail())
+              ? 'coefficientDetail-aide coefficientDetail-erreur'
+              : 'coefficientDetail-aide'
+          "
+        />
+        @if (erreurDe(f.coefficientDetail()); as e) {
+          <p class="erreur" id="coefficientDetail-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="groupe">
+    <legend>Vente</legend>
+    <div class="grille-champs">
+      <div class="champ champ-large">
+        <label for="regimeTva">TVA</label>
+        <select id="regimeTva" class="saisie" [formField]="f.regimeTva">
+          <option value="franchise">Franchise en base : pas de TVA</option>
+          <option value="assujetti">Assujetti : TVA à 20 %</option>
+        </select>
+      </div>
+      <div class="champ">
+        <label for="cotisationsPct">Cotisations sociales (% du chiffre d’affaires)</label>
+        <p class="aide" id="cotisationsPct-aide">
+          Le taux de votre activité, sur votre espace Urssaf
+        </p>
+        <input
+          id="cotisationsPct"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.cotisationsPct"
+          [attr.aria-invalid]="!!erreurDe(f.cotisationsPct())"
+          [attr.aria-describedby]="
+            erreurDe(f.cotisationsPct())
+              ? 'cotisationsPct-aide cotisationsPct-erreur'
+              : 'cotisationsPct-aide'
+          "
+        />
+        @if (erreurDe(f.cotisationsPct()); as e) {
+          <p class="erreur" id="cotisationsPct-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="commissionPct">Commission de la plateforme (%)</label>
+        <p class="aide" id="commissionPct-aide">Commission et frais de paiement additionnés</p>
+        <input
+          id="commissionPct"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.commissionPct"
+          [attr.aria-invalid]="!!erreurDe(f.commissionPct())"
+          [attr.aria-describedby]="
+            erreurDe(f.commissionPct())
+              ? 'commissionPct-aide commissionPct-erreur'
+              : 'commissionPct-aide'
+          "
+        />
+        @if (erreurDe(f.commissionPct()); as e) {
+          <p class="erreur" id="commissionPct-erreur">{{ e }}</p>
+        }
+      </div>
+      <div class="champ">
+        <label for="fraisParVente">Frais fixes par vente (€)</label>
+        <p class="aide" id="fraisParVente-aide">Frais de mise en vente ou de transaction</p>
+        <input
+          id="fraisParVente"
+          class="saisie"
+          type="number"
+          inputmode="decimal"
+          step="any"
+          [formField]="f.fraisParVente"
+          [attr.aria-invalid]="!!erreurDe(f.fraisParVente())"
+          [attr.aria-describedby]="
+            erreurDe(f.fraisParVente())
+              ? 'fraisParVente-aide fraisParVente-erreur'
+              : 'fraisParVente-aide'
+          "
+        />
+        @if (erreurDe(f.fraisParVente()); as e) {
+          <p class="erreur" id="fraisParVente-erreur">{{ e }}</p>
+        }
+      </div>
+    </div>
+  </fieldset>
+
+  @if (charge() && manques().length) {
+    <div aria-labelledby="manques-titre">
+      <h3 id="manques-titre">Il manque encore</h3>
+      <ul>
+        @for (m of manques(); track m) {
+          <li>
+            <a [href]="'#' + champManque[m]" (click)="$event.preventDefault(); allerA(m)">{{
+              libellesManque[m]
+            }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</section>
+
+@if (charge() && !manques().length) {
+  @if (resultat(); as r) {
+    <section class="card" aria-labelledby="resultat-titre">
+      <h2 id="resultat-titre" class="hors-impression">Votre prix</h2>
+      <div class="hors-impression">
+        <p>
+          Prix de gros&nbsp;: <strong>{{ eur(r.prixGrosHt) }}</strong
+          >{{ assujetti() ? ' HT' : '' }}. Prix de détail conseillé&nbsp;:
+          <strong>{{ eur(r.prixEtiquette) }}</strong
+          >{{ assujetti() ? ' TTC' : '' }}.
+        </p>
+        @if (r.detailReleve) {
+          <p>
+            Avec vos frais de plateforme, vendre au prix de gros × {{ modele().coefficientDetail }}
+            ne couvrirait pas votre coût : le prix de détail est relevé au minimum de la vente
+            directe.
+          </p>
+        }
+        <p>
+          Vendue {{ eur(r.venteDirecte.prixTtc) }} sur votre plateforme, une pièce vous coûte
+          {{ eur(r.venteDirecte.commission) }} de commission et
+          {{ eur(r.venteDirecte.cotisations) }} de cotisations ; une fois le coût de revient payé,
+          il vous reste {{ eur(r.venteDirecte.benefice) }} de bénéfice.
+        </p>
+      </div>
+
+      <app-fiche-prix [fiche]="modele()" [resultat]="r" />
+
+      <div class="hors-impression">
+        <h3>Exporter</h3>
+        <div class="actions">
+          <button
+            type="button"
+            class="btn btn-primary"
+            aria-describedby="consigne-pdf"
+            (click)="exporter('pdf')"
+          >
+            Télécharger en PDF
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            aria-describedby="consigne-csv"
+            (click)="exporter('csv')"
+          >
+            Exporter en CSV
+          </button>
+        </div>
+        <p class="aide" id="consigne-pdf">{{ consignes.pdf }}</p>
+        <p class="aide" id="consigne-csv">{{ consignes.csv }}</p>
+
+        <div class="actions">
+          @if (!confirmerNouvelle()) {
+            <button type="button" class="btn btn-secondary" (click)="confirmerNouvelle.set(true)">
+              Nouvelle création
+            </button>
+          } @else {
+            <p id="confirmer-nouvelle" role="alert">
+              Effacer les matières, le temps et les frais de cette création ? Votre taux horaire,
+              votre marge et vos réglages de vente restent.
+            </p>
+            <button
+              type="button"
+              class="btn btn-primary"
+              aria-describedby="confirmer-nouvelle"
+              (click)="nouvelleFiche()"
+            >
+              Effacer et commencer
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="confirmerNouvelle.set(false)">
+              Garder cette fiche
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+  }
+}
