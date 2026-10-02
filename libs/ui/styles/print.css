@@ -45,6 +45,13 @@
   break-inside: avoid;
 }
 
+:root .document-annexe {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  break-before: page;
+}
+
 :root .tableau-defilant {
   overflow: visible;
 }
