@@ -20,14 +20,17 @@ async function monter(enregistre: unknown = null) {
   await fixture.whenStable();
   const el = fixture.nativeElement as HTMLElement;
   const champ = (id: string) => el.querySelector<HTMLInputElement>(`#${id}`)!;
+  // Un champ Ionic annonce la saisie par `ionInput` (valeur lue sur l'élément).
   const saisir = async (id: string, valeur: string) => {
     const c = champ(id);
     c.value = valeur;
-    c.dispatchEvent(new Event('input'));
+    c.dispatchEvent(new CustomEvent('ionInput', { bubbles: true }));
     await fixture.whenStable();
   };
   const bouton = (texte: string) =>
-    [...el.querySelectorAll('button')].find((b) => b.textContent?.trim() === texte)!;
+    [...el.querySelectorAll<HTMLElement>('ion-button')].find(
+      (b) => b.textContent?.trim() === texte,
+    )!;
   const noms = () => track.mock.calls.map((c) => c[0]);
   return { fixture, el, track, kv, champ, saisir, bouton, noms };
 }
@@ -58,8 +61,8 @@ describe('Metier', () => {
     await t.saisir('tauxHoraire', '15');
     // 3,60 + 15,00 = 18,60 ; +10 % = 20,46 ; × 2 = 40,92 → étiquette 41,00
     await vi.waitFor(() => {
-      expect(t.el.textContent).toContain('Prix de gros\u00a0: 20,46');
-      expect(t.el.textContent).toContain('Prix de détail conseillé\u00a0: 41,00');
+      expect(t.el.querySelector('.resume')?.textContent).toContain('Prix de gros20,46');
+      expect(t.el.querySelector('.chiffre-cle')?.textContent).toContain('41,00');
     });
     await vi.waitFor(() => expect(t.noms().filter((n) => n === 'outil_termine')).toHaveLength(1));
   });
@@ -101,9 +104,9 @@ describe('Metier', () => {
     t.bouton('Effacer et commencer').click();
     await t.fixture.whenStable();
     expect(t.champ('nom').value).toBe('');
-    expect(t.champ('minutes').value).toBe('0');
-    expect(t.champ('tauxHoraire').value).toBe('15');
-    expect(t.champ('commissionPct').value).toBe('10.5');
+    expect(String(t.champ('minutes').value)).toBe('0');
+    expect(String(t.champ('tauxHoraire').value)).toBe('15');
+    expect(String(t.champ('commissionPct').value)).toBe('10.5');
   });
 
   it('mesure chaque export avec son format', async () => {

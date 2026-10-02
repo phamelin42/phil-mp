@@ -14,6 +14,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { FormField, form, maxLength, min, validate } from '@angular/forms/signals';
 import { AnalyticsService, KvStoreService } from '@mp/core';
+import { CHAMPS, FORMULAIRE, focaliser, initialiserIonic } from '@mp/ui/formulaires';
 import { CONSIGNES, FormatExport, nomDeFichier, versCsv } from './data/export';
 import { dateDuJour, dateLongue, euros } from './data/format';
 import {
@@ -80,7 +81,10 @@ type Confirmation = { type: 'objet' | 'collection'; id: string } | null;
  */
 @Component({
   selector: 'app-metier',
-  imports: [FormField],
+  imports: [FormField, FORMULAIRE],
+  providers: [CHAMPS],
+  // Composants Ionic construits dans le navigateur (voir @mp/ui/formulaires).
+  host: { ngSkipHydration: 'true' },
   templateUrl: './metier.html',
 })
 export class Metier {
@@ -153,6 +157,7 @@ export class Metier {
   private minuterie: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    initialiserIonic();
     afterNextRender(() => void this.reprendre());
 
     effect(() => {
@@ -173,11 +178,9 @@ export class Metier {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.minuterie));
   }
 
-  protected erreurDe(etat: {
-    touched(): boolean;
-    errors(): readonly { message?: string }[];
-  }): string | null {
-    return etat.touched() ? (etat.errors()[0]?.message ?? null) : null;
+  /** Message de la première erreur d'un champ (`mat-error` l'affiche au bon moment). */
+  protected erreurChamp(etat: { errors(): readonly { message?: string }[] }): string {
+    return etat.errors()[0]?.message ?? '';
   }
 
   protected async creerCollection(): Promise<void> {
@@ -416,7 +419,7 @@ export class Metier {
   }
 
   private focaliser(id: string): void {
-    afterNextRender(() => this.document.getElementById(id)?.focus(), { injector: this.injector });
+    afterNextRender(() => focaliser(this.document, id), { injector: this.injector });
   }
 }
 

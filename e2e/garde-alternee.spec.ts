@@ -23,13 +23,17 @@ test.describe('garde-alternee — module métier', () => {
     await page.getByLabel('Premier parent').fill('Marie');
     await page.getByLabel('Second parent').fill('Julien');
     await page.getByLabel('Premier jour du rythme').fill('2026-08-31');
-    await page.getByLabel('Zone de vacances scolaires').selectOption('B');
+    // Dans `ion-segment`, l'hôte reçoit le pointeur (glisser d'un choix à l'autre).
+    await page.locator('#zone ion-segment-button', { hasText: 'Zone B' }).click();
     await expect(page.getByRole('status')).toHaveText('Enregistré sur cet appareil.');
 
     await page.reload();
     await page.locator('mp-shell[data-ready]').waitFor();
     await expect(page.getByLabel('Second parent')).toHaveValue('Julien');
-    await expect(page.getByLabel('Zone de vacances scolaires')).toHaveValue('B');
+    await expect(page.getByRole('tab', { name: 'Zone B' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
     const calendrier = page.locator('.document');
     await expect(calendrier.locator('.legende')).toContainText('Marie');
     await expect(calendrier.locator('td.serie-2').first()).toBeVisible();

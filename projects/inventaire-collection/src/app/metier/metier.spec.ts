@@ -4,6 +4,9 @@ import { FORMATS_EXPORT } from './data/export';
 import { CLE_INVENTAIRE, Inventaire, clePhoto } from './data/inventaire';
 import { CLE_BROUILLON, Metier } from './metier';
 
+// jsdom ne fait pas défiler : `ion-segment` défilant appelle `scrollTo` sur ses onglets.
+Element.prototype.scrollTo ??= () => undefined;
+
 const enregistre: Inventaire = {
   collections: [{ id: 'vinyles', nom: 'Vinyles' }],
   objets: [
@@ -52,25 +55,34 @@ async function monter(stock: Record<string, unknown> = {}, ecritureEchoue = fals
   await fixture.whenStable();
   const el = fixture.nativeElement as HTMLElement;
   const champ = (id: string) => el.querySelector<HTMLInputElement>(`#${id}`)!;
+  // Un champ Ionic annonce la saisie par `ionInput` (valeur lue sur l'élément).
   const saisir = async (id: string, valeur: string) => {
     champ(id).value = valeur;
-    champ(id).dispatchEvent(new Event('input'));
+    champ(id).dispatchEvent(new CustomEvent('ionInput', { bubbles: true }));
     await fixture.whenStable();
   };
+  /** Valeur et nombre d'objets de la collection affichée. */
+  const resume = () => el.querySelector('.resume')?.textContent?.replace(/\s+/g, ' ') ?? '';
   const bouton = (texte: string) => {
-    const tous = [...el.querySelectorAll('button')];
+    const tous = [...el.querySelectorAll<HTMLElement>('button, ion-button')];
     const texteDe = (b: Element) => b.textContent?.replace(/\s+/g, ' ').trim() ?? '';
     return (
       tous.find((b) => texteDe(b) === texte) ?? tous.find((b) => texteDe(b).startsWith(texte))!
     );
   };
+  // Un `ion-button` de type submit soumet son formulaire (Ionic y place un
+  // bouton natif caché, qui répond aussi à la touche Entrée) ; jsdom ne suit
+  // pas ce relais, on soumet donc le formulaire comme le ferait ce bouton.
   const cliquer = async (texte: string) => {
-    bouton(texte).click();
+    const b = bouton(texte);
+    const formulaire = b.getAttribute('type') === 'submit' ? b.closest('form') : null;
+    if (formulaire) formulaire.requestSubmit();
+    else b.click();
     await vi.waitFor(() => fixture.whenStable());
     await fixture.whenStable();
   };
   const noms = () => track.mock.calls.map((c) => c[0]);
-  return { fixture, el, track, kv, champ, saisir, bouton, cliquer, noms };
+  return { fixture, el, track, kv, champ, saisir, bouton, cliquer, noms, resume };
 }
 
 describe('Metier (inventaire)', () => {
@@ -102,8 +114,17 @@ describe('Metier (inventaire)', () => {
     const t = await monter({ [CLE_INVENTAIRE]: enregistre });
     const avant = t.kv.writeMany.mock.calls.length;
     await t.cliquer('Ajouter à la collection');
-    expect(t.el.querySelector('#objet-nom-erreur')?.textContent).toContain('Donnez un nom');
-    expect(t.champ('objet-nom').getAttribute('aria-invalid')).toBe('true');
+    // Ce qu'un lecteur d'écran lit après le champ natif : `aria-describedby`.
+    const natif = t.champ('objet-nom').querySelector('input')!;
+    await vi.waitFor(() => {
+      const annonce = (natif.getAttribute('aria-describedby') ?? '')
+        .split(' ')
+        .filter(Boolean)
+        .map((ref) => t.el.querySelector(`#${ref}`)?.textContent ?? '')
+        .join(' ');
+      expect(annonce).toContain('Donnez un nom');
+      expect(natif.getAttribute('aria-invalid')).toBe('true');
+    });
     expect(t.kv.writeMany.mock.calls.length).toBe(avant);
   });
 
@@ -112,7 +133,8 @@ describe('Metier (inventaire)', () => {
     expect(t.noms()).toEqual(['donnees_reprises']);
     expect(t.el.querySelector('#collection-titre')?.textContent).toBe('Vinyles');
     expect(t.el.querySelector<HTMLImageElement>('.liste-objets img')?.src).toBe(PHOTO);
-    expect(t.el.textContent).toContain('2 objets, valeur estimée 65,00');
+    expect(t.resume()).toContain('65,00');
+    expect(t.resume()).toContain('2 objets');
   });
 
   it('cherche dans la collection sans tenir compte des accents', async () => {
@@ -151,7 +173,8 @@ describe('Metier (inventaire)', () => {
     expect(t.champ('objet-nom').value).toBe('Thriller');
     await t.saisir('objet-valeur', '35');
     await t.cliquer('Enregistrer les modifications');
-    await vi.waitFor(() => expect(t.el.textContent).toContain('2 objets, valeur estimée 80,00'));
+    await vi.waitFor(() => expect(t.resume()).toContain('80,00'));
+    expect(t.resume()).toContain('2 objets');
   });
 
   it('exporte dans chaque format, sans saisie dans la mesure', async () => {

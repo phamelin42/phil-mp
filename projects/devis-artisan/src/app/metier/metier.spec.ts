@@ -21,20 +21,32 @@ async function monter(enregistre: unknown = null) {
   const el = fixture.nativeElement as HTMLElement;
   const champ = <T extends HTMLElement = HTMLInputElement>(id: string) =>
     el.querySelector<T>(`#${id}`)!;
+  // Un champ Ionic annonce la saisie par `ionInput` et la sortie par `ionBlur`.
   const saisir = async (id: string, valeur: string) => {
     const c = champ(id);
     c.value = valeur;
-    c.dispatchEvent(new Event('input'));
+    c.dispatchEvent(new CustomEvent('ionInput', { bubbles: true }));
     await fixture.whenStable();
   };
   const quitter = async (id: string) => {
-    champ(id).dispatchEvent(new Event('blur'));
+    champ(id).dispatchEvent(new CustomEvent('ionBlur', { bubbles: true }));
     await fixture.whenStable();
   };
   const bouton = (texte: string) =>
-    [...el.querySelectorAll('button')].find((b) => b.textContent?.trim() === texte)!;
+    [...el.querySelectorAll<HTMLButtonElement>('ion-button')].find(
+      (b) => b.textContent?.trim() === texte,
+    )!;
   const noms = () => track.mock.calls.map((c) => c[0]);
-  return { fixture, el, track, kv, champ, saisir, quitter, bouton, noms };
+  /** Ce qu'un lecteur d'écran lit après le champ natif : les textes de `aria-describedby`. */
+  const annonce = (id: string) => {
+    const natif = champ(id).querySelector('input, textarea') ?? champ(id);
+    return (natif.getAttribute('aria-describedby') ?? '')
+      .split(' ')
+      .filter(Boolean)
+      .map((ref) => el.querySelector(`#${ref}`)?.textContent ?? '')
+      .join(' ');
+  };
+  return { fixture, el, track, kv, champ, saisir, quitter, bouton, noms, annonce };
 }
 
 describe('Metier', () => {
@@ -85,12 +97,14 @@ describe('Metier', () => {
 
   it('annonce l’erreur d’un champ obligatoire quitté vide', async () => {
     const t = await monter();
-    expect(t.el.querySelector('#client-nom-erreur')).toBeNull();
+    expect(t.annonce('client-nom')).not.toContain('Indiquez le nom du client.');
     await t.quitter('client-nom');
-    const erreur = t.el.querySelector('#client-nom-erreur');
-    expect(erreur?.textContent).toContain('Indiquez le nom du client.');
-    expect(t.champ('client-nom').getAttribute('aria-invalid')).toBe('true');
-    expect(t.champ('client-nom').getAttribute('aria-describedby')).toBe('client-nom-erreur');
+    await vi.waitFor(() => {
+      expect(t.annonce('client-nom')).toContain('Indiquez le nom du client.');
+      expect(t.champ('client-nom').querySelector('input')?.getAttribute('aria-invalid')).toBe(
+        'true',
+      );
+    });
   });
 
   it('exporte dans chaque format par l’impression, sans saisie dans la mesure', async () => {

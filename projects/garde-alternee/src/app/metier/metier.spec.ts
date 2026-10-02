@@ -28,13 +28,16 @@ async function monter(enregistre: unknown = null) {
   await fixture.whenStable();
   const el = fixture.nativeElement as HTMLElement;
   const champ = (id: string) => el.querySelector<HTMLInputElement>(`#${id}`)!;
+  // Un champ Ionic annonce la saisie par `ionInput` (valeur lue sur l'élément).
   const saisir = async (id: string, valeur: string) => {
     champ(id).value = valeur;
-    champ(id).dispatchEvent(new Event('input'));
+    champ(id).dispatchEvent(new CustomEvent('ionInput', { bubbles: true }));
     await fixture.whenStable();
   };
   const bouton = (texte: string) =>
-    [...el.querySelectorAll('button')].find((b) => b.textContent?.trim() === texte)!;
+    [...el.querySelectorAll<HTMLButtonElement>('ion-button')].find(
+      (b) => b.textContent?.trim() === texte,
+    )!;
   const noms = () => track.mock.calls.map((c) => c[0]);
   return { fixture, el, track, kv, champ, saisir, bouton, noms };
 }
@@ -79,10 +82,19 @@ describe('Metier (garde alternée)', () => {
 
   it('annonce l’erreur d’un champ obligatoire quitté vide', async () => {
     const t = await monter();
-    t.champ('parentA').dispatchEvent(new Event('blur'));
+    t.champ('parentA').dispatchEvent(new CustomEvent('ionBlur', { bubbles: true }));
     await t.fixture.whenStable();
-    expect(t.el.querySelector('#parentA-erreur')?.textContent).toContain('premier parent');
-    expect(t.champ('parentA').getAttribute('aria-invalid')).toBe('true');
+    // Ce qu'un lecteur d'écran lit après le champ natif : `aria-describedby`.
+    const natif = t.champ('parentA').querySelector('input')!;
+    await vi.waitFor(() => {
+      const annonce = (natif.getAttribute('aria-describedby') ?? '')
+        .split(' ')
+        .filter(Boolean)
+        .map((ref) => t.el.querySelector(`#${ref}`)?.textContent ?? '')
+        .join(' ');
+      expect(annonce).toContain('premier parent');
+      expect(natif.getAttribute('aria-invalid')).toBe('true');
+    });
   });
 
   it('exporte dans chaque format, sans saisie dans la mesure', async () => {

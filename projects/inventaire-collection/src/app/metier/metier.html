@@ -5,114 +5,121 @@
   </p>
 
   @if (inventaire().collections.length) {
-    <div class="choix-collections" role="group" aria-label="Collection affichée">
+    <ion-segment
+      class="segment-defilant"
+      id="choix-collection"
+      [scrollable]="true"
+      [value]="selection()"
+      aria-label="Collection affichée"
+      (ionChange)="choisir($any($event).detail.value)"
+    >
       @for (c of inventaire().collections; track c.id) {
-        <button
-          type="button"
-          class="btn btn-secondary"
-          [attr.aria-pressed]="c.id === selection()"
-          (click)="choisir(c.id)"
-        >
-          {{ c.nom }} ({{ totaux().get(c.id)?.nombre ?? 0 }})
-        </button>
+        <ion-segment-button [value]="c.id">
+          <ion-label>{{ c.nom }} ({{ totaux().get(c.id)?.nombre ?? 0 }})</ion-label>
+        </ion-segment-button>
       }
-    </div>
+    </ion-segment>
   } @else if (charge()) {
     <p>Commencez par créer une collection : vinyles, timbres, Lego, cartes…</p>
   }
 
-  <form class="actions" (submit)="$event.preventDefault(); creerCollection()">
-    <div class="champ">
-      <label for="collection-nom">Nouvelle collection</label>
-      <input
-        id="collection-nom"
-        class="saisie"
-        autocomplete="off"
-        [formField]="fc.nom"
-        [attr.aria-invalid]="!!erreurDe(fc.nom())"
-        [attr.aria-describedby]="erreurDe(fc.nom()) ? 'collection-nom-erreur' : null"
-      />
-      @if (erreurDe(fc.nom()); as e) {
-        <p class="erreur" id="collection-nom-erreur">{{ e }}</p>
-      }
-    </div>
-    <button type="submit" class="btn btn-secondary">Créer la collection</button>
+  <form class="ligne-champ" novalidate (submit)="$event.preventDefault(); creerCollection()">
+    <ion-input
+      label="Nouvelle collection"
+      labelPlacement="stacked"
+      fill="outline"
+      id="collection-nom"
+      autocomplete="off"
+      [formField]="fc.nom"
+      [errorText]="erreurChamp(fc.nom())"
+    ></ion-input>
+    <ion-button type="submit" fill="outline">Créer la collection</ion-button>
   </form>
 </section>
 
 @if (collection(); as col) {
   <section class="card hors-impression" aria-labelledby="collection-titre">
     <h2 id="collection-titre">{{ col.nom }}</h2>
-    <p>
-      {{ objetsCollection().length }} objet{{ objetsCollection().length > 1 ? 's' : '' }}, valeur
-      estimée {{ eur(totaux().get(col.id)?.valeur ?? 0) }}
-    </p>
+    <div class="resume">
+      <p>
+        Valeur estimée de la collection
+        <strong class="chiffre-cle">{{ eur(totaux().get(col.id)?.valeur ?? 0) }}</strong>
+        {{ objetsCollection().length }} objet{{ objetsCollection().length > 1 ? 's' : '' }}
+      </p>
+    </div>
 
-    <form (submit)="$event.preventDefault(); enregistrer()">
+    <form novalidate (submit)="$event.preventDefault(); enregistrer()">
       <fieldset class="groupe">
         <legend>{{ edition() ? 'Modifier l’objet' : 'Ajouter un objet' }}</legend>
         <div class="grille-champs">
-          <div class="champ champ-large">
-            <label for="objet-nom">Nom de l’objet</label>
-            <input
-              id="objet-nom"
-              class="saisie"
-              autocomplete="off"
-              [formField]="f.nom"
-              [attr.aria-invalid]="!!erreurDe(f.nom())"
-              [attr.aria-describedby]="erreurDe(f.nom()) ? 'objet-nom-erreur' : null"
-            />
-            @if (erreurDe(f.nom()); as e) {
-              <p class="erreur" id="objet-nom-erreur">{{ e }}</p>
-            }
-          </div>
-          <div class="champ">
-            <label for="objet-etat">État</label>
-            <select id="objet-etat" class="saisie" [formField]="f.etat">
+          <ion-input
+            label="Nom de l’objet"
+            labelPlacement="stacked"
+            fill="outline"
+            id="objet-nom"
+            autocomplete="off"
+            [formField]="f.nom"
+            [errorText]="erreurChamp(f.nom())"
+            class="champ-large"
+          ></ion-input>
+          <label class="champ-liste">
+            <span>État</span>
+            <select id="objet-etat" [formField]="f.etat">
               @for (e of etats; track e) {
                 <option [value]="e">{{ libellesEtat[e] }}</option>
               }
             </select>
-          </div>
-          <div class="champ">
-            <label for="objet-valeur">Valeur estimée (€)</label>
-            <input
-              id="objet-valeur"
-              class="saisie"
-              type="number"
-              inputmode="decimal"
-              step="any"
-              [formField]="f.valeur"
-              [attr.aria-invalid]="!!erreurDe(f.valeur())"
-              [attr.aria-describedby]="erreurDe(f.valeur()) ? 'objet-valeur-erreur' : null"
-            />
-            @if (erreurDe(f.valeur()); as e) {
-              <p class="erreur" id="objet-valeur-erreur">{{ e }}</p>
-            }
-          </div>
-          <div class="champ">
-            <label for="objet-date">Date d’achat (facultatif)</label>
-            <input id="objet-date" class="saisie" type="date" [formField]="f.dateAchat" />
-          </div>
-          <div class="champ champ-large">
-            <label for="objet-note">Note (facultatif)</label>
-            <p class="aide" id="objet-note-aide">Édition, numéro, provenance, défauts…</p>
-            <textarea
-              id="objet-note"
-              class="saisie"
-              rows="2"
-              aria-describedby="objet-note-aide"
-              [formField]="f.note"
-            ></textarea>
-          </div>
-          <div class="champ champ-large">
-            <label for="objet-photo">Photo (facultatif)</label>
-            <p class="aide" id="objet-photo-aide">
-              Réduite sur cet appareil avant d’être enregistrée.
-            </p>
+          </label>
+          <ion-input
+            label="Valeur estimée (€)"
+            labelPlacement="stacked"
+            fill="outline"
+            id="objet-valeur"
+            type="number"
+            inputmode="decimal"
+            step="any"
+            [formField]="f.valeur"
+            [errorText]="erreurChamp(f.valeur())"
+          ></ion-input>
+          <ion-input
+            label="Date d’achat (facultatif)"
+            labelPlacement="stacked"
+            fill="outline"
+            id="objet-date"
+            type="date"
+            [formField]="f.dateAchat"
+          ></ion-input>
+          <ion-textarea
+            label="Note (facultatif)"
+            labelPlacement="stacked"
+            fill="outline"
+            id="objet-note"
+            rows="2"
+            [formField]="f.note"
+            [autoGrow]="true"
+            helperText="Édition, numéro, provenance, défauts…"
+            class="champ-large"
+          ></ion-textarea>
+          <div class="champ-large">
+            <label class="depot-photo" for="objet-photo">
+              @if (apercuPhoto(); as src) {
+                <img class="vignette" [src]="src" alt="Photo choisie" width="96" height="96" />
+              }
+              <span>
+                <strong>Photo (facultatif)</strong>
+                <span class="aide" id="objet-photo-aide">
+                  {{
+                    apercuPhoto()
+                      ? 'Touchez pour la remplacer.'
+                      : 'Touchez pour prendre ou choisir une photo.'
+                  }}
+                  Réduite sur cet appareil avant d’être enregistrée.
+                </span>
+              </span>
+            </label>
             <input
               id="objet-photo"
-              class="saisie"
+              class="visuellement-cache"
               type="file"
               accept="image/*"
               [attr.aria-describedby]="
@@ -123,41 +130,35 @@
             @if (erreurPhoto(); as e) {
               <p class="erreur" id="objet-photo-erreur" role="alert">{{ e }}</p>
             }
-            @if (apercuPhoto(); as src) {
+            @if (apercuPhoto()) {
               <div class="actions">
-                <img class="vignette" [src]="src" alt="Photo choisie" width="96" height="96" />
-                <button type="button" class="btn btn-secondary" (click)="retirerPhoto()">
-                  Retirer la photo
-                </button>
+                <ion-button fill="outline" (click)="retirerPhoto()">Retirer la photo</ion-button>
               </div>
             }
           </div>
         </div>
         <div class="actions">
-          <button type="submit" class="btn btn-primary">
+          <ion-button type="submit">
             {{ edition() ? 'Enregistrer les modifications' : 'Ajouter à la collection' }}
-          </button>
+          </ion-button>
           @if (edition()) {
-            <button type="button" class="btn btn-secondary" (click)="annulerEdition()">
-              Annuler
-            </button>
+            <ion-button fill="outline" (click)="annulerEdition()">Annuler</ion-button>
           }
         </div>
       </fieldset>
     </form>
 
     @if (objetsCollection().length) {
-      <div class="champ">
-        <label for="recherche">Rechercher dans la collection</label>
-        <input
-          id="recherche"
-          class="saisie"
-          type="search"
-          autocomplete="off"
-          [value]="recherche()"
-          (input)="recherche.set($any($event.target).value)"
-        />
-      </div>
+      <ion-input
+        label="Rechercher dans la collection"
+        labelPlacement="stacked"
+        fill="outline"
+        id="recherche"
+        type="search"
+        autocomplete="off"
+        [value]="recherche()"
+        (ionInput)="recherche.set($any($event.target).value ?? '')"
+      ></ion-input>
       <ul class="liste-objets" aria-label="Objets de la collection">
         @for (o of trouves(); track o.id) {
           <li>
@@ -183,16 +184,12 @@
               }
             </div>
             <div class="actions">
-              <button type="button" class="btn btn-secondary" (click)="modifier(o)">
+              <ion-button fill="outline" (click)="modifier(o)">
                 Modifier<span class="visuellement-cache"> {{ o.nom }}</span>
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                (click)="confirmation.set({ type: 'objet', id: o.id })"
-              >
+              </ion-button>
+              <ion-button fill="outline" (click)="confirmation.set({ type: 'objet', id: o.id })">
                 Supprimer<span class="visuellement-cache"> {{ o.nom }}</span>
-              </button>
+              </ion-button>
             </div>
           </li>
         } @empty {
@@ -211,27 +208,14 @@
             ?
           }
         </p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          aria-describedby="confirmer"
-          (click)="supprimer()"
-        >
-          Supprimer
-        </button>
-        <button type="button" class="btn btn-secondary" (click)="confirmation.set(null)">
-          Annuler
-        </button>
+        <ion-button aria-describedby="confirmer" (click)="supprimer()"> Supprimer </ion-button>
+        <ion-button fill="outline" (click)="confirmation.set(null)">Annuler</ion-button>
       </div>
     } @else {
       <div class="actions">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="confirmation.set({ type: 'collection', id: col.id })"
-        >
+        <ion-button fill="outline" (click)="confirmation.set({ type: 'collection', id: col.id })">
           Supprimer la collection
-        </button>
+        </ion-button>
       </div>
     }
   </section>
@@ -244,24 +228,21 @@
     estimée {{ eur(totalGeneral().valeur) }}.
   </p>
   <div class="actions hors-impression">
-    <button
-      type="button"
-      class="btn btn-primary"
+    <ion-button
       aria-describedby="consigne-pdf"
       [disabled]="!totalGeneral().nombre"
       (click)="exporter('pdf')"
     >
       Télécharger en PDF
-    </button>
-    <button
-      type="button"
-      class="btn btn-secondary"
+    </ion-button>
+    <ion-button
+      fill="outline"
       aria-describedby="consigne-csv"
       [disabled]="!totalGeneral().nombre"
       (click)="exporter('csv')"
     >
       Exporter en CSV
-    </button>
+    </ion-button>
   </div>
   <p class="aide hors-impression" id="consigne-pdf">{{ consignes.pdf }}</p>
   <p class="aide hors-impression" id="consigne-csv">{{ consignes.csv }}</p>

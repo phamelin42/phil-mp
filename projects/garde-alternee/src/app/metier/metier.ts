@@ -13,6 +13,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { FormField, form, maxLength, validate } from '@angular/forms/signals';
 import { AnalyticsService, KvStoreService } from '@mp/core';
+import { CHAMPS, FORMULAIRE, focaliser, initialiserIonic } from '@mp/ui/formulaires';
 import { CalendrierMois, JourCalendrier } from '@mp/ui/sections';
 import { CONSIGNES, FORMATS_EXPORT, FormatExport, nomDeFichier } from './data/export';
 import { dateLongue, moisDeLAnnee } from './data/format';
@@ -23,6 +24,7 @@ import {
   MESSAGES,
   Parent,
   Planning,
+  CYCLES,
   RYTHMES,
   Rythme,
   anneeScolaire,
@@ -58,7 +60,10 @@ type EtatEnregistrement = 'attente' | 'enregistre' | 'erreur';
  */
 @Component({
   selector: 'app-metier',
-  imports: [CalendrierMois, FormField],
+  imports: [CalendrierMois, FormField, FORMULAIRE],
+  providers: [CHAMPS],
+  // Composants Ionic construits dans le navigateur (voir @mp/ui/formulaires).
+  host: { ngSkipHydration: 'true' },
   templateUrl: './metier.html',
 })
 export class Metier {
@@ -82,6 +87,8 @@ export class Metier {
 
   protected readonly rythmes = RYTHMES;
   protected readonly libellesRythme = LIBELLES_RYTHME;
+  /** Les quatorze jours d'un cycle, pour l'aperçu de chaque rythme. */
+  protected readonly cycle = (r: Rythme) => [...CYCLES[r]];
   protected readonly zones = ZONES;
   protected readonly annees = ANNEES_SCOLAIRES;
   protected readonly formats = FORMATS_EXPORT;
@@ -116,6 +123,7 @@ export class Metier {
   private minuterie: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    initialiserIonic();
     afterNextRender(() => void this.reprendre());
 
     effect(() => {
@@ -130,12 +138,9 @@ export class Metier {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.minuterie));
   }
 
-  /** Erreur à afficher sous un champ : après qu'on l'a quitté. */
-  protected erreurDe(etat: {
-    touched(): boolean;
-    errors(): readonly { message?: string }[];
-  }): string | null {
-    return etat.touched() ? (etat.errors()[0]?.message ?? null) : null;
+  /** Message de la première erreur d'un champ (`mat-error` l'affiche au bon moment). */
+  protected erreurChamp(etat: { errors(): readonly { message?: string }[] }): string {
+    return etat.errors()[0]?.message ?? '';
   }
 
   protected choisirAnnee(evenement: Event): void {
@@ -165,7 +170,7 @@ export class Metier {
   }
 
   protected allerA(champ: Champ): void {
-    this.document.getElementById(champ)?.focus();
+    focaliser(this.document, champ);
   }
 
   private async reprendre(): Promise<void> {
