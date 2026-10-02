@@ -11,6 +11,10 @@
   display: none;
 }
 
+:root .impression-seule {
+  display: block;
+}
+
 :root main {
   max-width: none;
   padding: 0;
@@ -60,4 +64,9 @@
 :root .document .calendrier-mois {
   break-inside: avoid;
   font-size: var(--text-print-petit);
+}
+
+:root .document .vignette {
+  width: 2cm;
+  height: 2cm;
 }
