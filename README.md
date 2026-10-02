@@ -53,7 +53,7 @@ contenu éditorial.
 | 2       | Planning Garde Alternée      | [garde-alternee.phamelin.fr](https://garde-alternee.phamelin.fr)               | calendrier garde alternée à imprimer        | prêt                         |
 | 3       | Inventaire Collection        | [inventaire-collection.phamelin.fr](https://inventaire-collection.phamelin.fr) | application inventaire collection           | prêt                         |
 | 4       | Prix Fait Main               | [prix-fait-main.phamelin.fr](https://prix-fait-main.phamelin.fr)               | calculer prix de vente création fait main   | construit, mesure à brancher |
-| 5       | Contrat Location Saisonnière |                                                                                | modèle contrat location saisonnière gratuit |                              |
+| 5       | Contrat Location Saisonnière | [contrat-saisonnier.phamelin.fr](https://contrat-saisonnier.phamelin.fr)       | modèle contrat location saisonnière gratuit | construit, mesure à brancher |
 | 6       | Road Trip Van                |                                                                                | itinéraire van aménagé France               |                              |
 | 7       | Recette à l'Échelle          |                                                                                | convertir recette 6 personnes en 10         |                              |
 | 8       | Carnet d'Entretien           |                                                                                | carnet entretien voiture en ligne           |                              |
