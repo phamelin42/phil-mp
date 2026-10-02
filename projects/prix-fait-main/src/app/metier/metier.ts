@@ -14,6 +14,7 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { FormField, applyEach, form, max, maxLength, min } from '@angular/forms/signals';
 import { AnalyticsService, KvStoreService } from '@mp/core';
+import { CHAMPS, FORMULAIRE, focaliser, initialiserIonic } from '@mp/ui/formulaires';
 import { calculer, coutMatiere } from './data/calculs';
 import { CONSIGNES, FormatExport, nomDeFichier, versCsv } from './data/export';
 import {
@@ -46,7 +47,10 @@ const POURCENT = { message: 'Entre 0 et 100 %.' };
  */
 @Component({
   selector: 'app-metier',
-  imports: [FichePrix, FormField],
+  imports: [FichePrix, FormField, FORMULAIRE],
+  providers: [CHAMPS],
+  // Composants Ionic construits dans le navigateur (voir @mp/ui/formulaires).
+  host: { ngSkipHydration: 'true' },
   templateUrl: './metier.html',
 })
 export class Metier {
@@ -83,6 +87,30 @@ export class Metier {
   protected readonly resultat = computed(() => calculer(this.modele()));
   protected readonly manques = computed(() => manques(this.modele()));
   protected readonly assujetti = computed(() => this.modele().regimeTva === 'assujetti');
+  /** Étapes renseignées : les frais et la marge ont des valeurs par défaut. */
+  protected readonly faites = computed(() => {
+    const m = this.manques();
+    return {
+      matieres: !m.includes('matieres'),
+      temps: !m.includes('minutes') && !m.includes('tauxHoraire'),
+      vente: !m.includes('prelevements'),
+    };
+  });
+  protected readonly etapesFaites = computed(
+    () => 1 + Object.values(this.faites()).filter(Boolean).length,
+  );
+  /** Ce que paie le prix de gros, poste par poste, en centimes. */
+  protected readonly repartition = computed(() => {
+    const r = this.resultat();
+    if (!r) return [];
+    return [
+      { libelle: 'Matières', montant: r.totalMatieres },
+      { libelle: 'Votre temps', montant: r.mainOeuvre },
+      { libelle: 'Frais par pièce', montant: r.frais },
+      { libelle: 'Bénéfice', montant: r.benefice },
+      { libelle: 'Cotisations', montant: r.prixGrosHt - r.coutRevient - r.benefice },
+    ];
+  });
   protected readonly consignes = CONSIGNES;
   protected readonly libellesManque = LIBELLES_MANQUE;
   protected readonly champManque = CHAMP_MANQUE;
@@ -101,6 +129,7 @@ export class Metier {
   private minuterie: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    initialiserIonic();
     afterNextRender(() => void this.reprendre());
 
     effect(() => {
@@ -115,19 +144,16 @@ export class Metier {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.minuterie));
   }
 
-  /** Erreur à afficher sous un champ : après qu'on l'a quitté. */
-  protected erreurDe(etat: {
-    touched(): boolean;
-    errors(): readonly { message?: string }[];
-  }): string | null {
-    return etat.touched() ? (etat.errors()[0]?.message ?? null) : null;
+  /** Message de la première erreur d'un champ (`mat-error` l'affiche au bon moment). */
+  protected erreurChamp(etat: { errors(): readonly { message?: string }[] }): string {
+    return etat.errors()[0]?.message ?? '';
   }
 
   protected ajouterMatiere(): void {
     if (this.modele().matieres.length >= LIMITES.matieres) return;
     this.modele.update((f) => ({ ...f, matieres: [...f.matieres, matiereVide()] }));
     const rang = this.modele().matieres.length - 1;
-    afterNextRender(() => this.document.getElementById(`matiere-${rang}-nom`)?.focus(), {
+    afterNextRender(() => focaliser(this.document, `matiere-${rang}-nom`), {
       injector: this.injector,
     });
   }
@@ -135,13 +161,13 @@ export class Metier {
   protected supprimerMatiere(rang: number): void {
     if (this.modele().matieres.length <= 1) return;
     this.modele.update((f) => ({ ...f, matieres: f.matieres.filter((_, i) => i !== rang) }));
-    afterNextRender(() => this.document.getElementById('ajouter-matiere')?.focus(), {
+    afterNextRender(() => focaliser(this.document, 'ajouter-matiere'), {
       injector: this.injector,
     });
   }
 
   protected allerA(manque: Manque): void {
-    this.document.getElementById(CHAMP_MANQUE[manque])?.focus();
+    focaliser(this.document, CHAMP_MANQUE[manque]);
   }
 
   protected nouvelleFiche(): void {
@@ -152,7 +178,7 @@ export class Metier {
     this.commence = false;
     this.termine = false;
     this.modele.set(suivante);
-    afterNextRender(() => this.document.getElementById('nom')?.focus(), {
+    afterNextRender(() => focaliser(this.document, 'nom'), {
       injector: this.injector,
     });
   }

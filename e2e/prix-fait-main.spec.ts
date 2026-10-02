@@ -22,19 +22,19 @@ test.describe('prix-fait-main — module métier', () => {
 
     await page.getByLabel('Nom de la création').fill('Bougie soja 180 g');
     await page.getByLabel('Matière', { exact: true }).fill('Cire de soja');
-    await page.getByLabel('Prix payé (€)').fill('20');
+    await page.getByLabel('Prix payé').fill('20');
     await page.getByLabel('Quantité achetée').fill('1000');
     await page.getByLabel('Quantité utilisée').fill('180');
-    await page.getByLabel('Temps pour une pièce (minutes)').fill('30');
-    await page.getByLabel('Taux horaire (€ de l’heure)').fill('16');
+    await page.getByLabel('Temps pour une pièce').fill('30');
+    await page.getByLabel('Taux horaire').fill('16');
     // 3,60 + 8,00 = 11,60 ; +10 % = 12,76 ; × 2 = 25,52 → étiquette 26,00
-    await expect(page.getByText('Prix de gros : 12,76')).toBeVisible();
+    await expect(page.locator('.resume')).toContainText('Prix de gros12,76');
     await expect(page.getByRole('status')).toContainText('Enregistré sur cet appareil.');
 
     await page.reload();
     await page.locator('mp-shell[data-ready]').waitFor();
     await expect(page.getByLabel('Nom de la création')).toHaveValue('Bougie soja 180 g');
-    await expect(page.getByText('Prix de détail conseillé : 26,00')).toBeVisible();
+    await expect(page.locator('.chiffre-cle')).toHaveText('26,00\u00a0€');
 
     const telechargement = page.waitForEvent('download');
     await page.getByRole('button', { name: 'Exporter en CSV' }).click();

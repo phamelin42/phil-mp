@@ -24,8 +24,9 @@ import {
   validate,
 } from '@angular/forms/signals';
 import { AnalyticsService, KvStoreService } from '@mp/core';
+import { CHAMPS, FORMULAIRE, focaliser, initialiserIonic } from '@mp/ui/formulaires';
 import { ApercuDevis } from './apercu';
-import { montantLigneHt } from './data/calculs';
+import { montantLigneHt, totaux } from './data/calculs';
 import {
   Devis,
   TAUX_TVA,
@@ -57,7 +58,10 @@ type EtatEnregistrement = 'attente' | 'enregistre' | 'erreur';
  */
 @Component({
   selector: 'app-metier',
-  imports: [ApercuDevis, FormField],
+  imports: [ApercuDevis, FormField, FORMULAIRE],
+  providers: [CHAMPS],
+  // Composants Ionic construits dans le navigateur (voir @mp/ui/formulaires).
+  host: { ngSkipHydration: 'true' },
   templateUrl: './metier.html',
 })
 export class Metier {
@@ -106,6 +110,23 @@ export class Metier {
     Object.fromEntries(FORMATS_EXPORT.map((x) => [x, preparerExport(this.modele(), x).consigne])),
   );
   protected readonly manquants = computed(() => champsManquants(this.modele()));
+  /** Sections complètes : aucune mention manquante parmi leurs champs. */
+  protected readonly sections = computed(() => {
+    const manque = this.manquants().map((m) => m.champ);
+    const complete = (champs: string[]) =>
+      !manque.some((c) => champs.some((x) => c === x || c.startsWith(`${x}.`)));
+    return {
+      entreprise: complete(['entreprise']),
+      client: complete(['client']),
+      devis: complete(['numero', 'date', 'debutTravaux', 'dureeTravaux']),
+      lignes: complete(['lignes']),
+      conditions: complete(['paiement', 'mediateur']),
+    } as Record<string, boolean>;
+  });
+  protected readonly etapesFaites = computed(
+    () => Object.values(this.sections()).filter(Boolean).length,
+  );
+  protected readonly total = computed(() => totaux(this.modele()));
   protected readonly societe = computed(() => this.modele().entreprise.statut === 'societe');
   protected readonly assujetti = computed(() => this.modele().regimeTva === 'assujetti');
 
@@ -121,6 +142,7 @@ export class Metier {
   private minuterie: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
+    initialiserIonic();
     afterNextRender(() => void this.reprendre());
 
     effect(() => {
@@ -135,6 +157,11 @@ export class Metier {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.minuterie));
   }
 
+  /** Message de la première erreur d'un champ (`mat-error` l'affiche au bon moment). */
+  protected erreurChamp(etat: { errors(): readonly { message?: string }[] }): string {
+    return etat.errors()[0]?.message ?? '';
+  }
+
   /** Erreur à afficher sous un champ : après qu'on l'a quitté. */
   protected erreurDe(etat: {
     touched(): boolean;
@@ -147,7 +174,7 @@ export class Metier {
     if (this.modele().lignes.length >= LIMITES.lignes) return;
     this.modele.update((d) => ({ ...d, lignes: [...d.lignes, ligneVide()] }));
     const rang = this.modele().lignes.length - 1;
-    afterNextRender(() => this.document.getElementById(`ligne-${rang}-designation`)?.focus(), {
+    afterNextRender(() => focaliser(this.document, `ligne-${rang}-designation`), {
       injector: this.injector,
     });
   }
@@ -155,7 +182,7 @@ export class Metier {
   protected supprimerLigne(rang: number): void {
     if (this.modele().lignes.length <= 1) return;
     this.modele.update((d) => ({ ...d, lignes: d.lignes.filter((_, i) => i !== rang) }));
-    afterNextRender(() => this.document.getElementById('ajouter-ligne')?.focus(), {
+    afterNextRender(() => focaliser(this.document, 'ajouter-ligne'), {
       injector: this.injector,
     });
   }
@@ -196,7 +223,7 @@ export class Metier {
     this.commence = false;
     this.termine = false;
     this.modele.set(suivant);
-    afterNextRender(() => this.document.getElementById('client-nom')?.focus(), {
+    afterNextRender(() => focaliser(this.document, 'client-nom'), {
       injector: this.injector,
     });
   }
@@ -213,7 +240,7 @@ export class Metier {
 
   protected allerA(champ: Champ): void {
     const id = champ === 'lignes' ? 'ligne-0-designation' : champ.replace('.', '-');
-    this.document.getElementById(id)?.focus();
+    focaliser(this.document, id);
   }
 
   private async reprendre(): Promise<void> {

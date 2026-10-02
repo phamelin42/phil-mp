@@ -13,119 +13,138 @@
       }
     }
   </p>
+</section>
 
-  <fieldset class="groupe">
-    <legend>Les parents</legend>
-    <div class="grille-champs">
-      <div class="champ">
-        <label for="parentA">Premier parent</label>
-        <input
-          id="parentA"
-          class="saisie"
-          autocomplete="off"
-          [formField]="f.parentA"
-          [attr.aria-invalid]="!!erreurDe(f.parentA())"
-          [attr.aria-describedby]="erreurDe(f.parentA()) ? 'parentA-erreur' : null"
-        />
-        @if (erreurDe(f.parentA()); as e) {
-          <p class="erreur" id="parentA-erreur">{{ e }}</p>
-        }
-      </div>
-      <div class="champ">
-        <label for="parentB">Second parent</label>
-        <input
-          id="parentB"
-          class="saisie"
-          autocomplete="off"
-          [formField]="f.parentB"
-          [attr.aria-invalid]="!!erreurDe(f.parentB())"
-          [attr.aria-describedby]="erreurDe(f.parentB()) ? 'parentB-erreur' : null"
-        />
-        @if (erreurDe(f.parentB()); as e) {
-          <p class="erreur" id="parentB-erreur">{{ e }}</p>
-        }
-      </div>
-    </div>
-  </fieldset>
+<section class="card hors-impression" aria-labelledby="etape-parents">
+  <h2
+    id="etape-parents"
+    class="etape"
+    [class.etape-faite]="!!(modele().parentA && modele().parentB)"
+  >
+    <span class="etape-numero" aria-hidden="true">1</span>Les parents
+  </h2>
+  <div class="grille-champs">
+    <ion-input
+      label="Premier parent"
+      labelPlacement="stacked"
+      fill="outline"
+      id="parentA"
+      autocomplete="off"
+      [formField]="f.parentA"
+      [errorText]="erreurChamp(f.parentA())"
+    >
+      <span slot="start" class="pastille serie-1" aria-hidden="true"></span>
+    </ion-input>
+    <ion-input
+      label="Second parent"
+      labelPlacement="stacked"
+      fill="outline"
+      id="parentB"
+      autocomplete="off"
+      [formField]="f.parentB"
+      [errorText]="erreurChamp(f.parentB())"
+    >
+      <span slot="start" class="pastille serie-2" aria-hidden="true"></span>
+    </ion-input>
+  </div>
+</section>
 
-  <fieldset class="groupe">
-    <legend>Le rythme</legend>
-    <div class="grille-champs">
-      <div class="champ champ-large">
-        <label for="rythme">Modèle de garde</label>
-        <select id="rythme" class="saisie" [formField]="f.rythme">
-          @for (r of rythmes; track r) {
-            <option [value]="r">{{ libellesRythme[r] }}</option>
-          }
-        </select>
-      </div>
-      <div class="champ">
-        <label for="depart">Premier jour du rythme</label>
-        <p class="aide" id="depart-aide">Le jour du premier changement de parent</p>
-        <input
-          id="depart"
-          class="saisie"
-          type="date"
-          [formField]="f.depart"
-          [attr.aria-invalid]="!!erreurDe(f.depart())"
-          [attr.aria-describedby]="
-            erreurDe(f.depart()) ? 'depart-aide depart-erreur' : 'depart-aide'
-          "
-        />
-        @if (erreurDe(f.depart()); as e) {
-          <p class="erreur" id="depart-erreur">{{ e }}</p>
-        }
-      </div>
-      <div class="champ">
-        <label for="premier">Les enfants vont d’abord chez</label>
-        <select id="premier" class="saisie" [formField]="f.premier">
-          <option value="A">{{ nom('A') }}</option>
-          <option value="B">{{ nom('B') }}</option>
-        </select>
-      </div>
-    </div>
+<section class="card hors-impression" aria-labelledby="etape-rythme">
+  <h2 id="etape-rythme" class="etape" [class.etape-faite]="!!modele().depart">
+    <span class="etape-numero" aria-hidden="true">2</span>Le rythme
+  </h2>
+  <fieldset class="cartes-choix" id="rythme">
+    <legend class="visuellement-cache">Modèle de garde</legend>
+    @for (r of rythmes; track r) {
+      <label class="carte-choix">
+        <input type="radio" [value]="r" [formField]="f.rythme" />
+        <span>
+          <strong>{{ libellesRythme[r] }}</strong>
+          <span class="cycle" aria-hidden="true">
+            @for (j of cycle(r); track $index) {
+              <span [class]="j === 'A' ? 'serie-1' : 'serie-2'"></span>
+            }
+          </span>
+        </span>
+      </label>
+    }
   </fieldset>
+  <div class="grille-champs">
+    <ion-input
+      label="Premier jour du rythme"
+      labelPlacement="stacked"
+      fill="outline"
+      id="depart"
+      type="date"
+      [formField]="f.depart"
+      helperText="Le jour du premier changement de parent"
+      [errorText]="erreurChamp(f.depart())"
+    ></ion-input>
+    <div>
+      <p class="aide" id="premier-libelle">Les enfants vont d’abord chez</p>
+      <ion-segment id="premier" aria-labelledby="premier-libelle" [formField]="f.premier">
+        <ion-segment-button value="A">
+          <ion-label>{{ nom('A') }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="B">
+          <ion-label>{{ nom('B') }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </div>
+</section>
 
-  <fieldset class="groupe">
-    <legend>L’année et les vacances</legend>
-    <div class="grille-champs">
-      <div class="champ">
-        <label for="annee">Année scolaire</label>
-        <select id="annee" class="saisie" [value]="modele().annee" (change)="choisirAnnee($event)">
-          @for (a of annees; track a) {
-            <option [value]="a" [selected]="a === modele().annee">{{ a }}-{{ a + 1 }}</option>
-          }
-        </select>
-      </div>
-      <div class="champ">
-        <label for="zone">Zone de vacances scolaires</label>
-        <select id="zone" class="saisie" [formField]="f.zone">
-          <option value="">Ne pas afficher les vacances</option>
-          @for (z of zones; track z) {
-            <option [value]="z">Zone {{ z }}</option>
-          }
-        </select>
-      </div>
-      @if (modele().zone) {
-        <div class="champ">
-          <label for="vacances">Pendant les vacances</label>
-          <select id="vacances" class="saisie" [formField]="f.vacances">
-            <option value="rythme">Le rythme continue</option>
-            <option value="moities">Partage par moitiés</option>
-          </select>
-        </div>
-        @if (modele().vacances === 'moities') {
-          <div class="champ">
-            <label for="moitiePaire">Première moitié les années paires</label>
-            <select id="moitiePaire" class="saisie" [formField]="f.moitiePaire">
-              <option value="A">{{ nom('A') }}</option>
-              <option value="B">{{ nom('B') }}</option>
-            </select>
-          </div>
+<section class="card hors-impression" aria-labelledby="etape-vacances">
+  <h2 id="etape-vacances" class="etape etape-faite">
+    <span class="etape-numero" aria-hidden="true">3</span>L’année et les vacances
+  </h2>
+  <div class="grille-champs">
+    <label class="champ-liste">
+      <span>Année scolaire</span>
+      <select id="annee" [value]="modele().annee" (change)="choisirAnnee($event)">
+        @for (a of annees; track a) {
+          <option [value]="a" [selected]="a === modele().annee">{{ a }}-{{ a + 1 }}</option>
         }
-      }
-    </div>
-  </fieldset>
+      </select>
+    </label>
+  </div>
+  <p class="aide" id="zone-libelle">Zone de vacances scolaires</p>
+  <ion-segment id="zone" aria-labelledby="zone-libelle" [formField]="f.zone">
+    <ion-segment-button value="">
+      <ion-label>Sans</ion-label>
+    </ion-segment-button>
+    @for (z of zones; track z) {
+      <ion-segment-button [value]="z">
+        <ion-label>Zone {{ z }}</ion-label>
+      </ion-segment-button>
+    }
+  </ion-segment>
+  @if (modele().zone) {
+    <p class="aide" id="vacances-libelle">Pendant les vacances</p>
+    <ion-segment id="vacances" aria-labelledby="vacances-libelle" [formField]="f.vacances">
+      <ion-segment-button value="rythme">
+        <ion-label>Le rythme continue</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="moities">
+        <ion-label>Par moitiés</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    @if (modele().vacances === 'moities') {
+      <p class="aide" id="moitiePaire-libelle">Première moitié les années paires</p>
+      <ion-segment
+        id="moitiePaire"
+        aria-labelledby="moitiePaire-libelle"
+        [formField]="f.moitiePaire"
+      >
+        <ion-segment-button value="A">
+          <ion-label>{{ nom('A') }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="B">
+          <ion-label>{{ nom('B') }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    }
+  }
 
   @if (charge() && manquants().length) {
     <div>
@@ -182,31 +201,24 @@
   <div class="hors-impression">
     <h3>Exporter</h3>
     <div class="actions">
-      <button
-        type="button"
-        class="btn btn-primary"
-        aria-describedby="consigne-pdf"
-        (click)="exporter('pdf')"
-      >
+      <ion-button aria-describedby="consigne-pdf" (click)="exporter('pdf')">
         Télécharger en PDF
-      </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
+      </ion-button>
+      <ion-button
+        fill="outline"
         aria-describedby="consigne-ical"
         [disabled]="!jours().length"
         (click)="exporter('ical')"
       >
         Ajouter à mon agenda (iCal)
-      </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
+      </ion-button>
+      <ion-button
+        fill="outline"
         aria-describedby="consigne-impression"
         (click)="exporter('impression')"
       >
         Imprimer
-      </button>
+      </ion-button>
     </div>
     <p class="aide" id="consigne-pdf">{{ consignes.pdf }}</p>
     <p class="aide" id="consigne-ical">{{ consignes.ical }}</p>
