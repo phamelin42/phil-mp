@@ -16,6 +16,7 @@
     "paths": {
       "@mp/core": ["./libs/core/src/index.ts"],
       "@mp/ui": ["./libs/ui/src/index.ts"],
+      "@mp/ui/formulaires": ["./libs/ui/src/formulaires/index.ts"],
       "@mp/ui/legal": ["./libs/ui/src/legal/index.ts"],
       "@mp/ui/sections": ["./libs/ui/src/sections/index.ts"]
     }

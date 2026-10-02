@@ -143,14 +143,16 @@ h3 {
   border-left: 6px solid var(--color-accent);
 }
 
+/* Bouton de la coquille et des sections : même forme que `mat-flat-button`
+   et `mat-stroked-button`, sans charger Material au premier affichage. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: var(--tap);
   padding: var(--space-2) var(--space-6);
-  border-radius: var(--radius);
-  border: 2px solid var(--color-primary);
+  border-radius: 9999px;
+  border: 1px solid var(--color-primary);
   font: inherit;
   font-weight: 700;
   text-decoration: none;
@@ -189,7 +191,10 @@ h3 {
   max-width: 65ch;
 }
 
-/* Formulaires : étiquette visible au-dessus du champ, erreur sous lui. */
+/*
+ * Formulaires : les champs sont des `mat-form-field` (material.css) ; ces
+ * classes servent à la grille et aux contrôles hors Material (fichier).
+ */
 .groupe {
   min-width: 0;
   margin: var(--space-6) 0;
@@ -207,7 +212,9 @@ h3 {
 .grille-champs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-  gap: var(--space-4);
+  align-items: start;
+  gap: var(--space-6) var(--space-4);
+  margin-top: var(--space-4);
 }
 
 .champ {
@@ -523,4 +530,248 @@ mp-calendrier-mois {
   border-radius: var(--radius-small);
   background: var(--color-bg);
   object-fit: cover;
+}
+
+/*
+ * Motifs de formulaire partagés (inspirés des formulaires soignés des
+ * applications mobiles) : chaque produit les combine à sa façon.
+ */
+
+/* Étape numérotée : titre d'une section de formulaire. */
+.etape {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.etape-numero {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-small);
+  font-weight: 700;
+}
+
+.etape-faite .etape-numero {
+  background: var(--color-champ);
+  color: var(--color-primary);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+/* Jauge : progression d'un formulaire, part d'un poste dans un total. */
+.jauge {
+  width: 100%;
+  height: var(--space-2);
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-champ);
+  appearance: none;
+  overflow: hidden;
+}
+
+.jauge::-webkit-progress-bar {
+  background: var(--color-champ);
+}
+
+.jauge::-webkit-progress-value {
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+.jauge::-moz-progress-bar {
+  border-radius: 9999px;
+  background: var(--color-primary);
+}
+
+.progression {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+
+/* Résultat mis en avant : fond teinté de l'accent, chiffre clé. */
+.resume {
+  padding: var(--space-6);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+}
+
+.chiffre-cle {
+  display: block;
+  color: var(--color-primary);
+  font-size: var(--text-chiffre);
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+:root[data-theme='sombre'] .chiffre-cle {
+  color: var(--color-accent);
+}
+
+.postes {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.postes li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-1) var(--space-3);
+}
+
+.postes .jauge {
+  grid-column: 1 / -1;
+}
+
+/* Cartes de choix : un bouton radio par carte, la carte retenue s'allume. */
+.cartes-choix {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.carte-choix {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: var(--tap);
+  padding: var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: var(--color-champ);
+  cursor: pointer;
+}
+
+.carte-choix:has(input:checked) {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+}
+
+.carte-choix > input {
+  flex: none;
+  width: var(--space-6);
+  height: var(--space-6);
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.carte-choix strong {
+  display: block;
+}
+
+/* Barre collée en bas de l'écran : le chiffre qui compte et l'action. */
+.barre-collante {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-haut);
+}
+
+.barre-collante p {
+  margin: 0;
+}
+
+.chiffre-barre {
+  color: var(--color-primary);
+  font-size: var(--text-h3);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Aperçu d'un cycle : une case par jour, colorée par série. */
+.cycle {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 2px;
+  margin-top: var(--space-2);
+}
+
+.cycle > span {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px var(--color-line-strong);
+}
+
+/* Pastille dans un champ : la couleur de la série qu'il nomme. */
+ion-input .pastille {
+  flex: none;
+  width: var(--space-4);
+  height: var(--space-4);
+  margin-right: var(--space-2);
+  border-radius: 9999px;
+}
+
+/* Onglets qui défilent sur téléphone (collections, catégories). */
+ion-segment.segment-defilant {
+  margin-top: var(--space-4);
+  border-radius: var(--radius);
+}
+
+/* Un champ et son bouton sur une ligne, le bouton calé sur le cadre. */
+.ligne-champ {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.ligne-champ > ion-input {
+  flex: 1 1 14rem;
+  margin-top: 0;
+}
+
+.ligne-champ > ion-button {
+  margin-top: var(--space-1);
+}
+
+/* Zone de dépôt d'une photo : grande cible, aperçu à gauche. */
+.depot-photo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: calc(var(--tap) * 2);
+  padding: var(--space-4);
+  border: 2px dashed var(--color-line-strong);
+  border-radius: var(--radius);
+  background: var(--color-champ);
+  cursor: pointer;
+}
+
+.depot-photo:hover,
+.champ-large:has(input[type='file']:focus-visible) .depot-photo {
+  border-color: var(--color-primary);
+}
+
+.champ-large:has(input[type='file']:focus-visible) .depot-photo {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.depot-photo strong,
+.depot-photo .aide {
+  display: block;
 }

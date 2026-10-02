@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { PRODUIT, ProduitConfig, Typographie } from '@mp/core';
-import { Shell } from './shell';
+import { Shell, composantes } from './shell';
 
 const TYPOS: Typographie[] = ['humaniste', 'geometrique', 'serif', 'arrondie'];
 
@@ -34,6 +34,8 @@ describe('Shell', () => {
       expect(style.getPropertyValue('--color-accent')).toBe('#e07a8f');
       expect(style.getPropertyValue('--color-primary')).toBe('#9c2f48');
       expect(style.getPropertyValue('--font-body')).toBe(`var(--font-${typo})`);
+      expect(style.getPropertyValue('--color-primary-rgb')).toBe('156, 47, 72');
+      expect(style.getPropertyValue('--color-accent-rgb')).toBe('224, 122, 143');
     });
   }
 
@@ -44,5 +46,12 @@ describe('Shell', () => {
     const fixture = TestBed.createComponent(Shell);
     await fixture.whenStable();
     expect((fixture.nativeElement as HTMLElement).textContent).not.toContain('Fond sombre');
+  });
+});
+
+describe('composantes', () => {
+  it('décompose une couleur hexadécimale, refuse le reste', () => {
+    expect(composantes('#FFFFFF')).toBe('255, 255, 255');
+    expect(composantes('rouge')).toBe('0, 0, 0');
   });
 });

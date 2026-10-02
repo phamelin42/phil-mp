@@ -7,6 +7,7 @@
 :root .banner,
 :root .offre,
 :root .skip-link,
+:root .barre-collante,
 :root .hors-impression {
   display: none;
 }
