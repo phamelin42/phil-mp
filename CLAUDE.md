@@ -161,6 +161,8 @@ comparent ; un nom se déclare aussi dans `EVENEMENTS` de `tools/umami.mjs`
 - Signal Forms coûte environ 16 ko au bundle initial (mesuré, même dans une
   page paresseuse) : le code qu'il emploie vit dans `@angular/core`, déjà au
   premier affichage. C'est le prix d'un formulaire, pas un saut anormal.
+  L'avertissement du budget `initial` est donc à 320 ko (erreur à 340 ko) :
+  un produit avec formulaire pèse environ 300 ko.
 - Prettier lit `__x__` comme du gras en Markdown et coupe un marqueur nu dans
   le CSS : le schematic ne substitue que `__SLUG__`, dans du code et de la
   configuration, et écrit les textes en JSON.

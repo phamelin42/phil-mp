@@ -87,7 +87,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kB",
+                  "maximumWarning": "320kB",
                   "maximumError": "340kB"
                 },
                 {
@@ -172,7 +172,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kB",
+                  "maximumWarning": "320kB",
                   "maximumError": "340kB"
                 },
                 {
@@ -266,7 +266,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kB",
+                  "maximumWarning": "320kB",
                   "maximumError": "340kB"
                 },
                 {
@@ -360,7 +360,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "300kB",
+                  "maximumWarning": "320kB",
                   "maximumError": "340kB"
                 },
                 {
