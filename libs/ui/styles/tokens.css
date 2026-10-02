@@ -9,14 +9,19 @@
   --color-surface: #ffffff;
   --color-ink: #2b2433;
   --color-ink-soft: #5c5466;
+  --color-ink-rgb: 43, 36, 51;
   --color-line: #ddd5e0;
   /* Bord d'un champ de saisie : 3:1 au moins sur le fond (WCAG 1.4.11). */
   --color-line-strong: #857b8f;
   --color-danger: #b3261e;
+  --color-danger-rgb: 179, 38, 30;
+  /* Fond d'un champ de saisie, à peine teinté sous la carte blanche. */
+  --color-champ: #f8f5fa;
   /* Séries d'un calendrier (deux parents, deux équipes…) : fond clair sous l'encre. */
   --color-serie-1: #cde6f2;
   --color-serie-2: #fbdcbc;
   --color-on-primary: #ffffff;
+  --color-on-primary-rgb: 255, 255, 255;
   --color-focus: #1f5fbf;
 
   --font-humaniste: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -26,9 +31,13 @@
 
   --text-base: 1.125rem;
   --text-small: 1rem;
+  /* Aide et erreur sous un champ. */
+  --text-hint: 0.875rem;
   --text-print: 10pt;
   --text-print-petit: 8pt;
   --text-lead: 1.375rem;
+  /* Chiffre clé d'un résultat (prix, total). */
+  --text-chiffre: clamp(2rem, 1.6rem + 2vw, 2.75rem);
   --text-h1: clamp(1.875rem, 1.4rem + 2.4vw, 2.75rem);
   --text-h2: 1.5rem;
   --text-h3: 1.1875rem;
@@ -45,8 +54,13 @@
   --radius: 0.75rem;
   --radius-small: 0.5rem;
   --shadow: 0 1px 2px rgb(43 36 51 / 8%), 0 4px 16px rgb(43 36 51 / 6%);
+  /* Ombre d'une barre collée en bas de l'écran. */
+  --shadow-haut: 0 -4px 16px rgb(43 36 51 / 10%);
   --measure: 42rem;
   --tap: 3rem;
+  /* Hauteur d'un champ de saisie. */
+  --champ: 3.5rem;
+  --radius-champ: 0.875rem;
 }
 
 /* Thème sombre : choix explicite (`data-theme`), jamais `prefers-color-scheme`. */
@@ -55,13 +69,17 @@
   --color-surface: #2a2530;
   --color-ink: #f2edf5;
   --color-ink-soft: #c9c0d0;
+  --color-ink-rgb: 242, 237, 245;
   --color-line: #4a4252;
   --color-line-strong: #8d8496;
   --color-danger: #ffb4ab;
+  --color-danger-rgb: 255, 180, 171;
+  --color-champ: #332d3a;
   --color-serie-1: #1f4b5e;
   --color-serie-2: #5c3b1a;
   --color-focus: #8fb8ff;
   --shadow: none;
+  --shadow-haut: none;
 }
 
 /* Le papier est blanc : un document s'imprime toujours en clair. */
@@ -74,6 +92,8 @@
     --color-line: #ddd5e0;
     --color-line-strong: #857b8f;
     --color-danger: #b3261e;
+    --color-danger-rgb: 179, 38, 30;
+    --color-champ: #ffffff;
     --color-serie-1: #cde6f2;
     --color-serie-2: #fbdcbc;
   }

@@ -10,7 +10,7 @@ describe('Metier', () => {
     });
     const fixture = TestBed.createComponent(Metier);
     await fixture.whenStable();
-    (fixture.nativeElement as HTMLElement).querySelector('button')?.click();
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('ion-button')?.click();
     expect(track).toHaveBeenCalledWith('outil_commence');
   });
 });

@@ -19,9 +19,10 @@ Un nouveau produit se crée en une journée, pas en une semaine.
 produits.json        table des produits : configuration de chacun (schematic)
 libs/core/           @mp/core — analytics, SEO, stockage, plateforme (PWA, thème), configuration, offre
 libs/ui/             @mp/ui — coquille (en-tête, pied de page, installation, mise à jour, thème)
+                     @mp/ui/formulaires — champs et boutons Ionic (modules métier)
                      @mp/ui/sections — héros, blocs, FAQ, offre (pages paresseuses)
                      @mp/ui/legal — mentions légales, confidentialité
-libs/ui/styles/      tokens.css (jetons) · base.css (classes) · print.css
+libs/ui/styles/      tokens.css (jetons) · base.css (classes, motifs de formulaire) · ionic.css (thème Ionic) · print.css
 projects/<slug>/     un produit : produit.json, contenu.json, src/app/metier/, PRODUIT.md
 projects/vitrine/    vitrine interne des composants partagés (jamais publiée)
 schematics/produit/  génération d'un produit
@@ -98,7 +99,8 @@ et dans `produits.json` sa meta description.
 
 ## Stack et commandes
 
-Angular 22 (standalone, signaux, zoneless, `@Service()`), pré-rendu
+Angular 22 (standalone, signaux, zoneless, `@Service()`), Ionic 9 (formulaires,
+prêts pour l'app Capacitor, `docs/adr-003-bibliotheque-graphique.md`), pré-rendu
 `@angular/ssr`, Vitest, ESLint, Prettier, Playwright + axe. Node 24.
 
 | Commande                            | Rôle                                                            |
@@ -135,6 +137,14 @@ comparent ; un nom se déclare aussi dans `EVENEMENTS` de `tools/umami.mjs`
   `mutate`. Contrôle de flux natif. `host: {}` plutôt que `@HostBinding`.
   `inject()`. `@Service()` pour les singletons. Signal Forms.
 - Préfixe `mp-` dans les bibliothèques, `app-` dans un produit (ESLint).
+- Formulaires : `ion-input` / `ion-textarea` (`labelPlacement="stacked"`,
+  `fill="outline"`, `helperText`, `[errorText]`), `ion-segment` pour un choix
+  court, `<label class="champ-liste">` + `<select>` natif pour une liste
+  longue, `ion-button`. Le module métier importe `FORMULAIRE`, fournit
+  `CHAMPS`, porte `host: { ngSkipHydration: 'true' }` et appelle
+  `initialiserIonic()`. Jamais de surcouche Ionic (`ion-select`, popover),
+  jamais Ionic dans la coquille. Mise en page : motifs de `base.css`
+  (`.etape`, `.jauge`, `.cartes-choix`, `.resume`, `.barre-collante`).
 - SVG : `<img>` natif avec `width` et `height`, pas `NgOptimizedImage`
   (5,5 ko au bundle initial). Pas de `@defer` (5,6 ko) : `import()` suffit.
 - Accessibilité : axe sans violation sur chaque page de chaque application,
@@ -162,7 +172,11 @@ comparent ; un nom se déclare aussi dans `EVENEMENTS` de `tools/umami.mjs`
   page paresseuse) : le code qu'il emploie vit dans `@angular/core`, déjà au
   premier affichage. C'est le prix d'un formulaire, pas un saut anormal.
   L'avertissement du budget `initial` est donc à 320 ko (erreur à 340 ko) :
-  un produit avec formulaire pèse environ 300 ko.
+  un produit avec formulaire pèse environ 312 ko (Ionic compris : il ne
+  touche pas au premier affichage).
+- Ionic : un champ se teste par `ionInput` / `ionBlur` (jsdom), un
+  `ion-segment` en e2e par son hôte ; un champ encore masqué refuse le focus
+  (`focaliser` réessaie) ; un formulaire porte `novalidate`.
 - Prettier lit `__x__` comme du gras en Markdown et coupe un marqueur nu dans
   le CSS : le schematic ne substitue que `__SLUG__`, dans du code et de la
   configuration, et écrit les textes en JSON.

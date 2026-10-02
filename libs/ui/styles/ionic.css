@@ -1,0 +1,210 @@
+/*
+ * Ionic habillé par nos jetons : aucune couleur brute ici. Les variables
+ * `--ion-*` sont posées sur `mp-shell`, là où la coquille pose le thème du
+ * produit (`--color-primary`, `--font-body`) : une variable CSS se résout
+ * là où elle est déclarée. Aucune surcouche Ionic (popover, action sheet)
+ * n'est employée : elles s'ouvriraient hors de la coquille.
+ */
+mp-shell {
+  --ion-font-family: var(--font-body);
+  --ion-background-color: var(--color-surface);
+  --ion-text-color: var(--color-ink);
+  --ion-text-color-rgb: var(--color-ink-rgb);
+  --ion-color-primary: var(--color-primary);
+  --ion-color-primary-rgb: var(--color-primary-rgb);
+  --ion-color-primary-contrast: var(--color-on-primary);
+  --ion-color-primary-contrast-rgb: var(--color-on-primary-rgb);
+  --ion-color-primary-shade: var(--color-primary);
+  --ion-color-primary-tint: var(--color-primary);
+  --ion-color-danger: var(--color-danger);
+  --ion-color-danger-rgb: var(--color-danger-rgb);
+  --ion-color-danger-contrast: var(--color-on-primary);
+  --ion-color-success: var(--color-primary);
+  --ion-placeholder-opacity: 1;
+}
+
+:root[data-theme='sombre'] mp-shell {
+  --ion-color-primary: var(--color-accent);
+  --ion-color-primary-rgb: var(--color-accent-rgb);
+  --ion-color-primary-contrast: var(--color-bg);
+}
+
+/* Un composant Ionic pas encore construit ne montre pas son squelette brut. */
+ion-input:not(.hydrated),
+ion-textarea:not(.hydrated),
+ion-button:not(.hydrated),
+ion-segment:not(.hydrated) {
+  visibility: hidden;
+  min-height: var(--champ);
+}
+
+/* Champ : cadre doux et arrondi, étiquette dans l'encoche, aide dessous. */
+ion-input,
+ion-textarea {
+  --background: var(--color-champ);
+  --color: var(--color-ink);
+  --border-color: var(--color-line-strong);
+  --border-radius: var(--radius-champ);
+  --border-width: 1px;
+  --highlight-color-focused: var(--color-primary);
+  --highlight-color-valid: var(--color-primary);
+  --highlight-color-invalid: var(--color-danger);
+  --placeholder-color: var(--color-ink-soft);
+  --padding-start: var(--space-4);
+  --padding-end: var(--space-4);
+  min-height: var(--champ);
+  font-size: var(--text-small);
+}
+
+/* Hors d'une grille, un champ se détache de ce qui le précède. */
+:not(.grille-champs) > ion-input,
+:not(.grille-champs) > ion-textarea,
+:not(.grille-champs) > .champ-liste,
+:not(.grille-champs) > ion-segment {
+  margin-top: var(--space-4);
+}
+
+ion-input .label-text,
+ion-textarea .label-text {
+  color: var(--color-ink-soft);
+  font-weight: 600;
+}
+
+ion-input.has-focus .label-text,
+ion-textarea.has-focus .label-text {
+  color: var(--color-primary);
+}
+
+ion-input .helper-text,
+ion-input .error-text,
+ion-textarea .helper-text,
+ion-textarea .error-text {
+  font-size: var(--text-hint);
+  line-height: 1.4;
+}
+
+ion-input .helper-text,
+ion-textarea .helper-text {
+  color: var(--color-ink-soft);
+}
+
+ion-input .error-text,
+ion-textarea .error-text {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+/* Bouton : pilule de 48 px, sans capitales forcées. */
+ion-button {
+  --border-radius: 9999px;
+  --padding-start: var(--space-6);
+  --padding-end: var(--space-6);
+  --box-shadow: none;
+  min-height: var(--tap);
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+ion-button[fill='outline'] {
+  --border-width: 1px;
+  --border-color: var(--color-primary);
+  --background: var(--color-surface);
+}
+
+/* Choix exclusif court : pilule dont l'option retenue est pleine. */
+ion-segment {
+  --background: var(--color-champ);
+  padding: var(--space-1);
+  border: 1px solid var(--color-line-strong);
+  border-radius: 9999px;
+}
+
+ion-segment-button {
+  --color: var(--color-ink-soft);
+  --color-checked: var(--color-on-primary);
+  --background-checked: var(--color-primary);
+  --indicator-height: 0;
+  --indicator-box-shadow: none;
+  --border-radius: 9999px;
+  --padding-start: var(--space-3);
+  --padding-end: var(--space-3);
+  min-height: calc(var(--tap) - var(--space-2));
+  min-width: 0;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+ion-segment-button ion-label {
+  white-space: normal;
+}
+
+/* Liste native habillée comme un champ Ionic : étiquette dans l'encoche. */
+.champ-liste {
+  position: relative;
+  display: block;
+  min-width: 0;
+}
+
+.champ-liste > span {
+  position: absolute;
+  top: 0;
+  left: var(--space-3);
+  z-index: 1;
+  padding: 0 var(--space-1);
+  transform: translateY(-50%);
+  background: linear-gradient(var(--color-surface) 50%, var(--color-champ) 50%);
+  color: var(--color-ink-soft);
+  font-size: var(--text-hint);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.champ-liste > select {
+  width: 100%;
+  min-height: var(--champ);
+  padding: var(--space-2) var(--space-8) var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-champ);
+  background: var(--color-champ);
+  color: var(--color-ink);
+  font: inherit;
+  font-size: var(--text-small);
+  appearance: none;
+  cursor: pointer;
+}
+
+.champ-liste > select:focus-visible {
+  border-color: var(--color-primary);
+}
+
+/* Chevron de la liste, dessiné en CSS : aucune image, aucune couleur brute. */
+.champ-liste::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--space-4);
+  width: var(--space-2);
+  height: var(--space-2);
+  border-right: 2px solid var(--color-ink-soft);
+  border-bottom: 2px solid var(--color-ink-soft);
+  transform: translateY(-75%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Le sélecteur de fichier natif, habillé comme un bouton secondaire. */
+input[type='file']::file-selector-button {
+  min-height: var(--tap);
+  margin-right: var(--space-3);
+  padding: var(--space-2) var(--space-6);
+  border: 1px solid var(--color-primary);
+  border-radius: 9999px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}

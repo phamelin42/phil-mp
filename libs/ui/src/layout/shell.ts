@@ -40,6 +40,8 @@ export class Shell {
   protected readonly variables = computed(
     () =>
       `--color-accent: ${this.theme.accent}; --color-primary: ${this.theme.accentFonce}; ` +
+      `--color-accent-rgb: ${composantes(this.theme.accent)}; ` +
+      `--color-primary-rgb: ${composantes(this.theme.accentFonce)}; ` +
       `--font-body: var(--font-${this.theme.typographie})`,
   );
 
@@ -47,4 +49,18 @@ export class Shell {
     const appRef = inject(ApplicationRef);
     afterNextRender(() => void appRef.whenStable().then(() => this.ready.set(true)));
   }
+}
+
+/**
+ * « #9c2f48 » → « 156, 47, 72 » : Ionic compose ses survols et ses halos
+ * avec `rgba(var(--ion-color-primary-rgb), …)`.
+ */
+export function composantes(hex: string): string {
+  const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex.trim());
+  return m
+    ? m
+        .slice(1, 4)
+        .map((x) => parseInt(x, 16))
+        .join(', ')
+    : '0, 0, 0';
 }
