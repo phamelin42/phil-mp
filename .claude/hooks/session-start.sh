@@ -17,5 +17,12 @@ BIN="$(dirname "$(nvm which 24)")"
 echo "export PATH=\"$BIN:\$PATH\"" >> "$CLAUDE_ENV_FILE"
 export PATH="$BIN:$PATH"
 
+# Le Chromium de l'image (/opt/pw-browsers) n'a pas la révision qu'attend la
+# version de Playwright du projet ; playwright.config.ts et les icônes lisent
+# PW_CHROMIUM.
+if [ -x /opt/pw-browsers/chromium ]; then
+  echo 'export PW_CHROMIUM=/opt/pw-browsers/chromium' >> "$CLAUDE_ENV_FILE"
+fi
+
 cd "$CLAUDE_PROJECT_DIR"
 npm install --no-audit --no-fund
