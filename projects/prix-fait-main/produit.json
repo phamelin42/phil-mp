@@ -1,0 +1,32 @@
+{
+  "slug": "prix-fait-main",
+  "nom": "Prix Fait Main",
+  "domaine": "prix-fait-main.phamelin.fr",
+  "requete": "calculer prix de vente création fait main",
+  "description": "Calculez le prix de vente de vos créations fait main : matières, temps de travail, charges, commission Etsy et marge. Gratuit, sans inscription.",
+  "promesse": "Le prix juste de votre création : matière, temps et charges comptés, marge comprise.",
+  "exports": ["pdf", "csv"],
+  "logo": "logo.svg",
+  "theme": {
+    "accent": "#e07a8f",
+    "accentFonce": "#9c2f48",
+    "typographie": "arrondie",
+    "sombre": false
+  },
+  "offre": {
+    "statut": "bientot"
+  },
+  "editeur": {
+    "nom": "Philippe Hamelin",
+    "statut": "Entrepreneur individuel (EI), SIRET 993 328 970 00013",
+    "adresse": "24 rue Frédéric-Chopin, 92160 Antony",
+    "contact": "hamelinphilippe1@gmail.com",
+    "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
+  },
+  "mesure": {
+    "origine": "https://analytics.patternreader.com",
+    "siteId": "",
+    "proprieteSearchConsole": "sc-domain:phamelin.fr",
+    "googleVerification": ""
+  }
+}

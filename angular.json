@@ -416,6 +416,100 @@
           }
         }
       }
+    },
+    "prix-fait-main": {
+      "projectType": "application",
+      "root": "projects/prix-fait-main",
+      "sourceRoot": "projects/prix-fait-main/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/prix-fait-main",
+            "browser": "projects/prix-fait-main/src/main.ts",
+            "server": "projects/prix-fait-main/src/main.server.ts",
+            "tsConfig": "projects/prix-fait-main/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/prix-fait-main/public"
+              }
+            ],
+            "styles": [
+              "projects/prix-fait-main/src/styles.css",
+              {
+                "input": "libs/ui/styles/print.css",
+                "bundleName": "print",
+                "inject": false
+              }
+            ],
+            "outputMode": "static",
+            "security": {
+              "allowedHosts": []
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "320kB",
+                  "maximumError": "340kB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "serviceWorker": "ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "prix-fait-main:build:production"
+            },
+            "development": {
+              "buildTarget": "prix-fait-main:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/prix-fait-main/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/prix-fait-main/**/*.ts",
+              "projects/prix-fait-main/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
