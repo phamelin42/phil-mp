@@ -39,23 +39,31 @@ contenu éditorial.
   Console complète.
 - **Gratuit d'abord** : l'intérêt pour une offre complète se mesure ; le
   paiement ne se construit, après ADR, que pour un produit qui a du trafic.
+- **Ionic pour les formulaires**, prêts pour une application mobile : les
+  mêmes composants serviront dans l'app (`docs/adr-003-bibliotheque-graphique.md`).
 - **Empaquetage natif en option**, seulement sur trafic réel : TWA comme
   Pattern Reader (`docs/play-store.md` de crochet-helper), Capacitor si une API native
   manque.
 
 ## Calendrier
 
-| Semaine | Produit                      | Requête visée                               | État |
-| ------- | ---------------------------- | ------------------------------------------- | ---- |
-| 1       | Devis Artisan                | modèle devis plombier auto-entrepreneur     | créé |
-| 2       | Planning Garde Alternée      | calendrier garde alternée à imprimer        |      |
-| 3       | Inventaire Collection        | application inventaire collection           |      |
-| 4       | Prix Fait Main               | calculer prix de vente création fait main   |      |
-| 5       | Contrat Location Saisonnière | modèle contrat location saisonnière gratuit |      |
-| 6       | Road Trip Van                | itinéraire van aménagé France               |      |
-| 7       | Recette à l'Échelle          | convertir recette 6 personnes en 10         |      |
-| 8       | Carnet d'Entretien           | carnet entretien voiture en ligne           |      |
-| 9       | Planning Révisions           | planning révision bac à imprimer            |      |
-| 10      | Volume Aquarium              | calcul volume aquarium litres               |      |
+| Semaine | Produit                      | Adresse                                                                        | Requête visée                               | État                         |
+| ------- | ---------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------- | ---------------------------- |
+| 1       | Devis Artisan                | [devis-artisan.phamelin.fr](https://devis-artisan.phamelin.fr)                 | modèle devis plombier auto-entrepreneur     | prêt                         |
+| 2       | Planning Garde Alternée      | [garde-alternee.phamelin.fr](https://garde-alternee.phamelin.fr)               | calendrier garde alternée à imprimer        | prêt                         |
+| 3       | Inventaire Collection        | [inventaire-collection.phamelin.fr](https://inventaire-collection.phamelin.fr) | application inventaire collection           | prêt                         |
+| 4       | Prix Fait Main               | [prix-fait-main.phamelin.fr](https://prix-fait-main.phamelin.fr)               | calculer prix de vente création fait main   | construit, mesure à brancher |
+| 5       | Contrat Location Saisonnière |                                                                                | modèle contrat location saisonnière gratuit |                              |
+| 6       | Road Trip Van                |                                                                                | itinéraire van aménagé France               |                              |
+| 7       | Recette à l'Échelle          |                                                                                | convertir recette 6 personnes en 10         |                              |
+| 8       | Carnet d'Entretien           |                                                                                | carnet entretien voiture en ligne           |                              |
+| 9       | Planning Révisions           |                                                                                | planning révision bac à imprimer            |                              |
+| 10      | Volume Aquarium              |                                                                                | calcul volume aquarium litres               |                              |
+
+- **prêt** : module métier et contenu rédigés, `npm run lancement` ne signale
+  plus rien ; reste la liste manuelle de `docs/lancement.md`.
+- **construit, mesure à brancher** : outil et contenu faits, mais le site
+  Umami n'est pas encore créé (`produit.json` → `mesure.siteId`) ; le
+  produit est servi en `noindex` jusque-là.
 
 Domaine de chaque produit : `<slug>.phamelin.fr` (`produits.json`).
