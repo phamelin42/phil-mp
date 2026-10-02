@@ -1,0 +1,32 @@
+{
+  "slug": "inventaire-collection",
+  "nom": "Inventaire Collection",
+  "domaine": "inventaire-collection.phamelin.fr",
+  "requete": "application inventaire collection",
+  "description": "Inventaire de collection (vinyles, timbres, Lego, cartes) : photo, état, valeur, export assurance. Gratuit, hors ligne, données sur votre appareil.",
+  "promesse": "Toute votre collection dans votre poche, photos et valeurs comprises, prête pour l'assurance.",
+  "exports": ["pdf", "csv"],
+  "logo": "logo.svg",
+  "theme": {
+    "accent": "#9b7bc4",
+    "accentFonce": "#5b3a87",
+    "typographie": "serif",
+    "sombre": false
+  },
+  "offre": {
+    "statut": "bientot"
+  },
+  "editeur": {
+    "nom": "À COMPLÉTER",
+    "statut": "À COMPLÉTER (entrepreneur individuel, SIREN …)",
+    "adresse": "À COMPLÉTER",
+    "contact": "À COMPLÉTER",
+    "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis"
+  },
+  "mesure": {
+    "origine": "https://analytics.patternreader.com",
+    "siteId": "",
+    "proprieteSearchConsole": "sc-domain:phamelin.fr",
+    "googleVerification": ""
+  }
+}
