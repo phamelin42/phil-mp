@@ -1,67 +1,75 @@
 {
   "accueil": {
     "titre": "Calculer prix de vente création fait main",
-    "chapo": "Le prix juste de votre création : matière, temps et charges comptés, marge comprise.",
+    "chapo": "Le prix juste de votre création : matière, temps et charges comptés, marge comprise.",
     "explication": [
       {
-        "titre": "À RÉDIGER : intertitre 1",
-        "texte": "À RÉDIGER : étape 1 de l'utilisation, avec les mots de « calculer prix de vente création fait main »"
+        "titre": "1. Ce que coûte vraiment la matière",
+        "texte": "Pour chaque fourniture, indiquez le prix payé pour le lot et la part que la pièce consomme : 30 perles sur un sachet de 100, 180 g de cire sur un pain d'un kilo, un demi-mètre de fil sur une bobine de 20 m. Le calcul ramène chaque achat à ce qu'il pèse réellement dans une seule création, au centime près, et additionne le tout."
       },
       {
-        "titre": "À RÉDIGER : intertitre 2",
-        "texte": "À RÉDIGER : étape 2 de l'utilisation, avec les mots de « calculer prix de vente création fait main »"
+        "titre": "2. Votre temps payé comme un travail",
+        "texte": "Notez les minutes passées sur une pièce, de la préparation aux finitions, et le taux horaire que vous voulez vous verser. C'est l'oubli le plus fréquent quand on cherche à calculer le prix de vente d'une création fait main : on compte la laine, pas les trois heures de tricot. Ajoutez les frais par pièce (emballage, étiquette, usure des outils) et le bénéfice visé : vous obtenez le coût de revient, puis le prix de gros."
       },
       {
-        "titre": "À RÉDIGER : intertitre 3",
-        "texte": "À RÉDIGER : étape 3 de l'utilisation, avec les mots de « calculer prix de vente création fait main »"
+        "titre": "3. Un prix pour la boutique, un prix pour Etsy",
+        "texte": "Le prix de gros intègre vos cotisations sociales : c'est ce que vous facturez à un dépôt-vente ou à une boutique. Le prix de détail applique le coefficient de la boutique, souvent deux. Si la commission de votre plateforme ou du marché ne laisserait plus de quoi couvrir vos coûts, le prix de détail est relevé d'office, et l'outil vous montre ce qu'une vente vous rapporte vraiment. La fiche se télécharge en PDF ou en CSV."
       }
     ],
     "exemples": [
       {
-        "titre": "À RÉDIGER : intertitre 4",
-        "texte": "À RÉDIGER : exemple concret 1, chiffré, tiré du métier"
+        "titre": "Un collier en perles de verre vendu sur Etsy",
+        "texte": "Léa achète ses perles 12 € les 100 et en enfile 30 par collier, soit 3,60 €. Avec un fermoir à 0,50 € et 10 centimes de fil câblé, la matière revient à 4,20 €. Elle passe 45 minutes par pièce et se paie 15 € de l'heure : 11,25 €. Avec 0,80 € d'emballage, le coût de revient atteint 16,25 €. En visant 10 % de bénéfice et en saisissant le taux de cotisations de sa déclaration Urssaf, 12,3 %, son prix de gros sort à 20,39 €, et son prix d'étiquette à 41 €. Vendu à ce prix sur sa boutique en ligne, une fois ses 10,5 % de frais de plateforme payés, le collier lui laisse encore plus de 15 € de bénéfice."
       },
       {
-        "titre": "À RÉDIGER : intertitre 5",
-        "texte": "À RÉDIGER : exemple concret 2, chiffré, tiré du métier"
+        "titre": "Une bougie parfumée pour le marché de Noël",
+        "texte": "Karim coule ses bougies dans des pots à 1,20 € pièce. La cire de soja coûte 20 € le kilo et chaque pot en prend 180 g, soit 3,60 € ; le parfum, 2 € pour 10 bougies. Trente minutes de travail à 16 € de l'heure ajoutent 8 €. Avant de calculer, il fixait ses bougies à 12 € « comme tout le monde » : il découvre que son coût de revient atteint 13 €. Avec 10 % de bénéfice et ses cotisations à 12,3 %, son prix de gros monte à 16,31 € : il affiche désormais 33 € au marché, le prix qu'une boutique de décoration pratiquerait avec un coefficient de deux."
       }
     ]
   },
   "aide": {
     "titre": "Aide de Prix Fait Main",
-    "description": "À RÉDIGER : description de la page d'aide, 140 à 160 caractères, propre à ce produit",
-    "intro": "À RÉDIGER : à qui s'adresse l'aide et ce qu'on y trouve",
+    "description": "Calculer le prix d'une création artisanale : matières, temps, taux horaire, cotisations, commission Etsy, coefficient boutique. Questions des créateurs.",
+    "intro": "Pour celles et ceux qui fabriquent à la main et qui doutent de leurs prix. Vous trouverez ici comment chiffrer une matière achetée en gros, choisir un taux horaire et un coefficient, et tenir compte des frais d'une plateforme de vente.",
     "sections": [
       {
-        "titre": "À RÉDIGER : intertitre 6",
-        "texte": "À RÉDIGER : question pratique 1 traitée pas à pas"
+        "titre": "Chiffrer une matière achetée en lot",
+        "texte": "Reprenez votre facture : le prix payé va dans « Prix payé », la contenance du lot dans « Quantité achetée ». Mesurez ensuite ce qu'une pièce consomme vraiment, chutes comprises : si vous perdez 20 cm de tissu à chaque découpe, comptez-les.\n\nGardez la même unité sur les deux quantités : grammes et grammes, mètres et mètres. Pour une fourniture qui sert à des dizaines de pièces, comme un flacon de colle ou un pot de vernis, estimez combien de créations il permet et mettez 1 en quantité utilisée."
       },
       {
-        "titre": "À RÉDIGER : intertitre 7",
-        "texte": "À RÉDIGER : question pratique 2 traitée pas à pas"
+        "titre": "Fixer son taux horaire et son coefficient",
+        "texte": "Le taux horaire, c'est ce que vous voulez gagner pour une heure de fabrication, avant cotisations. Partez de ce que vous accepteriez comme salaire pour un travail qualifié, pas de ce que vos concurrents semblent facturer.\n\nLe coefficient est celui qu'appliquent les boutiques et dépôts-ventes à votre prix de gros : demandez-le-leur, il tourne souvent autour de deux. Gardez-le même quand vous vendez vous-même : vendre moins cher que vos revendeurs les ferait renoncer à vos créations."
       }
     ],
     "faq": [
       {
-        "question": "À RÉDIGER : question fréquente 1, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment calculer le prix de vente d'une création fait main ?",
+        "reponse": "Additionnez la part de matière utilisée, le temps passé multiplié par votre taux horaire et les petits frais par pièce : c'est le coût de revient. Ajoutez votre bénéfice, divisez par ce qui reste après les cotisations, et vous avez le prix de gros. Le prix public s'obtient en le multipliant par le coefficient des boutiques, souvent deux."
       },
       {
-        "question": "À RÉDIGER : question fréquente 2, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Quel taux horaire pour un artisan qui débute ?",
+        "reponse": "Aucun taux n'est imposé : c'est un choix, que l'outil rend visible. Beaucoup de créatrices débutent sous le salaire minimum sans s'en rendre compte, parce qu'elles ne comptent que la matière. Fixez un taux que vous pourriez tenir si la vente devenait votre revenu principal, et vérifiez sur la fiche si le prix obtenu reste vendable."
       },
       {
-        "question": "À RÉDIGER : question fréquente 3, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Comment intégrer la commission Etsy dans son prix ?",
+        "reponse": "Additionnez les pourcentages prélevés sur chaque vente, commission de transaction et frais de paiement, et saisissez-les dans « Commission de la plateforme ». Les montants fixes par vente ou par annonce vont dans « Frais fixes par vente ». Les taux exacts figurent dans votre tableau de bord vendeur ; l'outil relève votre prix si ces frais ne laissent plus de quoi couvrir vos coûts."
       },
       {
-        "question": "À RÉDIGER : question fréquente 4, telle que les gens la tapent",
-        "reponse": "À RÉDIGER : réponse précise, deux à quatre phrases"
+        "question": "Quel coefficient appliquer entre prix de gros et prix de détail ?",
+        "reponse": "Le plus courant en boutique de créateurs est deux, parfois deux et demi en centre-ville : la boutique paie son loyer, son personnel et sa TVA sur cette différence. Un dépôt-vente prend plutôt une commission sur le prix public. Demandez à chaque revendeur le sien et reportez-le dans le champ prévu."
+      },
+      {
+        "question": "Faut-il compter la TVA dans le prix d'un objet fait main ?",
+        "reponse": "Seulement si vous y êtes assujetti. En franchise en base, situation de la plupart des micro-entrepreneurs qui débutent, vous ne facturez pas de TVA et vos prix s'entendent sans taxe. Si vous la facturez, choisissez « Assujetti » : le prix de détail affiché inclut alors 20 %."
+      },
+      {
+        "question": "Mes calculs sont-ils envoyés quelque part ?",
+        "reponse": "Non. Matières, temps et prix restent dans votre navigateur, sur cet appareil, et sont retrouvés à votre prochaine visite. Aucun compte n'est nécessaire, et l'outil fonctionne aussi sans connexion une fois la page chargée."
       }
     ]
   },
   "offre": {
-    "titre": "À RÉDIGER : nom de l'offre complète",
-    "texte": "À RÉDIGER : ce que la version complète apportera (piste : catalogue de fiches produit et mise à jour des prix quand une matière augmente)"
+    "titre": "Catalogue de créations",
+    "texte": "La version complète gardera une fiche pour chacune de vos créations, avec ses matières partagées. Quand le prix d'une fourniture augmente, vous le modifiez une seule fois et chaque création qui l'utilise voit son prix recalculé, pour savoir aussitôt lesquelles vendre plus cher."
   }
 }
