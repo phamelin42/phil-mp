@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git push origin *:dependabot/*)",
+      "Bash(git push --no-verify origin *:dependabot/*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {
