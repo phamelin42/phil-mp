@@ -1,3 +1,4 @@
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { PRODUIT, ProduitConfig } from '../produit/produit';
 import { ANALYTICS_CONFIG, AnalyticsService } from './analytics.service';
@@ -58,4 +59,30 @@ describe('AnalyticsService', () => {
     });
     expect(TestBed.inject(ANALYTICS_CONFIG).origin).toBe('');
   });
+
+  for (const automatise of [false, true]) {
+    it(`${automatise ? 'ne compte pas' : 'compte'} une visite ${automatise ? 'd’un navigateur piloté (robot)' : 'd’une personne'}`, () => {
+      Object.defineProperty(navigator, 'webdriver', { configurable: true, value: automatise });
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: ANALYTICS_CONFIG,
+            useValue: {
+              origin: 'https://collecteur.test',
+              siteId: 'x',
+              hostnames: [location.hostname],
+            },
+          },
+        ],
+      });
+      TestBed.inject(AnalyticsService);
+      TestBed.inject(ApplicationRef).tick();
+      const traceur = document.head.querySelector(
+        'script[src="https://collecteur.test/script.js"]',
+      );
+      expect(traceur !== null).toBe(!automatise);
+      traceur?.remove();
+      delete (navigator as { webdriver?: boolean }).webdriver;
+    });
+  }
 });
