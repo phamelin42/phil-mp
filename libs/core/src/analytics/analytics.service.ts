@@ -85,6 +85,9 @@ export class AnalyticsService {
   }
 
   private loadScript(): void {
+    // Navigateur piloté (Puppeteer, Playwright, Selenium) : robots d'indexation
+    // et scanners de nouveaux certificats, des visites de moins d'une seconde.
+    if (navigator.webdriver) return;
     if (!this.config.hostnames.includes(location.hostname)) {
       if (isDevMode()) console.warn(`[mesure] traceur non chargé sur ${location.hostname}`);
       return;

@@ -32,6 +32,7 @@ les requêtes et les positions.
 3. Une seule origine de collecte, déclarée dans `produit.json` et dans la CSP
    de `vercel.json` (`npm run lancement` vérifie la concordance).
 4. Le traceur ne se charge que sur le domaine du produit : ni `localhost`, ni
-   la CI, ni les aperçus (`e2e/analytics.spec.ts`).
+   la CI, ni les aperçus (`e2e/analytics.spec.ts`), ni un navigateur piloté
+   (`navigator.webdriver`) : robots et scanners n'entrent pas dans les chiffres.
 
 Vider `mesure.siteId` éteint toute mesure.
