@@ -185,6 +185,13 @@ comparent ; un nom se déclare aussi dans `EVENEMENTS` de `tools/umami.mjs`
 - Ionic : un champ se teste par `ionInput` / `ionBlur` (jsdom), un
   `ion-segment` en e2e par son hôte ; un champ encore masqué refuse le focus
   (`focaliser` réessaie) ; un formulaire porte `novalidate`.
+- Dependabot groupe une version majeure dans « outils » : typescript 7.0
+  (PR #33, fusionnée CI rouge) a cassé `npm ci`, donc CI et déploiement
+  pendant trois semaines. typescript reste sous 6.1 tant qu'Angular 22 l'exige
+  (`ignore` de `dependabot.yml`) ; une PR Dependabot rouge ne se fusionne pas.
+- Une fusion faite avec `GITHUB_TOKEN` ne déclenche aucun workflow sur `main`
+  (ni CI, ni « Déployer ») : `entretien.yml` attend lui-même la CI de la PR,
+  fusionne, puis relance `ci.yml` sur `main`.
 - Prettier lit `__x__` comme du gras en Markdown et coupe un marqueur nu dans
   le CSS : le schematic ne substitue que `__SLUG__`, dans du code et de la
   configuration, et écrit les textes en JSON.
