@@ -9,6 +9,12 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    ignore:
+      # @angular/build 22 et typescript-eslint exigent typescript >=6.0 <6.1 :
+      # la 7.0 (PR #33) a cassé `npm ci`, donc la CI et le déploiement. À lever
+      # avec la version d'Angular qui accepte la suivante.
+      - dependency-name: typescript
+        versions: ['>=6.1.0']
     groups:
       angular:
         patterns: ['@angular/*', '@angular-devkit/*', 'angular-eslint']
