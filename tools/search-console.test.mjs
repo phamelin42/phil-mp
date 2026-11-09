@@ -58,3 +58,22 @@ test('sans secrets : ok false, pas d’exception', async () => {
   });
   assert.equal(sortie.ok, false);
 });
+
+// Décision de Phil (09/11/2026) : la Search Console n'est pas branchée ; le
+// rapport doit pouvoir distinguer ce choix d'une panne.
+test('sans secrets : non branchée, sans erreur à signaler', async () => {
+  const sortie = await collecter({ mois: '2026-09', env: {}, fetch: () => assert.fail() });
+  assert.equal(sortie.branchee, false);
+  assert.equal(sortie.erreur, null);
+});
+
+test('secrets présents mais API en échec : branchée, avec son erreur', async () => {
+  const sortie = await collecter({
+    mois: '2026-09',
+    env: { GSC_SERVICE_ACCOUNT: '{}', GSC_PROPRIETE: 'sc-domain:phamelin.fr' },
+    fetch: async () => ({ ok: false, status: 500, json: async () => ({}) }),
+  });
+  assert.equal(sortie.ok, false);
+  assert.equal(sortie.branchee, true);
+  assert.match(sortie.erreur, /^Search Console : /);
+});

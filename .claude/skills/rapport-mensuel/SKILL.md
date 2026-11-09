@@ -27,9 +27,16 @@ Rien d'autre : ni le code, ni les autres produits, ni l'historique git.
 
 ## 2. Si une source manque
 
-`ok: false` → le rapport le dit en tête (« Umami indisponible : <erreur> »)
-et travaille avec l'autre source. Les deux absentes → rapport de trois lignes,
-titre d'issue « <nom> — rapport <mois> : données indisponibles ».
+`branchee: false` (Search Console) : source volontairement non branchée
+(AGENTS.md), pas une panne. Rien en tête du rapport ; « — » dans les lignes
+Search Console des chiffres clés ; « Recherche » dit « Search Console non
+branchée » et donne les visites venues de `google.com` d'après les provenances
+d'Umami ; « Limites » le rappelle en une ligne.
+
+`ok: false` avec une `erreur` → le rapport le dit en tête (« Umami
+indisponible : <erreur> ») et travaille avec l'autre source. Umami absent et
+aucune donnée Search Console → rapport de trois lignes, titre d'issue
+« <nom> — rapport <mois> : données indisponibles ».
 
 ## 3. Écrire `reports/<slug>/<mois>.md`
 

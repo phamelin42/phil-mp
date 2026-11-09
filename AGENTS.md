@@ -109,3 +109,8 @@ hypothèse de cause. « Aucun » si aucun.>
 
 Aucune donnée personnelle, aucun chiffre qui ne vienne des deux JSON. Une
 action qui touche `libs/` le dit : elle vaut pour tous les produits.
+
+La Search Console n'est pas branchée (décision de Phil du 09/11/2026) : sans
+`GSC_SERVICE_ACCOUNT`, le rapport se fait sur Umami seul, ses lignes Search
+Console valent « — » et « Recherche » s'appuie sur la provenance `google.com`
+d'Umami. Ce n'est pas une panne : rien ne le signale en tête du rapport.
