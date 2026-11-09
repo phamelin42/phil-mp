@@ -1,10 +1,12 @@
 # Fusion automatique des mises à jour mineures et correctifs de Dependabot,
-# seulement quand la CI requise sur main est verte (`gh pr merge --auto`).
-# Une version majeure n'est jamais fusionnée ici : elle attend une relecture.
+# seulement quand la CI de la PR est verte. Une version majeure n'est jamais
+# fusionnée ici : elle attend une relecture.
 #
-# Prérequis du dépôt : « Allow auto-merge » coché et le check
-# « Lint · format · tests · build » requis sur main. Sans eux, la commande
-# échoue proprement et la PR attend.
+# Le job attend lui-même le check « Lint · format · tests · build » au lieu de
+# `gh pr merge --auto` : sans check requis sur main, `--auto` fusionnait en
+# quinze secondes, CI rouge comprise (#34 à #38). Une fusion faite avec
+# GITHUB_TOKEN ne déclenche aucun workflow sur main : la CI de main est donc
+# relancée à la main, et le déploiement la suit (deployer.yml).
 name: Entretien
 
 on: pull_request
@@ -12,16 +14,36 @@ on: pull_request
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 jobs:
   fusion-auto:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - id: meta
         uses: dependabot/fetch-metadata@v3
       - if: steps.meta.outputs.update-type != 'version-update:semver-major'
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR" || echo "Fusion auto non activée sur ce dépôt."
+          CHECK: 'Lint · format · tests · build'
+        run: |
+          # `gh pr checks` sort en erreur tant qu'aucun check n'est inscrit ou
+          # qu'un check est en cours (code 8) : on ne lit que la sortie JSON.
+          etat=''
+          for _ in $(seq 1 80); do
+            etat=$(gh pr checks "$PR" --json name,bucket \
+              --jq "[.[] | select(.name == \"$CHECK\") | .bucket] | first // \"\"" || true)
+            [[ "$etat" == pass || "$etat" == fail || "$etat" == cancel ]] && break
+            sleep 30
+          done
+          if [[ "$etat" != pass ]]; then
+            echo "::warning::CI « $CHECK » : ${etat:-introuvable}. PR non fusionnée."
+            echo "PR non fusionnée : CI « $CHECK » ${etat:-introuvable}." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh pr merge --squash "$PR"
+          gh workflow run ci.yml --ref main
