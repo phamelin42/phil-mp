@@ -5,8 +5,9 @@
 # Le job attend lui-même le check « Lint · format · tests · build » au lieu de
 # `gh pr merge --auto` : sans check requis sur main, `--auto` fusionnait en
 # quinze secondes, CI rouge comprise (#34 à #38). Une fusion faite avec
-# GITHUB_TOKEN ne déclenche aucun workflow sur main : la CI de main est donc
-# relancée à la main, et le déploiement la suit (deployer.yml).
+# GITHUB_TOKEN ne déclenche aucun workflow sur main, et `workflow_run` ne suit
+# pas une CI lancée avec ce jeton : le job lance la CI de main, l'attend, puis
+# lance « Déployer ».
 name: Entretien
 
 on: pull_request
@@ -20,7 +21,7 @@ jobs:
   fusion-auto:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 75
     steps:
       - id: meta
         uses: dependabot/fetch-metadata@v3
@@ -46,4 +47,21 @@ jobs:
             exit 0
           fi
           gh pr merge --squash "$PR"
+          # Ni la fusion ni une CI lancée avec GITHUB_TOKEN ne déclenchent de
+          # workflow sur main (« Déployer » n'a pas suivi #41) : on lance la CI
+          # de main, on l'attend, puis on déploie.
+          sha=$(gh pr view "$PR" --json mergeCommit --jq .mergeCommit.oid)
           gh workflow run ci.yml --ref main
+          run=''
+          for _ in $(seq 1 20); do
+            sleep 15
+            run=$(gh run list --workflow ci.yml --branch main --event workflow_dispatch \
+              --json databaseId,headSha \
+              --jq "[.[] | select(.headSha == \"$sha\") | .databaseId] | first // \"\"" || true)
+            [[ -n "$run" ]] && break
+          done
+          if [[ -z "$run" ]] || ! gh run watch "$run" --exit-status --interval 30 > /dev/null; then
+            echo "::warning::CI de main ${run:-introuvable} non verte : pas de déploiement."
+            exit 0
+          fi
+          gh workflow run deployer.yml --ref main
