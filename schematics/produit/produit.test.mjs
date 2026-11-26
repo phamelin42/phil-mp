@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { test } from 'node:test';
 import { HostTree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing/index.js';
+import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { verifier } from '../../tools/contenu.mjs';
 
 const require = createRequire(import.meta.url);
