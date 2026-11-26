@@ -104,7 +104,7 @@ jobs:
           export GSC_DOMAINE=$(node -p "require('./projects/$SLUG/produit.json').domaine")
           node tools/umami.mjs mensuel "$MOIS" > .pilote/umami.json
           node tools/search-console.mjs mensuel "$MOIS" > .pilote/search-console.json
-          node -e 'for (const f of ["umami","search-console"]) { const r = require(`./.pilote/${f}.json`); console.log(`${process.env.SLUG} · ${f} : ok ${r.ok} ${r.erreur ?? ""}`) }' | tee -a "$GITHUB_STEP_SUMMARY"
+          node -e 'for (const f of ["umami","search-console"]) { const r = require(`./.pilote/${f}.json`); console.log(`${process.env.SLUG} · ${f} : ${r.branchee === false ? "non branchée" : `ok ${r.ok} ${r.erreur ?? ""}`}`) }' | tee -a "$GITHUB_STEP_SUMMARY"
 
       - uses: anthropics/claude-code-action@v1
         with:

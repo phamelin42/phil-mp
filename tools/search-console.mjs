@@ -8,7 +8,8 @@
 // (« sc-domain:phamelin.fr ») et GSC_DOMAINE (« devis-artisan.phamelin.fr ») :
 // une propriété « domaine » couvre tous les sous-domaines, le filtre ne garde
 // que les pages du produit. Même contrat que umami.mjs : JSON de forme fixe,
-// `ok: false` plutôt qu'un job rouge.
+// `ok: false` plutôt qu'un job rouge ; `branchee: false` quand les secrets
+// manquent.
 import { createSign } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { bornesMois, moisPrecedent } from './umami.mjs';
@@ -79,11 +80,18 @@ async function jetonAcces(compte, fetch) {
 }
 
 export async function collecter({ mois, env, fetch }) {
-  const sortie = { ok: false, erreur: null, mois, totaux: null, requetes: null, pages: null };
-  if (!env.GSC_SERVICE_ACCOUNT || !env.GSC_PROPRIETE) {
-    sortie.erreur = 'Secrets GSC_SERVICE_ACCOUNT ou GSC_PROPRIETE absents.';
-    return sortie;
-  }
+  const sortie = {
+    ok: false,
+    branchee: Boolean(env.GSC_SERVICE_ACCOUNT && env.GSC_PROPRIETE),
+    erreur: null,
+    mois,
+    totaux: null,
+    requetes: null,
+    pages: null,
+  };
+  // Sans secret, la source n'est pas branchée (décision de Phil du
+  // 09/11/2026) : ce n'est pas une panne, le rapport se fait sur Umami seul.
+  if (!sortie.branchee) return sortie;
   try {
     const compte = JSON.parse(env.GSC_SERVICE_ACCOUNT);
     const jeton = await jetonAcces(compte, fetch);
